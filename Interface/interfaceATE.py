@@ -3,8 +3,6 @@ from guizero import App, Text, PushButton, CheckBox, TextBox, Slider, Box
 # Functions
 def start_test():
     print("Iniciando teste.")
-    # Aqui você pode adicionar o código para iniciar o teste com as configurações selecionadas
-
 
 def validate_frequency():
     try:
@@ -17,8 +15,6 @@ def validate_frequency():
         freq_input.value = ""  # Limpa o campo de entrada
 
 # Função para agendar a validação da frequência após 1500 ms
-
-
 def schedule_frequency_validation():
     app.after(1500, validate_frequency)
 
@@ -43,7 +39,7 @@ voltage_box = Box(content_box,
                   border = True)
 Text(voltage_box, text = "Tensões Disponíveis:", grid = [0, 0], align = "left")
 
-# Pinos 4, 5, 21, 22
+# Pinos 4, 5, 21, 22 serão para selecionar a tensão
 voltage_options = ["3V", "5V", "12V", "24V"]
 voltage_checkboxes = [
     CheckBox(
@@ -66,7 +62,7 @@ available_pins = [2,  3,  6,  7,
                   26, 27, 28]
 
 
-# Criar caixas para cada pino disponível
+# Box pros pinos disponíveis
 for i, pin in enumerate(available_pins):
     # Configura o box de cada pino
     row = i % 4
@@ -114,7 +110,7 @@ start_button = PushButton(app, command=start_test,
                           text="START", align="bottom")
 
 # Valida Frequencia
-#freq_input.when_key_pressed = schedule_frequency_validation
+freq_input.when_key_pressed = schedule_frequency_validation
 
 # Display
 app.display()
