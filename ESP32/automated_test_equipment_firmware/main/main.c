@@ -1,4 +1,4 @@
-// TCP Server with WiFi connection communication via Socket
+// UDP SOCKET Server with WiFi connection communication via Socket
 
 #include <stdio.h>
 #include <string.h>
@@ -30,88 +30,75 @@
 #include "driver/gpio.h"
 
 #define PORT 3333
-static const char *TAG = "TCP_SOCKET";
+static const char *TAG = "UDP SOCKET SERVER";
 
-static void tcp_server_task(void *pvParameters)
+static void udp_server_task(void *pvParameters)
 {
-    char addr_str[128];
     char rx_buffer[128];
-    char string_data[128];
-    char data_to_send[128];
-    int data_len, string_data_len;
-    int keepAlive = 1;
-    int keepIdle = 5;
-    int keepInterval = 5;
-    int keepCount = 3;
-    struct sockaddr_storage dest_addr;
-
-    int counter = 0;
-
-    struct sockaddr_in *dest_addr_ip4 = (struct sockaddr_in *)&dest_addr;
-    dest_addr_ip4->sin_addr.s_addr = htonl(INADDR_ANY);
-    dest_addr_ip4->sin_family = AF_INET;
-    dest_addr_ip4->sin_port = htons(PORT);
-    
-    // Open socket
-    int listen_sock = socket(AF_INET, SOCK_STREAM, 0); // 0 for TCP Protocol
-    int opt = 1;
-    setsockopt(listen_sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
-
-    ESP_LOGI(TAG, "Socket created");
-
-    bind(listen_sock, (struct sockaddr *)&dest_addr, sizeof(dest_addr));
-    ESP_LOGI(TAG, "Socket bound, port %d", PORT);
-
-    // Listen to the socket
-    listen(listen_sock, 1);
+    char addr_str[128];
+    int addr_family = (int)pvParameters;
+    int ip_protocol = 0;
+    struct sockaddr_in6 dest_addr;
 
     while (1)
     {
-        ESP_LOGI(TAG, "Socket listening");
+        struct sockaddr_in *dest_addr_ip4 = (struct sockaddr_in *)&dest_addr;
+        dest_addr_ip4->sin_addr.s_addr = htonl(INADDR_ANY);
+        dest_addr_ip4->sin_family = AF_INET;
+        dest_addr_ip4->sin_port = htons(PORT);
+        ip_protocol = IPPROTO_IP;
 
-        struct sockaddr_storage source_addr; // Large enough for both IPv4 or IPv6
-        socklen_t addr_len = sizeof(source_addr);
-
-        // Accept socket
-        int sock = accept(listen_sock, (struct sockaddr *)&source_addr, &addr_len);
+        int sock = socket(addr_family, SOCK_DGRAM, ip_protocol);
         if (sock < 0)
         {
-            ESP_LOGE(TAG, "Unable to accept connection: errno %d", errno);
+            ESP_LOGE(TAG, "Unable to create socket: errno %d", errno);
             break;
         }
+        ESP_LOGI(TAG, "Socket created");
 
-        // Set tcp keepalive option
-        setsockopt(sock, SOL_SOCKET, SO_KEEPALIVE, &keepAlive, sizeof(int));
-        setsockopt(sock, IPPROTO_TCP, TCP_KEEPIDLE, &keepIdle, sizeof(int));
-        setsockopt(sock, IPPROTO_TCP, TCP_KEEPINTVL, &keepInterval, sizeof(int));
-        setsockopt(sock, IPPROTO_TCP, TCP_KEEPCNT, &keepCount, sizeof(int));
-        // Convert ip address to string
-        if (source_addr.ss_family == PF_INET)
+        // Set timeout
+        struct timeval timeout;
+        timeout.tv_sec = 10;
+        timeout.tv_usec = 0;
+        setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof timeout);
+
+        int err = bind(sock, (struct sockaddr *)&dest_addr, sizeof(dest_addr));
+        if (err < 0)
         {
-            inet_ntoa_r(((struct sockaddr_in *)&source_addr)->sin_addr, addr_str, sizeof(addr_str) - 1);
+            ESP_LOGE(TAG, "Socket unable to bind: errno %d", errno);
+        }
+        ESP_LOGI(TAG, "Socket bound, port %d", PORT);
+
+        struct sockaddr_storage source_addr; // Large enough for both IPv4 or IPv6
+        socklen_t socklen = sizeof(source_addr);
+
+        while (1)
+        {
+            ESP_LOGI(TAG, "Waiting for data");
+            int len = recvfrom(sock, rx_buffer, sizeof(rx_buffer) - 1, 0, (struct sockaddr *)&source_addr, &socklen);
+
+            if (len > 0)
+            {
+                // Get the sender's ip address as string
+                inet_ntoa_r(((struct sockaddr_in *)&source_addr)->sin_addr, addr_str, sizeof(addr_str) - 1);
+                rx_buffer[len] = 0; // Null-terminate
+                ESP_LOGI(TAG, "Received %d bytes from %s:", len, addr_str);
+                ESP_LOGI(TAG, "%s", rx_buffer);
+                sendto(sock, rx_buffer, len, 0, (struct sockaddr *)&source_addr, sizeof(source_addr));
+            }
+            else
+            {
+                ESP_LOGI(TAG, "Did not received data");
+            }
         }
 
-        ESP_LOGI(TAG, "Socket accepted ip address: %s", addr_str);
-        
-        recv(sock, rx_buffer, sizeof(rx_buffer) - 1, 0);
-
-        strcpy(string_data,"Response from ESP32 Server via Socket connection");
-        string_data_len = strlen(string_data);
-        sprintf(data_to_send, "HTTP/1.1 200 OK\r\nContent-Length: %d\r\n\r\n", string_data_len);
-        strcat(data_to_send, string_data);
-        data_len = strlen(data_to_send);
-
-        // Send data via socket
-        send(sock, data_to_send, data_len, 0);
-
-        counter++;
-        printf("send_reply function number %d was activated\n", counter);
-        vTaskDelay(2000 / portTICK_PERIOD_MS);
-
-        shutdown(sock, 0);
-        close(sock);
+        if (sock != -1)
+        {
+            ESP_LOGE(TAG, "Shutting down socket and restarting...");
+            shutdown(sock, 0);
+            close(sock);
+        }
     }
-    close(listen_sock);
     vTaskDelete(NULL);
 }
 
@@ -160,5 +147,5 @@ void app_main(void)
 {
     wifi_connection();
     vTaskDelay(5000 / portTICK_PERIOD_MS);
-    xTaskCreate(tcp_server_task, "tcp_server", 4096, (void *)AF_INET, 5, NULL);
+    xTaskCreate(udp_server_task, "udp_server", 4096, (void *)AF_INET, 5, NULL);
 }

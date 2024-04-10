@@ -1,0 +1,8 @@
+$serverIP = "192.168.1.25"
+$serverPort = 3333
+$message = "Hello, world!"
+
+$udpClient = New-Object System.Net.Sockets.UdpClient
+$bytes = [System.Text.Encoding]::ASCII.GetBytes($message)
+$udpClient.Send($bytes, $bytes.Length, $serverIP, $serverPort)
+$udpClient.Close()
