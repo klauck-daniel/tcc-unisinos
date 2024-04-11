@@ -20,12 +20,14 @@ def envia_mensagem_udp(ip_destino, porta_destino, pino_valor):
     # Fecha o socket
     udp_socket.close()
 
-# # Exemplo de uso
-# ip_destino = "192.168.1.25" 
-# porta_destino = 3333 
-# pino_valor = {
-#     "pino_1": [10, 20, 30],
-#     "pino_2": [5, 15, 25]
-# }
+def envia_start_mensagem_udp(ip_destino, porta_destino, mensagem):
+    # Cria um socket UDP
+    udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-# envia_mensagem_udp(ip_destino, porta_destino, pino_valor)
+    mensagem = mensagem
+
+    udp_socket.sendto(mensagem.encode(), (ip_destino, porta_destino))
+    
+    # Fecha o socket
+    udp_socket.close()
+
