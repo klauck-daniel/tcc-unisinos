@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -31,6 +32,25 @@
 
 #define PORT 3333
 static const char *TAG = "UDP SOCKET SERVER";
+
+//Struct de configuração dos pinos
+//[pin_number, output, frequencia, dutyCycle, vetorTeste, bitHoldTime]
+typedef struct{
+    int pin;
+    bool is_input;
+    int frequency;
+    int duty_cycle;
+    char test_vector[12];
+    int bit_hold_time;
+} PinConfig;
+
+void start_test(){
+    printf("\n INICIAR TESTE\n");
+}
+
+void process_pin_config(){
+    printf("\n CONFIGURAR TESTE\n");
+}
 
 static void udp_server_task(void *pvParameters)
 {
@@ -84,6 +104,16 @@ static void udp_server_task(void *pvParameters)
                 rx_buffer[len] = 0; // Null-terminate
                 ESP_LOGI(TAG, "Received %d bytes from %s:", len, addr_str);
                 ESP_LOGI(TAG, "%s", rx_buffer);
+
+                // Passa o valor da mensagem para processar na função
+                if (strncmp(rx_buffer, "pino_", 5) == 0){
+                    process_pin_config();
+                }
+                // Verifica se a mensagem é START para iniciar o teste
+                if (strstr(rx_buffer, "START") != NULL){
+                    start_test();
+                }
+
                 sendto(sock, rx_buffer, len, 0, (struct sockaddr *)&source_addr, sizeof(source_addr));
             }
             else

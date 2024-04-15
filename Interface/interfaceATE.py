@@ -108,9 +108,6 @@ pin_box_2 = Box(parametros_box, layout="grid", grid=[0, 0], width="fill", height
 
 Text(pin_box_2, width = 15, text="Pino 2:", grid=[0, 0], align="left")
 
-Text(pin_box_2, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_2 = CheckBox(pin_box_2, text="", align="left", grid=[1, 2])
-
 Text(pin_box_2, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_2 = CheckBox(
     pin_box_2, text="", align="left", grid=[1, 3])
@@ -180,11 +177,11 @@ def valida_hold_time_2():
 bit_hold_time_2.when_key_pressed = schedule_hold_time_2
 
 def configuracao_pino_2():
-    pin_saida_2 = 1 if pin_output_checkbox_2.value else 0
+    pin_number_2 = 2
     pin_leitura_2 = 1 if result_pin_output_checkbox_2.value else 0
     duty_cycle_2 = int(duty_cycle_slider_2.value)
     config_pino_2 = [
-        pin_saida_2,
+        pin_number_2,
         pin_leitura_2,
         freq_input_2.value if freq_input_2.value else 0,
         duty_cycle_2,
@@ -199,9 +196,6 @@ pin_box_3 = Box(parametros_box, layout="grid", grid=[0, 1], width="fill", height
                   align="left", border = True)
 
 Text(pin_box_3, width = 15, text="Pino 3:", grid=[0, 0], align="left")
-
-Text(pin_box_3, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_3 = CheckBox(pin_box_3, text="", align="left", grid=[1, 2])
 
 Text(pin_box_3, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_3 = CheckBox(
@@ -272,11 +266,11 @@ def valida_hold_time_3():
 bit_hold_time_3.when_key_pressed = schedule_hold_time_3
 
 def configuracao_pino_3():
-    pin_saida_3 = 1 if pin_output_checkbox_3.value else 0
+    pin_number_3 = 3
     pin_leitura_3 = 1 if result_pin_output_checkbox_3.value else 0
     duty_cycle_3 = int(duty_cycle_slider_3.value)
     config_pino_3 = [
-        pin_saida_3,
+        pin_number_3,
         pin_leitura_3,
         freq_input_3.value if freq_input_3.value else 0,
         duty_cycle_3,
@@ -291,9 +285,6 @@ pin_box_6 = Box(parametros_box, layout="grid", grid=[0, 2], width="fill", height
                   align="left", border = True)
 
 Text(pin_box_6, width = 15, text="Pino 6:", grid=[0, 0], align="left")
-
-Text(pin_box_6, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_6 = CheckBox(pin_box_6, text="", align="left", grid=[1, 2])
 
 Text(pin_box_6, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_6 = CheckBox(
@@ -364,11 +355,11 @@ def valida_hold_time_6():
 bit_hold_time_6.when_key_pressed = schedule_hold_time_6
 
 def configuracao_pino_6():
-    pin_saida_6 = 1 if pin_output_checkbox_6.value else 0
+    pin_number_6 = 6
     pin_leitura_6 = 1 if result_pin_output_checkbox_6.value else 0
     duty_cycle_6 = int(duty_cycle_slider_6.value)
     config_pino_6 = [
-        pin_saida_6,
+        pin_number_6,
         pin_leitura_6,
         freq_input_6.value if freq_input_6.value else 0,
         duty_cycle_6,
@@ -383,9 +374,6 @@ pin_box_7 = Box(parametros_box, layout="grid", grid=[0, 3], width="fill", height
                   align="left", border = True)
 
 Text(pin_box_7, width = 15, text="Pino 7:", grid=[0, 0], align="left")
-
-Text(pin_box_7, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_7 = CheckBox(pin_box_7, text="", align="left", grid=[1, 2])
 
 Text(pin_box_7, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_7 = CheckBox(
@@ -456,11 +444,11 @@ def valida_hold_time_7():
 bit_hold_time_7.when_key_pressed = schedule_hold_time_7
 
 def configuracao_pino_7():
-    pin_saida_7 = 1 if pin_output_checkbox_7.value else 0
+    pin_number_7 = 7
     pin_leitura_7 = 1 if result_pin_output_checkbox_7.value else 0
     duty_cycle_7 = int(duty_cycle_slider_7.value)
     config_pino_7 = [
-        pin_saida_7,
+        pin_number_7,
         pin_leitura_7,
         freq_input_7.value if freq_input_7.value else 0,
         duty_cycle_7,
@@ -475,9 +463,6 @@ pin_box_8 = Box(parametros_box, layout="grid", grid=[1, 0], width="fill", height
                   align="left", border = True)
 
 Text(pin_box_8, width = 15, text="Pino 8:", grid=[0, 0], align="left")
-
-Text(pin_box_8, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_8 = CheckBox(pin_box_8, text="", align="left", grid=[1, 2])
 
 Text(pin_box_8, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_8 = CheckBox(
@@ -548,11 +533,11 @@ def valida_hold_time_8():
 bit_hold_time_8.when_key_pressed = schedule_hold_time_8
 
 def configuracao_pino_8():
-    pin_saida_8 = 1 if pin_output_checkbox_8.value else 0
+    pin_number_8 = 8
     pin_leitura_8 = 1 if result_pin_output_checkbox_8.value else 0
     duty_cycle_8 = int(duty_cycle_slider_8.value)
     config_pino_8 = [
-        pin_saida_8,
+        pin_number_8,
         pin_leitura_8,
         freq_input_8.value if freq_input_8.value else 0,
         duty_cycle_8,
@@ -567,9 +552,6 @@ pin_box_9 = Box(parametros_box, layout="grid", grid=[1, 1], width="fill", height
                   align="left", border = True)
 
 Text(pin_box_9, width = 15, text="Pino 9:", grid=[0, 0], align="left")
-
-Text(pin_box_9, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_9 = CheckBox(pin_box_9, text="", align="left", grid=[1, 2])
 
 Text(pin_box_9, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_9 = CheckBox(
@@ -640,11 +622,11 @@ def valida_hold_time_9():
 bit_hold_time_9.when_key_pressed = schedule_hold_time_9
 
 def configuracao_pino_9():
-    pin_saida_9 = 1 if pin_output_checkbox_9.value else 0
+    pin_number_9 = 10
     pin_leitura_9 = 1 if result_pin_output_checkbox_9.value else 0
     duty_cycle_9 = int(duty_cycle_slider_9.value)
     config_pino_9 = [
-        pin_saida_9,
+        pin_number_9,
         pin_leitura_9,
         freq_input_9.value if freq_input_9.value else 0,
         duty_cycle_9,
@@ -659,9 +641,6 @@ pin_box_10 = Box(parametros_box, layout="grid", grid=[1, 2], width="fill", heigh
                   align="left", border = True)
 
 Text(pin_box_10, width = 15, text="Pino 10:", grid=[0, 0], align="left")
-
-Text(pin_box_10, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_10 = CheckBox(pin_box_10, text="", align="left", grid=[1, 2])
 
 Text(pin_box_10, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_10 = CheckBox(
@@ -732,11 +711,11 @@ def valida_hold_time_10():
 bit_hold_time_10.when_key_pressed = schedule_hold_time_10
 
 def configuracao_pino_10():
-    pin_saida_10 = 1 if pin_output_checkbox_10.value else 0
+    pin_number_10 = 10
     pin_leitura_10 = 1 if result_pin_output_checkbox_10.value else 0
     duty_cycle_10 = int(duty_cycle_slider_10.value)
     config_pino_10 = [
-        pin_saida_10,
+        pin_number_10,
         pin_leitura_10,
         freq_input_10.value if freq_input_10.value else 0,
         duty_cycle_10,
@@ -751,9 +730,6 @@ pin_box_11 = Box(parametros_box, layout="grid", grid=[1, 3], width="fill", heigh
                   align="left", border = True)
 
 Text(pin_box_11, width = 15, text="Pino 11:", grid=[0, 0], align="left")
-
-Text(pin_box_11, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_11 = CheckBox(pin_box_11, text="", align="left", grid=[1, 2])
 
 Text(pin_box_11, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_11 = CheckBox(
@@ -824,11 +800,11 @@ def valida_hold_time_11():
 bit_hold_time_11.when_key_pressed = schedule_hold_time_11
 
 def configuracao_pino_11():
-    pin_saida_11 = 1 if pin_output_checkbox_11.value else 0
+    pin_number_11 = 11
     pin_leitura_11 = 1 if result_pin_output_checkbox_11.value else 0
     duty_cycle_11 = int(duty_cycle_slider_11.value)
     config_pino_11 = [
-        pin_saida_11,
+        pin_number_11,
         pin_leitura_11,
         freq_input_11.value if freq_input_11.value else 0,
         duty_cycle_11,
@@ -843,9 +819,6 @@ pin_box_12 = Box(parametros_box, layout="grid", grid=[2, 0], width="fill", heigh
                   align="left", border = True)
 
 Text(pin_box_12, width = 15, text="Pino 12:", grid=[0, 0], align="left")
-
-Text(pin_box_12, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_12 = CheckBox(pin_box_12, text="", align="left", grid=[1, 2])
 
 Text(pin_box_12, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_12 = CheckBox(
@@ -916,11 +889,11 @@ def valida_hold_time_12():
 bit_hold_time_12.when_key_pressed = schedule_hold_time_12
 
 def configuracao_pino_12():
-    pin_saida_12 = 1 if pin_output_checkbox_12.value else 0
+    pin_number_12 = 12
     pin_leitura_12 = 1 if result_pin_output_checkbox_12.value else 0
     duty_cycle_12 = int(duty_cycle_slider_12.value)
     config_pino_12 = [
-        pin_saida_12,
+        pin_number_12,
         pin_leitura_12,
         freq_input_12.value if freq_input_12.value else 0,
         duty_cycle_12,
@@ -935,9 +908,6 @@ pin_box_13 = Box(parametros_box, layout="grid", grid=[2, 1], width="fill", heigh
                   align="left", border = True)
 
 Text(pin_box_13, width = 15, text="Pino 13:", grid=[0, 0], align="left")
-
-Text(pin_box_13, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_13 = CheckBox(pin_box_13, text="", align="left", grid=[1, 2])
 
 Text(pin_box_13, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_13 = CheckBox(
@@ -1008,11 +978,11 @@ def valida_hold_time_13():
 bit_hold_time_13.when_key_pressed = schedule_hold_time_13
 
 def configuracao_pino_13():
-    pin_saida_13 = 1 if pin_output_checkbox_13.value else 0
+    pin_number_13 = 13
     pin_leitura_13 = 1 if result_pin_output_checkbox_13.value else 0
     duty_cycle_13 = int(duty_cycle_slider_13.value)
     config_pino_13 = [
-        pin_saida_13,
+        pin_number_13,
         pin_leitura_13,
         freq_input_13.value if freq_input_13.value else 0,
         duty_cycle_13,
@@ -1026,9 +996,6 @@ pin_box_18 = Box(parametros_box, layout="grid", grid=[2, 2], width="fill", heigh
                   align="left", border = True)
 
 Text(pin_box_18, width = 15, text="Pino 18:", grid=[0, 0], align="left")
-
-Text(pin_box_18, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_18 = CheckBox(pin_box_18, text="", align="left", grid=[1, 2])
 
 Text(pin_box_18, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_18 = CheckBox(
@@ -1099,11 +1066,11 @@ def valida_hold_time_18():
 bit_hold_time_18.when_key_pressed = schedule_hold_time_18
 
 def configuracao_pino_18():
-    pin_saida_18 = 1 if pin_output_checkbox_18.value else 0
+    pin_number_18 = 18
     pin_leitura_18 = 1 if result_pin_output_checkbox_18.value else 0
     duty_cycle_18 = int(duty_cycle_slider_18.value)
     config_pino_18 = [
-        pin_saida_18,
+        pin_number_18,
         pin_leitura_18,
         freq_input_18.value if freq_input_18.value else 0,
         duty_cycle_18,
@@ -1118,9 +1085,6 @@ pin_box_19 = Box(parametros_box, layout="grid", grid=[2, 3], width="fill", heigh
                   align="left", border = True)
 
 Text(pin_box_19, width = 15, text="Pino 19:", grid=[0, 0], align="left")
-
-Text(pin_box_19, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_19 = CheckBox(pin_box_19, text="", align="left", grid=[1, 2])
 
 Text(pin_box_19, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_19 = CheckBox(
@@ -1191,11 +1155,11 @@ def valida_hold_time_19():
 bit_hold_time_19.when_key_pressed = schedule_hold_time_19
 
 def configuracao_pino_19():
-    pin_saida_19 = 1 if pin_output_checkbox_19.value else 0
+    pin_number_19 = 19
     pin_leitura_19 = 1 if result_pin_output_checkbox_19.value else 0
     duty_cycle_19 = int(duty_cycle_slider_19.value)
     config_pino_19 = [
-        pin_saida_19,
+        pin_number_19,
         pin_leitura_19,
         freq_input_19.value if freq_input_19.value else 0,
         duty_cycle_19,
@@ -1210,9 +1174,6 @@ pin_box_20 = Box(parametros_box, layout="grid", grid=[3, 0], width="fill", heigh
                   align="left", border = True)
 
 Text(pin_box_20, width = 15, text="Pino 20:", grid=[0, 0], align="left")
-
-Text(pin_box_20, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_20 = CheckBox(pin_box_20, text="", align="left", grid=[1, 2])
 
 Text(pin_box_20, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_20 = CheckBox(
@@ -1283,11 +1244,11 @@ def valida_hold_time_20():
 bit_hold_time_20.when_key_pressed = schedule_hold_time_20
 
 def configuracao_pino_20():
-    pin_saida_20 = 1 if pin_output_checkbox_20.value else 0
+    pin_number_20 = 20
     pin_leitura_20 = 1 if result_pin_output_checkbox_20.value else 0
     duty_cycle_20 = int(duty_cycle_slider_20.value)
     config_pino_20 = [
-        pin_saida_20,
+        pin_number_20,
         pin_leitura_20,
         freq_input_20.value if freq_input_20.value else 0,
         duty_cycle_20,
@@ -1302,9 +1263,6 @@ pin_box_23 = Box(parametros_box, layout="grid", grid=[3, 1], width="fill", heigh
                   align="left", border = True)
 
 Text(pin_box_23, width = 15, text="Pino 23:", grid=[0, 0], align="left")
-
-Text(pin_box_23, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_23 = CheckBox(pin_box_23, text="", align="left", grid=[1, 2])
 
 Text(pin_box_23, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_23 = CheckBox(
@@ -1375,11 +1333,11 @@ def valida_hold_time_23():
 bit_hold_time_23.when_key_pressed = schedule_hold_time_23
 
 def configuracao_pino_23():
-    pin_saida_23 = 1 if pin_output_checkbox_23.value else 0
+    pin_number_23 = 23
     pin_leitura_23 = 1 if result_pin_output_checkbox_23.value else 0
     duty_cycle_23 = int(duty_cycle_slider_23.value)
     config_pino_23 = [
-        pin_saida_23,
+        pin_number_23,
         pin_leitura_23,
         freq_input_23.value if freq_input_23.value else 0,
         duty_cycle_23,
@@ -1394,9 +1352,6 @@ pin_box_24 = Box(parametros_box, layout="grid", grid=[3, 2], width="fill", heigh
                   align="left", border = True)
 
 Text(pin_box_24, width = 15, text="Pino 24:", grid=[0, 0], align="left")
-
-Text(pin_box_24, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_24 = CheckBox(pin_box_24, text="", align="left", grid=[1, 2])
 
 Text(pin_box_24, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_24 = CheckBox(
@@ -1467,11 +1422,11 @@ def valida_hold_time_24():
 bit_hold_time_24.when_key_pressed = schedule_hold_time_24
 
 def configuracao_pino_24():
-    pin_saida_24 = 1 if pin_output_checkbox_24.value else 0
+    pin_number_24 = 24
     pin_leitura_24 = 1 if result_pin_output_checkbox_24.value else 0
     duty_cycle_24 = int(duty_cycle_slider_24.value)
     config_pino_24 = [
-        pin_saida_24,
+        pin_number_24,
         pin_leitura_24,
         freq_input_24.value if freq_input_24.value else 0,
         duty_cycle_24,
@@ -1486,9 +1441,6 @@ pin_box_25 = Box(parametros_box, layout="grid", grid=[3, 3], width="fill", heigh
                   align="left", border = True)
 
 Text(pin_box_25, width = 15, text="Pino 25:", grid=[0, 0], align="left")
-
-Text(pin_box_25, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_25 = CheckBox(pin_box_25, text="", align="left", grid=[1, 2])
 
 Text(pin_box_25, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_25 = CheckBox(
@@ -1559,11 +1511,11 @@ def valida_hold_time_25():
 bit_hold_time_25.when_key_pressed = schedule_hold_time_25
 
 def configuracao_pino_25():
-    pin_saida_25 = 1 if pin_output_checkbox_25.value else 0
+    pin_number_25 = 25
     pin_leitura_25 = 1 if result_pin_output_checkbox_25.value else 0
     duty_cycle_25 = int(duty_cycle_slider_25.value)
     config_pino_25 = [
-        pin_saida_25,
+        pin_number_25,
         pin_leitura_25,
         freq_input_25.value if freq_input_25.value else 0,
         duty_cycle_25,
@@ -1578,9 +1530,6 @@ pin_box_26 = Box(parametros_box, layout="grid", grid=[4, 0], width="fill", heigh
                   align="left", border = True)
 
 Text(pin_box_26, width = 15, text="Pino 26:", grid=[0, 0], align="left")
-
-Text(pin_box_26, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_26 = CheckBox(pin_box_26, text="", align="left", grid=[1, 2])
 
 Text(pin_box_26, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_26 = CheckBox(
@@ -1651,11 +1600,11 @@ def valida_hold_time_26():
 bit_hold_time_26.when_key_pressed = schedule_hold_time_26
 
 def configuracao_pino_26():
-    pin_saida_26 = 1 if pin_output_checkbox_26.value else 0
+    pin_number_26 = 26
     pin_leitura_26 = 1 if result_pin_output_checkbox_26.value else 0
     duty_cycle_26 = int(duty_cycle_slider_26.value)
     config_pino_26 = [
-        pin_saida_26,
+        pin_number_26,
         pin_leitura_26,
         freq_input_26.value if freq_input_26.value else 0,
         duty_cycle_26,
@@ -1670,9 +1619,6 @@ pin_box_27 = Box(parametros_box, layout="grid", grid=[4, 1], width="fill", heigh
                   align="left", border = True)
 
 Text(pin_box_27, width = 15, text="Pino 27:", grid=[0, 0], align="left")
-
-Text(pin_box_27, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_27 = CheckBox(pin_box_27, text="", align="left", grid=[1, 2])
 
 Text(pin_box_27, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_27 = CheckBox(
@@ -1743,11 +1689,11 @@ def valida_hold_time_27():
 bit_hold_time_27.when_key_pressed = schedule_hold_time_27
 
 def configuracao_pino_27():
-    pin_saida_27 = 1 if pin_output_checkbox_27.value else 0
+    pin_number_27 = 27
     pin_leitura_27 = 1 if result_pin_output_checkbox_27.value else 0
     duty_cycle_27 = int(duty_cycle_slider_27.value)
     config_pino_27 = [
-        pin_saida_27,
+        pin_number_27,
         pin_leitura_27,
         freq_input_27.value if freq_input_27.value else 0,
         duty_cycle_27,
@@ -1762,9 +1708,6 @@ pin_box_28 = Box(parametros_box, layout="grid", grid=[4, 2], width="fill", heigh
                   align="left", border = True)
 
 Text(pin_box_28, width = 15, text="Pino 28:", grid=[0, 0], align="left")
-
-Text(pin_box_28, text="Pin Saída:", grid=[0, 2], align="left")
-pin_output_checkbox_28 = CheckBox(pin_box_28, text="", align="left", grid=[1, 2])
 
 Text(pin_box_28, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_28 = CheckBox(
@@ -1835,11 +1778,11 @@ def valida_hold_time_28():
 bit_hold_time_28.when_key_pressed = schedule_hold_time_28
 
 def configuracao_pino_28():
-    pin_saida_28 = 1 if pin_output_checkbox_28.value else 0
+    pin_number_28 = 28
     pin_leitura_28 = 1 if result_pin_output_checkbox_28.value else 0
     duty_cycle_28 = int(duty_cycle_slider_28.value)
     config_pino_28 = [
-        pin_saida_28,
+        pin_number_28,
         pin_leitura_28,
         freq_input_28.value if freq_input_28.value else 0,
         duty_cycle_28,
