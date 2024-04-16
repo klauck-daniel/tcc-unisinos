@@ -54,7 +54,7 @@ void process_pin_config(){
 
 static void udp_server_task(void *pvParameters)
 {
-    char rx_buffer[128];
+    char rx_buffer[1500];
     char addr_str[128];
     int addr_family = (int)pvParameters;
     int ip_protocol = 0;
@@ -99,17 +99,17 @@ static void udp_server_task(void *pvParameters)
 
             if (len > 0)
             {
+                
                 // Get the sender's ip address as string
                 inet_ntoa_r(((struct sockaddr_in *)&source_addr)->sin_addr, addr_str, sizeof(addr_str) - 1);
                 rx_buffer[len] = 0; // Null-terminate
                 ESP_LOGI(TAG, "Received %d bytes from %s:", len, addr_str);
                 ESP_LOGI(TAG, "%s", rx_buffer);
+                
+                 if (rx_buffer[1] == '1' && rx_buffer[2] == '0'){
+                     start_test();
+                 }
 
-                // Passa o valor da mensagem para processar na função
-                if (strncmp(rx_buffer, "pino_", 5) == 0){
-                    process_pin_config();
-                }
-                // Verifica se a mensagem é START para iniciar o teste
                 if (strstr(rx_buffer, "START") != NULL){
                     start_test();
                 }

@@ -33,6 +33,7 @@ def send_test_config():
     configuracao_pino_12()
     configuracao_pino_13()
     configuracao_pino_18()
+    configuracao_pino_19()
     configuracao_pino_20()
     configuracao_pino_23()
     configuracao_pino_24()
@@ -177,18 +178,16 @@ def valida_hold_time_2():
 bit_hold_time_2.when_key_pressed = schedule_hold_time_2
 
 def configuracao_pino_2():
-    pin_number_2 = 2
     pin_leitura_2 = 1 if result_pin_output_checkbox_2.value else 0
     duty_cycle_2 = int(duty_cycle_slider_2.value)
     config_pino_2 = [
-        pin_number_2,
         pin_leitura_2,
         freq_input_2.value if freq_input_2.value else 0,
         duty_cycle_2,
         test_vector_input_2.value if test_vector_input_2.value else 0,
         bit_hold_time_2.value if bit_hold_time_2.value else 0
     ]
-    pinos_valores["pino_2"] = config_pino_2
+    pinos_valores["02"] = config_pino_2
 
 
 #### Configuração Pino 3 ####
@@ -266,18 +265,16 @@ def valida_hold_time_3():
 bit_hold_time_3.when_key_pressed = schedule_hold_time_3
 
 def configuracao_pino_3():
-    pin_number_3 = 3
     pin_leitura_3 = 1 if result_pin_output_checkbox_3.value else 0
     duty_cycle_3 = int(duty_cycle_slider_3.value)
     config_pino_3 = [
-        pin_number_3,
         pin_leitura_3,
         freq_input_3.value if freq_input_3.value else 0,
         duty_cycle_3,
         test_vector_input_3.value if test_vector_input_3.value else 0,
         bit_hold_time_3.value if bit_hold_time_3.value else 0
     ]
-    pinos_valores["pino_3"] = config_pino_3
+    pinos_valores["03"] = config_pino_3
 
 
 #### Configuração Pino 6 ####
@@ -355,18 +352,16 @@ def valida_hold_time_6():
 bit_hold_time_6.when_key_pressed = schedule_hold_time_6
 
 def configuracao_pino_6():
-    pin_number_6 = 6
     pin_leitura_6 = 1 if result_pin_output_checkbox_6.value else 0
     duty_cycle_6 = int(duty_cycle_slider_6.value)
     config_pino_6 = [
-        pin_number_6,
         pin_leitura_6,
         freq_input_6.value if freq_input_6.value else 0,
         duty_cycle_6,
         test_vector_input_6.value if test_vector_input_6.value else 0,
         bit_hold_time_6.value if bit_hold_time_6.value else 0
     ]
-    pinos_valores["pino_6"] = config_pino_6
+    pinos_valores["06"] = config_pino_6
 
 
 #### Configuração Pino 7 ####
@@ -444,18 +439,16 @@ def valida_hold_time_7():
 bit_hold_time_7.when_key_pressed = schedule_hold_time_7
 
 def configuracao_pino_7():
-    pin_number_7 = 7
     pin_leitura_7 = 1 if result_pin_output_checkbox_7.value else 0
     duty_cycle_7 = int(duty_cycle_slider_7.value)
     config_pino_7 = [
-        pin_number_7,
         pin_leitura_7,
         freq_input_7.value if freq_input_7.value else 0,
         duty_cycle_7,
         test_vector_input_7.value if test_vector_input_7.value else 0,
         bit_hold_time_7.value if bit_hold_time_7.value else 0
     ]
-    pinos_valores["pino_7"] = config_pino_7
+    pinos_valores["07"] = config_pino_7
 
 
 #### Configuração Pino 8 ####
@@ -533,18 +526,16 @@ def valida_hold_time_8():
 bit_hold_time_8.when_key_pressed = schedule_hold_time_8
 
 def configuracao_pino_8():
-    pin_number_8 = 8
     pin_leitura_8 = 1 if result_pin_output_checkbox_8.value else 0
     duty_cycle_8 = int(duty_cycle_slider_8.value)
     config_pino_8 = [
-        pin_number_8,
         pin_leitura_8,
         freq_input_8.value if freq_input_8.value else 0,
         duty_cycle_8,
         test_vector_input_8.value if test_vector_input_8.value else 0,
         bit_hold_time_8.value if bit_hold_time_8.value else 0
     ]
-    pinos_valores["pino_8"] = config_pino_8
+    pinos_valores["08"] = config_pino_8
 
 
 #### Configuração Pino 9 ####
@@ -622,18 +613,16 @@ def valida_hold_time_9():
 bit_hold_time_9.when_key_pressed = schedule_hold_time_9
 
 def configuracao_pino_9():
-    pin_number_9 = 10
     pin_leitura_9 = 1 if result_pin_output_checkbox_9.value else 0
     duty_cycle_9 = int(duty_cycle_slider_9.value)
     config_pino_9 = [
-        pin_number_9,
         pin_leitura_9,
         freq_input_9.value if freq_input_9.value else 0,
         duty_cycle_9,
         test_vector_input_9.value if test_vector_input_9.value else 0,
         bit_hold_time_9.value if bit_hold_time_9.value else 0
     ]
-    pinos_valores["pino_9"] = config_pino_9
+    pinos_valores["09"] = config_pino_9
 
 
 #### Configuração Pino 10 ####
@@ -711,18 +700,16 @@ def valida_hold_time_10():
 bit_hold_time_10.when_key_pressed = schedule_hold_time_10
 
 def configuracao_pino_10():
-    pin_number_10 = 10
     pin_leitura_10 = 1 if result_pin_output_checkbox_10.value else 0
     duty_cycle_10 = int(duty_cycle_slider_10.value)
     config_pino_10 = [
-        pin_number_10,
         pin_leitura_10,
         freq_input_10.value if freq_input_10.value else 0,
         duty_cycle_10,
         test_vector_input_10.value if test_vector_input_10.value else 0,
         bit_hold_time_10.value if bit_hold_time_10.value else 0
     ]
-    pinos_valores["pino_10"] = config_pino_10
+    pinos_valores["10"] = config_pino_10
 
 
 #### Configuração Pino 11 ####
@@ -800,18 +787,16 @@ def valida_hold_time_11():
 bit_hold_time_11.when_key_pressed = schedule_hold_time_11
 
 def configuracao_pino_11():
-    pin_number_11 = 11
     pin_leitura_11 = 1 if result_pin_output_checkbox_11.value else 0
     duty_cycle_11 = int(duty_cycle_slider_11.value)
     config_pino_11 = [
-        pin_number_11,
         pin_leitura_11,
         freq_input_11.value if freq_input_11.value else 0,
         duty_cycle_11,
         test_vector_input_11.value if test_vector_input_11.value else 0,
         bit_hold_time_11.value if bit_hold_time_11.value else 0
     ]
-    pinos_valores["pino_11"] = config_pino_11
+    pinos_valores["11"] = config_pino_11
 
 
 #### Configuração Pino 12 ####
@@ -889,18 +874,16 @@ def valida_hold_time_12():
 bit_hold_time_12.when_key_pressed = schedule_hold_time_12
 
 def configuracao_pino_12():
-    pin_number_12 = 12
     pin_leitura_12 = 1 if result_pin_output_checkbox_12.value else 0
     duty_cycle_12 = int(duty_cycle_slider_12.value)
     config_pino_12 = [
-        pin_number_12,
         pin_leitura_12,
         freq_input_12.value if freq_input_12.value else 0,
         duty_cycle_12,
         test_vector_input_12.value if test_vector_input_12.value else 0,
         bit_hold_time_12.value if bit_hold_time_12.value else 0
     ]
-    pinos_valores["pino_12"] = config_pino_12
+    pinos_valores["12"] = config_pino_12
 
 
 #### Configuração Pino 13 ####
@@ -978,18 +961,16 @@ def valida_hold_time_13():
 bit_hold_time_13.when_key_pressed = schedule_hold_time_13
 
 def configuracao_pino_13():
-    pin_number_13 = 13
     pin_leitura_13 = 1 if result_pin_output_checkbox_13.value else 0
     duty_cycle_13 = int(duty_cycle_slider_13.value)
     config_pino_13 = [
-        pin_number_13,
         pin_leitura_13,
         freq_input_13.value if freq_input_13.value else 0,
         duty_cycle_13,
         test_vector_input_13.value if test_vector_input_13.value else 0,
         bit_hold_time_13.value if bit_hold_time_13.value else 0
     ]
-    pinos_valores["pino_13"] = config_pino_13
+    pinos_valores["13"] = config_pino_13
 
 #### Configuração Pino 18 ####
 pin_box_18 = Box(parametros_box, layout="grid", grid=[2, 2], width="fill", height="fill",
@@ -1066,18 +1047,16 @@ def valida_hold_time_18():
 bit_hold_time_18.when_key_pressed = schedule_hold_time_18
 
 def configuracao_pino_18():
-    pin_number_18 = 18
     pin_leitura_18 = 1 if result_pin_output_checkbox_18.value else 0
     duty_cycle_18 = int(duty_cycle_slider_18.value)
     config_pino_18 = [
-        pin_number_18,
         pin_leitura_18,
         freq_input_18.value if freq_input_18.value else 0,
         duty_cycle_18,
         test_vector_input_18.value if test_vector_input_18.value else 0,
         bit_hold_time_18.value if bit_hold_time_18.value else 0
     ]
-    pinos_valores["pino_18"] = config_pino_18
+    pinos_valores["18"] = config_pino_18
 
 
 #### Configuração Pino 19 ####
@@ -1155,18 +1134,16 @@ def valida_hold_time_19():
 bit_hold_time_19.when_key_pressed = schedule_hold_time_19
 
 def configuracao_pino_19():
-    pin_number_19 = 19
     pin_leitura_19 = 1 if result_pin_output_checkbox_19.value else 0
     duty_cycle_19 = int(duty_cycle_slider_19.value)
     config_pino_19 = [
-        pin_number_19,
         pin_leitura_19,
         freq_input_19.value if freq_input_19.value else 0,
         duty_cycle_19,
         test_vector_input_19.value if test_vector_input_19.value else 0,
         bit_hold_time_19.value if bit_hold_time_19.value else 0
     ]
-    pinos_valores["pino_19"] = config_pino_19
+    pinos_valores["19"] = config_pino_19
 
 
 #### Configuração Pino 20 ####
@@ -1244,18 +1221,16 @@ def valida_hold_time_20():
 bit_hold_time_20.when_key_pressed = schedule_hold_time_20
 
 def configuracao_pino_20():
-    pin_number_20 = 20
     pin_leitura_20 = 1 if result_pin_output_checkbox_20.value else 0
     duty_cycle_20 = int(duty_cycle_slider_20.value)
     config_pino_20 = [
-        pin_number_20,
         pin_leitura_20,
         freq_input_20.value if freq_input_20.value else 0,
         duty_cycle_20,
         test_vector_input_20.value if test_vector_input_20.value else 0,
         bit_hold_time_20.value if bit_hold_time_20.value else 0
     ]
-    pinos_valores["pino_20"] = config_pino_20
+    pinos_valores["20"] = config_pino_20
 
 
 #### Configuração Pino 23 ####
@@ -1333,18 +1308,16 @@ def valida_hold_time_23():
 bit_hold_time_23.when_key_pressed = schedule_hold_time_23
 
 def configuracao_pino_23():
-    pin_number_23 = 23
     pin_leitura_23 = 1 if result_pin_output_checkbox_23.value else 0
     duty_cycle_23 = int(duty_cycle_slider_23.value)
     config_pino_23 = [
-        pin_number_23,
         pin_leitura_23,
         freq_input_23.value if freq_input_23.value else 0,
         duty_cycle_23,
         test_vector_input_23.value if test_vector_input_23.value else 0,
         bit_hold_time_23.value if bit_hold_time_23.value else 0
     ]
-    pinos_valores["pino_23"] = config_pino_23
+    pinos_valores["23"] = config_pino_23
 
 
 #### Configuração Pino 24 ####
@@ -1422,18 +1395,16 @@ def valida_hold_time_24():
 bit_hold_time_24.when_key_pressed = schedule_hold_time_24
 
 def configuracao_pino_24():
-    pin_number_24 = 24
     pin_leitura_24 = 1 if result_pin_output_checkbox_24.value else 0
     duty_cycle_24 = int(duty_cycle_slider_24.value)
     config_pino_24 = [
-        pin_number_24,
         pin_leitura_24,
         freq_input_24.value if freq_input_24.value else 0,
         duty_cycle_24,
         test_vector_input_24.value if test_vector_input_24.value else 0,
         bit_hold_time_24.value if bit_hold_time_24.value else 0
     ]
-    pinos_valores["pino_24"] = config_pino_24
+    pinos_valores["24"] = config_pino_24
 
 
 #### Configuração Pino 25 ####
@@ -1511,18 +1482,16 @@ def valida_hold_time_25():
 bit_hold_time_25.when_key_pressed = schedule_hold_time_25
 
 def configuracao_pino_25():
-    pin_number_25 = 25
     pin_leitura_25 = 1 if result_pin_output_checkbox_25.value else 0
     duty_cycle_25 = int(duty_cycle_slider_25.value)
     config_pino_25 = [
-        pin_number_25,
         pin_leitura_25,
         freq_input_25.value if freq_input_25.value else 0,
         duty_cycle_25,
         test_vector_input_25.value if test_vector_input_25.value else 0,
         bit_hold_time_25.value if bit_hold_time_25.value else 0
     ]
-    pinos_valores["pino_25"] = config_pino_25
+    pinos_valores["25"] = config_pino_25
 
 
 #### Configuração Pino 26 ####
@@ -1600,18 +1569,16 @@ def valida_hold_time_26():
 bit_hold_time_26.when_key_pressed = schedule_hold_time_26
 
 def configuracao_pino_26():
-    pin_number_26 = 26
     pin_leitura_26 = 1 if result_pin_output_checkbox_26.value else 0
     duty_cycle_26 = int(duty_cycle_slider_26.value)
     config_pino_26 = [
-        pin_number_26,
         pin_leitura_26,
         freq_input_26.value if freq_input_26.value else 0,
         duty_cycle_26,
         test_vector_input_26.value if test_vector_input_26.value else 0,
         bit_hold_time_26.value if bit_hold_time_26.value else 0
     ]
-    pinos_valores["pino_26"] = config_pino_26
+    pinos_valores["26"] = config_pino_26
 
 
 #### Configuração Pino 27 ####
@@ -1689,18 +1656,16 @@ def valida_hold_time_27():
 bit_hold_time_27.when_key_pressed = schedule_hold_time_27
 
 def configuracao_pino_27():
-    pin_number_27 = 27
     pin_leitura_27 = 1 if result_pin_output_checkbox_27.value else 0
     duty_cycle_27 = int(duty_cycle_slider_27.value)
     config_pino_27 = [
-        pin_number_27,
         pin_leitura_27,
         freq_input_27.value if freq_input_27.value else 0,
         duty_cycle_27,
         test_vector_input_27.value if test_vector_input_27.value else 0,
         bit_hold_time_27.value if bit_hold_time_27.value else 0
     ]
-    pinos_valores["pino_27"] = config_pino_27
+    pinos_valores["27"] = config_pino_27
 
 
 #### Configuração Pino 28 ####
@@ -1778,18 +1743,16 @@ def valida_hold_time_28():
 bit_hold_time_28.when_key_pressed = schedule_hold_time_28
 
 def configuracao_pino_28():
-    pin_number_28 = 28
     pin_leitura_28 = 1 if result_pin_output_checkbox_28.value else 0
     duty_cycle_28 = int(duty_cycle_slider_28.value)
     config_pino_28 = [
-        pin_number_28,
         pin_leitura_28,
         freq_input_28.value if freq_input_28.value else 0,
         duty_cycle_28,
         test_vector_input_28.value if test_vector_input_28.value else 0,
         bit_hold_time_28.value if bit_hold_time_28.value else 0
     ]
-    pinos_valores["pino_28"] = config_pino_28
+    pinos_valores["28"] = config_pino_28
 
 
 # Error Message Box
