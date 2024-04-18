@@ -24,6 +24,14 @@ def send_test_config():
     print("Enviando Configuração.")
     configuracao_pino_2()
     configuracao_pino_3()
+
+    configuracao_pino_4("00V" if "03V" not in [
+        voltage_options[i] for i, checkbox in enumerate(
+            voltage_checkboxes) if checkbox.value] else "03V")
+    configuracao_pino_5("00V" if "05V" not in [
+        voltage_options[i] for i, checkbox in enumerate(
+            voltage_checkboxes) if checkbox.value] else "05V")
+    
     configuracao_pino_6()
     configuracao_pino_7()
     configuracao_pino_8()
@@ -35,6 +43,14 @@ def send_test_config():
     configuracao_pino_18()
     configuracao_pino_19()
     configuracao_pino_20()
+
+    configuracao_pino_21("00V" if "12V" not in [
+        voltage_options[i] for i, checkbox in enumerate(
+            voltage_checkboxes) if checkbox.value] else "12V")
+    configuracao_pino_22("00V" if "24V" not in [
+        voltage_options[i] for i, checkbox in enumerate(
+            voltage_checkboxes) if checkbox.value] else "24V")
+    
     configuracao_pino_23()
     configuracao_pino_24()
     configuracao_pino_25()
@@ -55,7 +71,6 @@ Text(title_box, text="Parametrização do Teste")
 # Content Box
 content_box = Box(app, align = "top", layout = "grid", grid = [0, 0], width = "fill", border = True)
 
-
 ################ TENSÃO #################
 
 # Tensão
@@ -67,24 +82,27 @@ voltage_box = Box(content_box,
                   border = True)
 Text(voltage_box, text = "Tensões Disponíveis:", grid = [0, 0], align = "left")
 
-# Mapeamento de opções de tensão para valores inteiros
-voltage_int_map = {
-    "3V": 3,
-    "5V": 5,
-    "12V": 12,
-    "24V": 24
-}
+# Função para configurar o pino 4 com a tensão especificada
+def configuracao_pino_4(tensao):
+    pinos_valores["04"] = [tensao]
 
-# Função para atualizar os valores de tensão selecionados
-def update_voltage_values():
-    selected_voltages = [voltage_int_map[voltage_options[i]] for i, checkbox in enumerate(voltage_checkboxes) if checkbox.value]
-    pinos_valores["voltage"] = selected_voltages
+# Função para configurar o pino 5 com a tensão especificada
+def configuracao_pino_5(tensao):
+    pinos_valores["05"] = [tensao]
+
+# Função para configurar o pino 21 com a tensão especificada
+def configuracao_pino_21(tensao):
+    pinos_valores["21"] = [tensao]
+
+# Função para configurar o pino 22 com a tensão especificada
+def configuracao_pino_22(tensao):
+    pinos_valores["22"] = [tensao]
 
 # Pinos 4, 5, 21, 22 serão para selecionar a tensão
-voltage_options = ["3V", "5V", "12V", "24V"]
+voltage_options = ["03V", "05V", "12V", "24V"]
 voltage_checkboxes = []
 for i, voltage in enumerate(voltage_options):
-    checkbox = CheckBox(voltage_box, text=voltage, align="left", grid=[i + 1, 0], command=update_voltage_values)
+    checkbox = CheckBox(voltage_box, text=voltage, align="left", grid=[i + 1, 0])
     voltage_checkboxes.append(checkbox)
 
 
@@ -127,7 +145,7 @@ Text(pin_box_2, text="Bit Hold Time [ms]:", grid=[0, 7], align="left")
 bit_hold_time_2 = TextBox(pin_box_2, width = 5, grid = [1, 7], align="left")
 
 # Descrição do Pinos
-Text(pin_box_2, text = "ADC, GPIO, PWM", grid = [0, 1], align="left")
+Text(pin_box_2, text = "INPUT ONLY, ADC, GPIO36", grid = [0, 1], align="left")
 
 #Validações
 def schedule_frequency_validation_2():
@@ -214,7 +232,7 @@ Text(pin_box_3, text="Bit Hold Time [ms]:", grid=[0, 7], align="left")
 bit_hold_time_3 = TextBox(pin_box_3, width = 5, grid = [1, 7], align="left")
 
 # Descrição do Pinos
-Text(pin_box_3, text = "ADC, GPIO, PWM", grid = [0, 1], align="left")
+Text(pin_box_3, text = "INPUT ONLY, ADC, GPIO39", grid = [0, 1], align="left")
 
 #Validações
 def schedule_frequency_validation_3():
@@ -275,6 +293,93 @@ def configuracao_pino_3():
         bit_hold_time_3.value if bit_hold_time_3.value else 0
     ]
     pinos_valores["03"] = config_pino_3
+
+
+#### Configuração Pino 4 ####
+pin_box_4 = Box(parametros_box, layout="grid", grid=[0, 1], width="fill", height="fill",
+                  align="left", border = True)
+
+Text(pin_box_4, width = 15, text="Pino 4:", grid=[0, 0], align="left")
+
+Text(pin_box_4, text="Pin Leitura:", grid=[0, 3], align="left")
+result_pin_output_checkbox_4 = CheckBox(
+    pin_box_4, text="", align="left", grid=[1, 3])
+
+Text(pin_box_4, text="Frequência (Hz):", grid=[0, 4], align="left")
+freq_input_4 = TextBox(pin_box_4, width=5, grid=[1, 4], align="left")
+
+Text(pin_box_4, text="Duty Cycle (%):", grid=[0, 5], align="left")
+duty_cycle_slider_4 = Slider(
+    pin_box_4, start=0, end=100, grid=[1, 5], align="left")
+
+Text(pin_box_4, text="Vetor de Teste:", grid=[0, 6], align="left")
+test_vector_input_4 = TextBox(pin_box_4, width = 20, grid = [1, 6], align="left")
+
+Text(pin_box_4, text="Bit Hold Time [ms]:", grid=[0, 7], align="left")
+bit_hold_time_4 = TextBox(pin_box_4, width = 5, grid = [1, 7], align="left")
+
+# Descrição do Pinos
+Text(pin_box_4, text = "INPUT ONLY, ADC, GPIO34", grid = [0, 1], align="left")
+
+#Validações
+def schedule_frequency_validation_4():
+    app.after(ms_valida, valida_frequencia_4)
+
+def schedule_test_vector_4():
+    app.after(ms_valida, valida_test_vector_4)
+
+def schedule_hold_time_4():
+    app.after(ms_valida, valida_hold_time_4)
+
+def valida_frequencia_4():
+    try:
+        freq = int(freq_input_4.value)
+        if freq < freq_min or freq > freq_max:
+            raise ValueError("Fora do intervalo")
+        error_message.value = ""  # Limpa a mensagem de erro se a validação passar
+    except ValueError:
+        error_message.value = f"Erro Pino 4: Frequência deve estar entre {freq_min} Hz e {freq_max} Hz."
+        freq_input_4.value = ""  
+
+freq_input_4.when_key_pressed = schedule_frequency_validation_4
+
+def valida_test_vector_4():
+    try:
+        test_vector = test_vector_input_4.value.strip()
+
+        if test_vector != "":
+            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+                raise ValueError("Vetor de teste em formato inválido")
+            error_message.value = ""  # Limpa a mensagem de erro se a validação passar
+    except ValueError:
+        error_message.value = "Erro Pino 4: Vetor de Teste deve ser um valor binário de 12 bits."
+        test_vector_input_4.value = ""
+
+test_vector_input_4.when_key_pressed = schedule_test_vector_4
+
+def valida_hold_time_4():
+    try:
+        hold_time = int(bit_hold_time_4.value)
+        if hold_time < hold_time_min or hold_time > hold_time_max:
+            raise ValueError("Fora do intervalo")
+        error_message.value = ""  # Limpa a mensagem de erro se a validação passar
+    except ValueError:
+        error_message.value = f"Erro Pino 4: Bit Hold Time deve estar entre {hold_time_min} ms e {hold_time_max} ms."
+        bit_hold_time_4.value = ""  
+
+bit_hold_time_4.when_key_pressed = schedule_hold_time_4
+
+def configuracao_pino_4():
+    pin_leitura_4 = 1 if result_pin_output_checkbox_4.value else 0
+    duty_cycle_4 = int(duty_cycle_slider_4.value)
+    config_pino_4 = [
+        pin_leitura_4,
+        freq_input_4.value if freq_input_4.value else 0,
+        duty_cycle_4,
+        test_vector_input_3.value if test_vector_input_4.value else 0,
+        bit_hold_time_4.value if bit_hold_time_4.value else 0
+    ]
+    pinos_valores["04"] = config_pino_4
 
 
 #### Configuração Pino 6 ####

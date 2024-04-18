@@ -44,8 +44,114 @@ typedef struct{
     int bit_hold_time;
 } PinConfig;
 
+typedef struct{
+    int pin;
+    int voltage;
+} VoltageConfig;
+
 void start_test(){
-    printf("\n INICIAR TESTE\n");
+    printf("\n START TESTE\n");
+}
+
+void config_pin_02(){
+    printf("Configura pino 02 \n");
+}
+void config_pin_03(){
+    printf("Configura pino 03 \n");
+}
+
+void config_pin_04(char* message){
+    printf("Configura pino 04 \n");
+    int voltage;
+    sscanf(message + 4, "%dV", &voltage);
+    if (voltage == 03)
+    {
+        printf("Enable 3V \n");
+    }
+    
+}
+
+void config_pin_05(char* message){
+    printf("Configura pino 05 \n");
+    int voltage;
+    sscanf(message + 4, "%dV", &voltage);
+    if (voltage == 05)
+    {
+        printf("Enable 5V \n");
+    }
+}
+
+void config_pin_06(){
+    printf("Configura pino 06 \n");
+}
+void config_pin_07(){
+    printf("Configura pino 07 \n");
+}
+void config_pin_08(){
+    printf("Configura pino 08 \n");
+}
+void config_pin_09(){
+    printf("Configura pino 09 \n");
+}
+void config_pin_10(){
+    printf("Configura pino 10 \n");
+}
+void config_pin_11(){
+    printf("Configura pino 11 \n");
+}
+void config_pin_12(){
+    printf("Configura pino 12 \n");
+}
+void config_pin_13(){
+    printf("Configura pino 13 \n");
+}
+void config_pin_18(){
+    printf("Configura pino 18 \n");
+}
+void config_pin_19(){
+    printf("Configura pino 19 \n");
+}
+void config_pin_20(){
+    printf("Configura pino 20 \n");
+}
+
+void config_pin_21(char* message){
+    printf("Configura pino 21 \n");
+    int voltage;
+    sscanf(message + 4, "%dV", &voltage);
+    if (voltage == 12)
+    {
+        printf("Enable 12V \n");
+    }
+}
+
+void config_pin_22(char* message){
+    printf("Configura pino 22 \n");
+    int voltage;
+    sscanf(message + 4, "%dV", &voltage);
+    if (voltage == 24)
+    {
+        printf("Enable 24V \n");
+    }
+}
+
+void config_pin_23(){
+    printf("Configura pino 23 \n");
+}
+void config_pin_24(){
+    printf("Configura pino 24 \n");
+}
+void config_pin_25(){
+    printf("Configura pino 25 \n");
+}
+void config_pin_26(){
+    printf("Configura pino 26 \n");
+}
+void config_pin_27(){
+    printf("Configura pino 27 \n");
+}
+void config_pin_28(){
+    printf("Configura pino 28 \n");
 }
 
 void process_pin_config(){
@@ -106,10 +212,76 @@ static void udp_server_task(void *pvParameters)
                 ESP_LOGI(TAG, "Received %d bytes from %s:", len, addr_str);
                 ESP_LOGI(TAG, "%s", rx_buffer);
                 
-                 if (rx_buffer[1] == '1' && rx_buffer[2] == '0'){
-                     start_test();
-                 }
-
+                if (rx_buffer[1] == '0' && rx_buffer[2] == '2'){
+                    config_pin_02();
+                }
+                if (rx_buffer[1] == '0' && rx_buffer[2] == '3'){
+                    config_pin_03();
+                }
+                if (rx_buffer[1] == '0' && rx_buffer[2] == '4'){
+                    config_pin_04(rx_buffer);
+                }
+                if (rx_buffer[1] == '0' && rx_buffer[2] == '5'){
+                    config_pin_05(rx_buffer);
+                }
+                if (rx_buffer[1] == '0' && rx_buffer[2] == '6'){
+                    config_pin_06();
+                }
+                if (rx_buffer[1] == '0' && rx_buffer[2] == '7'){
+                    config_pin_07();
+                }
+                if (rx_buffer[1] == '0' && rx_buffer[2] == '8'){
+                    config_pin_08();
+                }
+                if (rx_buffer[1] == '0' && rx_buffer[2] == '9'){
+                    config_pin_09();
+                }
+                if (rx_buffer[1] == '1' && rx_buffer[2] == '0'){
+                    config_pin_10();
+                }
+                if (rx_buffer[1] == '1' && rx_buffer[2] == '1'){
+                    config_pin_11();
+                }
+                if (rx_buffer[1] == '1' && rx_buffer[2] == '2'){
+                    config_pin_12();
+                }
+                if (rx_buffer[1] == '1' && rx_buffer[2] == '3'){
+                    config_pin_13();
+                }
+                if (rx_buffer[1] == '1' && rx_buffer[2] == '8'){
+                    config_pin_18();
+                }
+                if (rx_buffer[1] == '1' && rx_buffer[2] == '9'){
+                    config_pin_19();
+                }
+                if (rx_buffer[1] == '2' && rx_buffer[2] == '0'){
+                    config_pin_20();
+                }
+                if (rx_buffer[1] == '2' && rx_buffer[2] == '1'){
+                    config_pin_21(rx_buffer);
+                }
+                if (rx_buffer[1] == '2' && rx_buffer[2] == '2'){
+                    config_pin_22(rx_buffer);
+                }
+                if (rx_buffer[1] == '2' && rx_buffer[2] == '3'){
+                    config_pin_23();
+                }
+                if (rx_buffer[1] == '2' && rx_buffer[2] == '4'){
+                    config_pin_24();
+                }
+                if (rx_buffer[1] == '2' && rx_buffer[2] == '5'){
+                    config_pin_25();
+                }
+                if (rx_buffer[1] == '2' && rx_buffer[2] == '6'){
+                    config_pin_26();
+                }
+                if (rx_buffer[1] == '2' && rx_buffer[2] == '7'){
+                    config_pin_27();
+                }
+                if (rx_buffer[1] == '2' && rx_buffer[2] == '8'){
+                    config_pin_28();
+                }
+            
                 if (strstr(rx_buffer, "START") != NULL){
                     start_test();
                 }
