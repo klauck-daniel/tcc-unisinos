@@ -2,7 +2,7 @@ from enviaMensagemUDP import envia_mensagem_udp, envia_start_mensagem_udp
 from guizero import App, Text, PushButton, CheckBox, TextBox, Slider, Box
 
 #Variáveis Globais
-esp_ip = "192.168.1.25" 
+esp_ip = "192.168.1.29" 
 esp_porta = 3333
 pinos_valores = {}
 
@@ -296,7 +296,7 @@ def configuracao_pino_3():
 
 
 #### Configuração Pino 4 ####
-pin_box_4 = Box(parametros_box, layout="grid", grid=[0, 1], width="fill", height="fill",
+pin_box_4 = Box(parametros_box, layout="grid", grid=[0, 2], width="fill", height="fill",
                   align="left", border = True)
 
 Text(pin_box_4, width = 15, text="Pino 4:", grid=[0, 0], align="left")
@@ -383,10 +383,10 @@ def configuracao_pino_4():
 
 
 #### Configuração Pino 5 ####
-pin_box_5 = Box(parametros_box, layout="grid", grid=[0, 1], width="fill", height="fill",
+pin_box_5 = Box(parametros_box, layout="grid", grid=[0, 3], width="fill", height="fill",
                   align="left", border = True)
 
-Text(pin_box_5, width = 15, text="Pino 4:", grid=[0, 0], align="left")
+Text(pin_box_5, width = 15, text="Pino 5:", grid=[0, 0], align="left")
 
 Text(pin_box_5, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_5 = CheckBox(
@@ -470,7 +470,7 @@ def configuracao_pino_5():
 
 
 #### Configuração Pino 6 ####
-pin_box_6 = Box(parametros_box, layout="grid", grid=[0, 2], width="fill", height="fill",
+pin_box_6 = Box(parametros_box, layout="grid", grid=[1, 0], width="fill", height="fill",
                   align="left", border = True)
 
 Text(pin_box_6, width = 15, text="Pino 6:", grid=[0, 0], align="left")
@@ -557,7 +557,7 @@ def configuracao_pino_6():
 
 
 #### Configuração Pino 7 ####
-pin_box_7 = Box(parametros_box, layout="grid", grid=[0, 3], width="fill", height="fill",
+pin_box_7 = Box(parametros_box, layout="grid", grid=[1, 1], width="fill", height="fill",
                   align="left", border = True)
 
 Text(pin_box_7, width = 15, text="Pino 7:", grid=[0, 0], align="left")
@@ -644,7 +644,7 @@ def configuracao_pino_7():
 
 
 #### Configuração Pino 8 ####
-pin_box_8 = Box(parametros_box, layout="grid", grid=[1, 0], width="fill", height="fill",
+pin_box_8 = Box(parametros_box, layout="grid", grid=[1, 2], width="fill", height="fill",
                   align="left", border = True)
 
 Text(pin_box_8, width = 15, text="Pino 8:", grid=[0, 0], align="left")
@@ -731,7 +731,7 @@ def configuracao_pino_8():
 
 
 #### Configuração Pino 9 ####
-pin_box_9 = Box(parametros_box, layout="grid", grid=[1, 1], width="fill", height="fill",
+pin_box_9 = Box(parametros_box, layout="grid", grid=[1, 3], width="fill", height="fill",
                   align="left", border = True)
 
 Text(pin_box_9, width = 15, text="Pino 9:", grid=[0, 0], align="left")
@@ -818,7 +818,7 @@ def configuracao_pino_9():
 
 
 #### Configuração Pino 10 ####
-pin_box_10 = Box(parametros_box, layout="grid", grid=[1, 2], width="fill", height="fill",
+pin_box_10 = Box(parametros_box, layout="grid", grid=[2, 0], width="fill", height="fill",
                   align="left", border = True)
 
 Text(pin_box_10, width = 15, text="Pino 10:", grid=[0, 0], align="left")
@@ -905,7 +905,7 @@ def configuracao_pino_10():
 
 
 #### Configuração Pino 11 ####
-pin_box_11 = Box(parametros_box, layout="grid", grid=[1, 3], width="fill", height="fill",
+pin_box_11 = Box(parametros_box, layout="grid", grid=[2, 1], width="fill", height="fill",
                   align="left", border = True)
 
 Text(pin_box_11, width = 15, text="Pino 11:", grid=[0, 0], align="left")
@@ -992,7 +992,7 @@ def configuracao_pino_11():
 
 
 #### Configuração Pino 12 ####
-pin_box_12 = Box(parametros_box, layout="grid", grid=[2, 0], width="fill", height="fill",
+pin_box_12 = Box(parametros_box, layout="grid", grid=[2, 2], width="fill", height="fill",
                   align="left", border = True)
 
 Text(pin_box_12, width = 15, text="Pino 12:", grid=[0, 0], align="left")
@@ -1079,7 +1079,7 @@ def configuracao_pino_12():
 
 
 #### Configuração Pino 13 ####
-pin_box_13 = Box(parametros_box, layout="grid", grid=[2, 1], width="fill", height="fill",
+pin_box_13 = Box(parametros_box, layout="grid", grid=[2, 3], width="fill", height="fill",
                   align="left", border = True)
 
 Text(pin_box_13, width = 15, text="Pino 13:", grid=[0, 0], align="left")
@@ -1165,7 +1165,7 @@ def configuracao_pino_13():
     pinos_valores["13"] = config_pino_13
 
 #### Configuração Pino 18 ####
-pin_box_18 = Box(parametros_box, layout="grid", grid=[2, 2], width="fill", height="fill",
+pin_box_18 = Box(parametros_box, layout="grid", grid=[3, 0], width="fill", height="fill",
                   align="left", border = True)
 
 Text(pin_box_18, width = 15, text="Pino 18:", grid=[0, 0], align="left")
@@ -1252,7 +1252,7 @@ def configuracao_pino_18():
 
 
 #### Configuração Pino 19 ####
-pin_box_19 = Box(parametros_box, layout="grid", grid=[2, 3], width="fill", height="fill",
+pin_box_19 = Box(parametros_box, layout="grid", grid=[3, 1], width="fill", height="fill",
                   align="left", border = True)
 
 Text(pin_box_19, width = 15, text="Pino 19:", grid=[0, 0], align="left")
@@ -1339,7 +1339,7 @@ def configuracao_pino_19():
 
 
 #### Configuração Pino 20 ####
-pin_box_20 = Box(parametros_box, layout="grid", grid=[3, 0], width="fill", height="fill",
+pin_box_20 = Box(parametros_box, layout="grid", grid=[3, 2], width="fill", height="fill",
                   align="left", border = True)
 
 Text(pin_box_20, width = 15, text="Pino 20:", grid=[0, 0], align="left")
@@ -1774,7 +1774,7 @@ def configuracao_pino_28():
 
 
 #### Configuração Pino 29 ####
-pin_box_29 = Box(parametros_box, layout="grid", grid=[4, 2], width="fill", height="fill",
+pin_box_29 = Box(parametros_box, layout="grid", grid=[4, 3], width="fill", height="fill",
                   align="left", border = True)
 
 Text(pin_box_29, width = 15, text="Pino 29:", grid=[0, 0], align="left")
@@ -1861,7 +1861,7 @@ def configuracao_pino_29():
 
 
 #### Configuração Pino 30 ####
-pin_box_30 = Box(parametros_box, layout="grid", grid=[4, 2], width="fill", height="fill",
+pin_box_30 = Box(parametros_box, layout="grid", grid=[5, 0], width="fill", height="fill",
                   align="left", border = True)
 
 Text(pin_box_30, width = 15, text="Pino 30:", grid=[0, 0], align="left")
