@@ -18,5 +18,8 @@
     "cmake.configureOnOpen": false,
     "idf.flashType": "UART",
     "cmake.options.statusBarVisibility": "visible",
-    "cmake.useCMakePresets": "always"
+    "cmake.useCMakePresets": "always",
+    "files.associations": {
+        "ledc.h": "c"
+    }
 }

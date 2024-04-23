@@ -29,14 +29,27 @@
 #include "nvs_flash.h"
 #include "ping/ping_sock.h"
 #include "driver/gpio.h"
+#include "driver/ledc.h"
 
 #define PIN_03V GPIO_NUM_16
 #define PIN_05V GPIO_NUM_17
 #define PIN_12V GPIO_NUM_5
 #define PIN_24V GPIO_NUM_18
 
+#define PIN_06 GPIO_NUM_32
+
+#define set_duty(duty) ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0, duty)
+#define upt_duty ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0)
+
+
 #define PORT 3333
 static const char *TAG = "UDP SOCKET SERVER";
+
+// void pwm_set(void);
+// void pwm_update_duty(void);
+
+
+
 
 // Struct de configuração dos pinos
 //[pin_number, output, frequencia, dutyCycle, vetorTeste, bitHoldTime]
@@ -56,71 +69,104 @@ typedef struct
     int voltage;
 } VoltageConfig;
 
+
+// Função PWM
+void pwm_set(void){
+
+    ledc_channel_config_t pwm_channel_config = {0};
+    pwm_channel_config.gpio_num = 32; //varia conforme o pino
+    pwm_channel_config.speed_mode = LEDC_HIGH_SPEED_MODE; // pode ser escolhido
+    pwm_channel_config.channel = LEDC_CHANNEL_0; // até 8 canais
+    pwm_channel_config.intr_type = LEDC_INTR_DISABLE; //interrupção
+    pwm_channel_config.timer_sel = LEDC_TIMER_0; //pode variar timers
+    pwm_channel_config.duty = 0; // dutycicle inicial
+
+    ledc_channel_config(&pwm_channel_config);
+
+
+    ledc_timer_config_t pwm_timer_config = {0};
+    pwm_timer_config.speed_mode = LEDC_HIGH_SPEED_MODE;
+    pwm_timer_config.duty_resolution = LEDC_TIMER_12_BIT; //Pode ter mais bits
+    pwm_timer_config.timer_num = LEDC_TIMER_0;
+    pwm_timer_config.freq_hz = 10000;
+
+    ledc_timer_config(&pwm_timer_config);
+}
+
+// void pwm_update_duty(void){
+//     ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0, 3000);
+
+//     ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0);
+
+// }
+
+
+
 void start_test()
 {
     printf("\n START TESTE\n");
 }
 
-void config_pin_02()
+void config_pin_02(char *message)
 {
     printf("Configura pino 02 \n");
 }
-void config_pin_03()
+void config_pin_03(char *message)
 {
     printf("Configura pino 03 \n");
 }
 
-void config_pin_04()
+void config_pin_04(char *message)
 {
     printf("Configura pino 04 \n");
 }
 
-void config_pin_05()
+void config_pin_05(char *message)
 {
     printf("Configura pino 05 \n");
 }
 
-void config_pin_06()
+void config_pin_06(char *message)
 {
     printf("Configura pino 06 \n");
 }
-void config_pin_07()
+void config_pin_07(char *message)
 {
     printf("Configura pino 07 \n");
 }
-void config_pin_08()
+void config_pin_08(char *message)
 {
     printf("Configura pino 08 \n");
 }
-void config_pin_09()
+void config_pin_09(char *message)
 {
     printf("Configura pino 09 \n");
 }
-void config_pin_10()
+void config_pin_10(char *message)
 {
     printf("Configura pino 10 \n");
 }
-void config_pin_11()
+void config_pin_11(char *message)
 {
     printf("Configura pino 11 \n");
 }
-void config_pin_12()
+void config_pin_12(char *message)
 {
     printf("Configura pino 12 \n");
 }
-void config_pin_13()
+void config_pin_13(char *message)
 {
     printf("Configura pino 13 \n");
 }
-void config_pin_18()
+void config_pin_18(char *message)
 {
     printf("Configura pino 18 \n");
 }
-void config_pin_19()
+void config_pin_19(char *message)
 {
     printf("Configura pino 19 \n");
 }
-void config_pin_20()
+void config_pin_20(char *message)
 {
     printf("Configura pino 20 \n");
 }
@@ -128,6 +174,11 @@ void config_pin_20()
 void config_pin_21(char *message)
 {
     printf("Configura pino 21 \n");
+
+    pwm_set();
+    set_duty(4091);
+    upt_duty;
+
 
     int voltage;
     sscanf(message + 4, "%dV", &voltage);
@@ -185,24 +236,32 @@ void config_pin_24(char *message)
     else gpio_set_level(PIN_24V, 0);
 }
 
-void config_pin_25()
+void config_pin_25(char *message)
 {
     printf("Configura pino 25 \n");
 }
-void config_pin_26()
+void config_pin_26(char *message)
 {
     printf("Configura pino 26 \n");
 }
-void config_pin_27()
+void config_pin_27(char *message)
 {
     printf("Configura pino 27 \n");
 }
-void config_pin_28()
+void config_pin_28(char *message)
 {
     printf("Configura pino 28 \n");
 }
+void config_pin_29(char *message)
+{
+    printf("Configura pino 29 \n");
+}
+void config_pin_30(char *message)
+{
+    printf("Configura pino 30 \n");
+}
 
-void process_pin_config()
+void process_pin_config(char *message)
 {
     printf("\n CONFIGURAR TESTE\n");
 }
@@ -263,63 +322,63 @@ static void udp_server_task(void *pvParameters)
 
                 if (rx_buffer[1] == '0' && rx_buffer[2] == '2')
                 {
-                    config_pin_02();
+                    config_pin_02(rx_buffer);
                 }
                 if (rx_buffer[1] == '0' && rx_buffer[2] == '3')
                 {
-                    config_pin_03();
+                    config_pin_03(rx_buffer);
                 }
                 if (rx_buffer[1] == '0' && rx_buffer[2] == '4')
                 {
-                    config_pin_04();
+                    config_pin_04(rx_buffer);
                 }
                 if (rx_buffer[1] == '0' && rx_buffer[2] == '5')
                 {
-                    config_pin_05();
+                    config_pin_05(rx_buffer);
                 }
                 if (rx_buffer[1] == '0' && rx_buffer[2] == '6')
                 {
-                    config_pin_06();
+                    config_pin_06(rx_buffer);
                 }
                 if (rx_buffer[1] == '0' && rx_buffer[2] == '7')
                 {
-                    config_pin_07();
+                    config_pin_07(rx_buffer);
                 }
                 if (rx_buffer[1] == '0' && rx_buffer[2] == '8')
                 {
-                    config_pin_08();
+                    config_pin_08(rx_buffer);
                 }
                 if (rx_buffer[1] == '0' && rx_buffer[2] == '9')
                 {
-                    config_pin_09();
+                    config_pin_09(rx_buffer);
                 }
                 if (rx_buffer[1] == '1' && rx_buffer[2] == '0')
                 {
-                    config_pin_10();
+                    config_pin_10(rx_buffer);
                 }
                 if (rx_buffer[1] == '1' && rx_buffer[2] == '1')
                 {
-                    config_pin_11();
+                    config_pin_11(rx_buffer);
                 }
                 if (rx_buffer[1] == '1' && rx_buffer[2] == '2')
                 {
-                    config_pin_12();
+                    config_pin_12(rx_buffer);
                 }
                 if (rx_buffer[1] == '1' && rx_buffer[2] == '3')
                 {
-                    config_pin_13();
+                    config_pin_13(rx_buffer);
                 }
                 if (rx_buffer[1] == '1' && rx_buffer[2] == '8')
                 {
-                    config_pin_18();
+                    config_pin_18(rx_buffer);
                 }
                 if (rx_buffer[1] == '1' && rx_buffer[2] == '9')
                 {
-                    config_pin_19();
+                    config_pin_19(rx_buffer);
                 }
                 if (rx_buffer[1] == '2' && rx_buffer[2] == '0')
                 {
-                    config_pin_20();
+                    config_pin_20(rx_buffer);
                 }
                 if (rx_buffer[1] == '2' && rx_buffer[2] == '1')
                 {
@@ -339,20 +398,29 @@ static void udp_server_task(void *pvParameters)
                 }
                 if (rx_buffer[1] == '2' && rx_buffer[2] == '5')
                 {
-                    config_pin_25();
+                    config_pin_25(rx_buffer);
                 }
                 if (rx_buffer[1] == '2' && rx_buffer[2] == '6')
                 {
-                    config_pin_26();
+                    config_pin_26(rx_buffer);
                 }
                 if (rx_buffer[1] == '2' && rx_buffer[2] == '7')
                 {
-                    config_pin_27();
+                    config_pin_27(rx_buffer);
                 }
                 if (rx_buffer[1] == '2' && rx_buffer[2] == '8')
                 {
-                    config_pin_28();
+                    config_pin_28(rx_buffer);
                 }
+                if (rx_buffer[1] == '2' && rx_buffer[2] == '9')
+                {
+                    config_pin_29(rx_buffer);
+                }
+                if (rx_buffer[1] == '3' && rx_buffer[2] == '0')
+                {
+                    config_pin_30(rx_buffer);
+                }
+                
 
                 if (strstr(rx_buffer, "START") != NULL)
                 {
@@ -416,6 +484,7 @@ void wifi_connection()
     esp_wifi_set_mode(WIFI_MODE_STA);
     esp_wifi_start();
     esp_wifi_connect();
+    
 }
 
 void app_main(void)
@@ -423,4 +492,5 @@ void app_main(void)
     wifi_connection();
     vTaskDelay(5000 / portTICK_PERIOD_MS);
     xTaskCreate(udp_server_task, "udp_server", 4096, (void *)AF_INET, 5, NULL);
+    
 }
