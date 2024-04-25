@@ -45,8 +45,16 @@
 #define PORT 3333
 static const char *TAG = "UDP SOCKET SERVER";
 
+//Variáveis Globais
+int frequency = 0;
+
 // void pwm_set(void);
 // void pwm_update_duty(void);
+
+
+
+
+
 
 
 
@@ -57,7 +65,7 @@ typedef struct
 {
     int pin;
     bool is_input;
-    int frequency;
+    //int frequency;
     int duty_cycle;
     char test_vector[12];
     int bit_hold_time;
@@ -71,10 +79,11 @@ typedef struct
 
 
 // Função PWM
-void pwm_set(void){
+void pwm_set(int frequency){
+//void pwm_set(int frequency, int channel, int duty, int pin){
 
     ledc_channel_config_t pwm_channel_config = {0};
-    pwm_channel_config.gpio_num = 32; //varia conforme o pino
+    pwm_channel_config.gpio_num = PIN_06; //varia conforme o pino
     pwm_channel_config.speed_mode = LEDC_HIGH_SPEED_MODE; // pode ser escolhido
     pwm_channel_config.channel = LEDC_CHANNEL_0; // até 8 canais
     pwm_channel_config.intr_type = LEDC_INTR_DISABLE; //interrupção
@@ -88,23 +97,27 @@ void pwm_set(void){
     pwm_timer_config.speed_mode = LEDC_HIGH_SPEED_MODE;
     pwm_timer_config.duty_resolution = LEDC_TIMER_12_BIT; //Pode ter mais bits
     pwm_timer_config.timer_num = LEDC_TIMER_0;
-    pwm_timer_config.freq_hz = 10000;
+    pwm_timer_config.freq_hz = 5000;
 
     ledc_timer_config(&pwm_timer_config);
+
 }
-
-// void pwm_update_duty(void){
-//     ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0, 3000);
-
-//     ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0);
-
-// }
 
 
 
 void start_test()
 {
     printf("\n START TESTE\n");
+}
+
+void config_freq(char *message){
+    frequency = atoi(&message[6]);
+    printf("Frequancia de %d Hz \n", frequency);
+
+    pwm_set(frequency);
+    set_duty(4091);
+    upt_duty;
+    
 }
 
 void config_pin_02(char *message)
@@ -174,11 +187,6 @@ void config_pin_20(char *message)
 void config_pin_21(char *message)
 {
     printf("Configura pino 21 \n");
-
-    pwm_set();
-    set_duty(4091);
-    upt_duty;
-
 
     int voltage;
     sscanf(message + 4, "%dV", &voltage);
@@ -266,6 +274,7 @@ void process_pin_config(char *message)
     printf("\n CONFIGURAR TESTE\n");
 }
 
+
 static void udp_server_task(void *pvParameters)
 {
     char rx_buffer[1500];
@@ -320,6 +329,10 @@ static void udp_server_task(void *pvParameters)
                 ESP_LOGI(TAG, "Received %d bytes from %s:", len, addr_str);
                 ESP_LOGI(TAG, "%s", rx_buffer);
 
+                if (rx_buffer[1] == 'F' && rx_buffer[2] == 'R')
+                {
+                    config_freq(rx_buffer);
+                }
                 if (rx_buffer[1] == '0' && rx_buffer[2] == '2')
                 {
                     config_pin_02(rx_buffer);
