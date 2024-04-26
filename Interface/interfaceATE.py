@@ -1,5 +1,5 @@
 from enviaMensagemUDP import envia_mensagem_udp, envia_start_mensagem_udp
-from guizero import App, Text, PushButton, CheckBox, TextBox, Slider, Box, Combo
+from guizero import App, Text, PushButton, CheckBox, TextBox, Slider, Box
 
 #Variáveis Globais
 esp_ip = "192.168.1.29" 
@@ -76,7 +76,7 @@ def send_test_config():
     envia_mensagem_udp(esp_ip, esp_porta, pinos_valores)
 
 # App
-app = App(title="ATE DRK", width=1450, height=1080)
+app = App(title="ATE DRK", width=1550, height=1080)
 app.full_screen = False
 
 # Title Box
