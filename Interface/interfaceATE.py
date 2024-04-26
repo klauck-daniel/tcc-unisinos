@@ -20,6 +20,10 @@ def start_test():
     print("Iniciando Teste.")  
     envia_start_mensagem_udp(esp_ip, esp_porta, "START")
 
+def reset_system():
+    print("Reiniciando ESP...")
+    envia_start_mensagem_udp(esp_ip, esp_porta, "RESET")
+
 def send_test_config():
     print("Enviando Configuração.")
     configuracao_frequencia()
@@ -147,194 +151,6 @@ def configuracao_frequencia():
     pinos_valores["FRQ"] = config_freq
 
 
-################ CANAIS PWM #################
-
-# Configuração dos Canais de PWM
-config_pwm_box = Box(content_box, layout="grid", width="fill", height="fill",
-                     align="left", border=True, grid=[0, 2])
-
-Text(config_pwm_box, text="Configuração dos canais de PWM:", grid=[0, 0], align="left")
-
-#### Canal 0 ####
-box_canal_0 = Box(config_pwm_box, layout="grid", grid=[0, 1], width="fill", height="fill",
-                  align="left", border = True)
-
-Text(box_canal_0, width = 0, text="Canal 0:", grid=[0, 0], align="left")
-
-Text(box_canal_0, text="Enable:", grid=[0, 1], align="left")
-enable_canal_0 = CheckBox(box_canal_0, text="", align="left", grid=[1, 1])
-
-Text(box_canal_0, text="Duty Cycle (%):", grid=[0, 2], align="left")
-duty_cycle_canal_0 = Slider(
-    box_canal_0, start=0, end=100, grid=[1, 2], align="left")
-
-def configuracao_canal_0():
-    enable_ch_0 = 1 if enable_canal_0.value else 0
-    duty_cycle_ch_0 = int(duty_cycle_canal_0.value)
-    config_channel_0 = [
-        enable_ch_0,
-        duty_cycle_ch_0,
-    ]
-    pinos_valores["CH0"] = config_channel_0
-
-#### Canal 1 ####
-box_canal_1 = Box(config_pwm_box, layout="grid", grid=[1, 1], width="fill", height="fill",
-                  align="left", border = True)
-
-Text(box_canal_1, width = 0, text="Canal 1:", grid=[0, 0], align="left")
-
-Text(box_canal_1, text="Enable:", grid=[0, 1], align="left")
-enable_canal_1 = CheckBox(box_canal_1, text="", align="left", grid=[1, 1])
-
-Text(box_canal_1, text="Duty Cycle (%):", grid=[0, 2], align="left")
-duty_cycle_canal_1 = Slider(
-    box_canal_1, start=0, end=100, grid=[1, 2], align="left")
-
-def configuracao_canal_1():
-    enable_ch_1 = 1 if enable_canal_1.value else 0
-    duty_cycle_ch_1 = int(duty_cycle_canal_1.value)
-    config_channel_1 = [
-        enable_ch_1,
-        duty_cycle_ch_1,
-    ]
-    pinos_valores["CH1"] = config_channel_1
-
-#### Canal 2 ####
-box_canal_2 = Box(config_pwm_box, layout="grid", grid=[2, 1], width="fill", height="fill",
-                  align="left", border = True)
-
-Text(box_canal_2, width = 0, text="Canal 2:", grid=[0, 0], align="left")
-
-Text(box_canal_2, text="Enable:", grid=[0, 1], align="left")
-enable_canal_2 = CheckBox(box_canal_2, text="", align="left", grid=[1, 1])
-
-Text(box_canal_2, text="Duty Cycle (%):", grid=[0, 2], align="left")
-duty_cycle_canal_2 = Slider(
-    box_canal_2, start=0, end=100, grid=[1, 2], align="left")
-
-def configuracao_canal_2():
-    enable_ch_2 = 1 if enable_canal_2.value else 0
-    duty_cycle_ch_2 = int(duty_cycle_canal_2.value)
-    config_channel_2 = [
-        enable_ch_2,
-        duty_cycle_ch_2,
-    ]
-    pinos_valores["CH2"] = config_channel_2
-
-#### Canal 3 ####
-box_canal_3 = Box(config_pwm_box, layout="grid", grid=[3, 1], width="fill", height="fill",
-                  align="left", border = True)
-
-Text(box_canal_3, width = 0, text="Canal 3:", grid=[0, 0], align="left")
-
-Text(box_canal_3, text="Enable:", grid=[0, 1], align="left")
-enable_canal_3 = CheckBox(box_canal_3, text="", align="left", grid=[1, 1])
-
-Text(box_canal_3, text="Duty Cycle (%):", grid=[0, 2], align="left")
-duty_cycle_canal_3 = Slider(
-    box_canal_3, start=0, end=100, grid=[1, 2], align="left")
-
-def configuracao_canal_3():
-    enable_ch_3 = 1 if enable_canal_3.value else 0
-    duty_cycle_ch_3 = int(duty_cycle_canal_3.value)
-    config_channel_3 = [
-        enable_ch_3,
-        duty_cycle_ch_3,
-    ]
-    pinos_valores["CH3"] = config_channel_3
-
-#### Canal 4 ####
-box_canal_4 = Box(config_pwm_box, layout="grid", grid=[0, 2], width="fill", height="fill",
-                  align="left", border = True)
-
-Text(box_canal_4, width = 0, text="Canal 4:", grid=[0, 0], align="left")
-
-Text(box_canal_4, text="Enable:", grid=[0, 1], align="left")
-enable_canal_4 = CheckBox(box_canal_4, text="", align="left", grid=[1, 1])
-
-Text(box_canal_4, text="Duty Cycle (%):", grid=[0, 2], align="left")
-duty_cycle_canal_4 = Slider(
-    box_canal_4, start=0, end=100, grid=[1, 2], align="left")
-
-def configuracao_canal_4():
-    enable_ch_4 = 1 if enable_canal_4.value else 0
-    duty_cycle_ch_4 = int(duty_cycle_canal_4.value)
-    config_channel_4 = [
-        enable_ch_4,
-        duty_cycle_ch_4,
-    ]
-    pinos_valores["CH4"] = config_channel_4
-
-
-#### Canal 5 ####
-box_canal_5 = Box(config_pwm_box, layout="grid", grid=[1, 2], width="fill", height="fill",
-                  align="left", border = True)
-
-Text(box_canal_5, width = 0, text="Canal 5:", grid=[0, 0], align="left")
-
-Text(box_canal_5, text="Enable:", grid=[0, 1], align="left")
-enable_canal_5 = CheckBox(box_canal_5, text="", align="left", grid=[1, 1])
-
-Text(box_canal_5, text="Duty Cycle (%):", grid=[0, 2], align="left")
-duty_cycle_canal_5 = Slider(
-    box_canal_5, start=0, end=100, grid=[1, 2], align="left")
-
-def configuracao_canal_5():
-    enable_ch_5 = 1 if enable_canal_5.value else 0
-    duty_cycle_ch_5 = int(duty_cycle_canal_5.value)
-    config_channel_5 = [
-        enable_ch_5,
-        duty_cycle_ch_5,
-    ]
-    pinos_valores["CH5"] = config_channel_5
-
-
-#### Canal 6 ####
-box_canal_6 = Box(config_pwm_box, layout="grid", grid=[2, 2], width="fill", height="fill",
-                  align="left", border = True)
-
-Text(box_canal_6, width = 0, text="Canal 6:", grid=[0, 0], align="left")
-
-Text(box_canal_6, text="Enable:", grid=[0, 1], align="left")
-enable_canal_6 = CheckBox(box_canal_6, text="", align="left", grid=[1, 1])
-
-Text(box_canal_6, text="Duty Cycle (%):", grid=[0, 2], align="left")
-duty_cycle_canal_6 = Slider(
-    box_canal_6, start=0, end=100, grid=[1, 2], align="left")
-
-def configuracao_canal_6():
-    enable_ch_6 = 1 if enable_canal_6.value else 0
-    duty_cycle_ch_6 = int(duty_cycle_canal_6.value)
-    config_channel_6 = [
-        enable_ch_6,
-        duty_cycle_ch_6,
-    ]
-    pinos_valores["CH6"] = config_channel_6
-
-
-#### Canal 7 ####
-box_canal_7 = Box(config_pwm_box, layout="grid", grid=[3, 2], width="fill", height="fill",
-                  align="left", border = True)
-
-Text(box_canal_7, width = 0, text="Canal 7:", grid=[0, 0], align="left")
-
-Text(box_canal_7, text="Enable:", grid=[0, 1], align="left")
-enable_canal_7 = CheckBox(box_canal_7, text="", align="left", grid=[1, 1])
-
-Text(box_canal_7, text="Duty Cycle (%):", grid=[0, 2], align="left")
-duty_cycle_canal_7 = Slider(
-    box_canal_7, start=0, end=100, grid=[1, 2], align="left")
-
-def configuracao_canal_7():
-    enable_ch_7 = 1 if enable_canal_7.value else 0
-    duty_cycle_ch_7 = int(duty_cycle_canal_7.value)
-    config_channel_7 = [
-        enable_ch_7,
-        duty_cycle_ch_7,
-    ]
-    pinos_valores["CH7"] = config_channel_7
-
-
 ################ DEMAIS PARÂMETROS #################
 
 # Parametros
@@ -439,14 +255,11 @@ pin_box_6 = Box(parametros_box, layout="grid", grid=[1, 0], width="fill", height
 Text(pin_box_6, width = 15, text="Pino 6:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_6, text = "ADC, PWM, GPIO32", grid = [0, 1], align="left")
+Text(pin_box_6, text = "ADC, GPIO32", grid = [0, 1], align="left")
 
 Text(pin_box_6, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_6 = CheckBox(
     pin_box_6, text="", align="left", grid=[1, 2])
-
-Text(pin_box_6, text="Canal Duty Cycle", grid=[0, 4], align="left")
-dutycycle_channel_input_6 = Combo(pin_box_6, options=list(range(8)), grid=[1, 4], align="left")
 
 Text(pin_box_6, text="Vetor de Teste:", grid=[0, 6], align="left")
 test_vector_input_6 = TextBox(pin_box_6, width = 13, grid = [1, 6], align="left")
@@ -489,10 +302,8 @@ bit_hold_time_6.when_key_pressed = schedule_hold_time_6
 
 def configuracao_pino_6():
     pin_leitura_6 = 1 if result_pin_output_checkbox_6.value else 0
-    canal_duty_cycle_6 = dutycycle_channel_input_6.value
     config_pino_6 = [
         pin_leitura_6,
-        canal_duty_cycle_6,
         test_vector_input_6.value if test_vector_input_6.value else 0,
         bit_hold_time_6.value if bit_hold_time_6.value else 0
     ]
@@ -506,14 +317,11 @@ pin_box_7 = Box(parametros_box, layout="grid", grid=[1, 1], width="fill", height
 Text(pin_box_7, width = 15, text="Pino 7:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_7, text = "ADC, PWM, GPIO33", grid = [0, 1], align="left")
+Text(pin_box_7, text = "ADC, GPIO33", grid = [0, 1], align="left")
 
 Text(pin_box_7, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_7 = CheckBox(
     pin_box_7, text="", align="left", grid=[1, 2])
-
-Text(pin_box_7, text="Canal Duty Cycle", grid=[0, 4], align="left")
-dutycycle_channel_input_7 = Combo(pin_box_7, options=list(range(8)), grid=[1, 4], align="left")
 
 Text(pin_box_7, text="Vetor de Teste:", grid=[0, 6], align="left")
 test_vector_input_7 = TextBox(pin_box_7, width = 13, grid = [1, 6], align="left")
@@ -556,10 +364,8 @@ bit_hold_time_7.when_key_pressed = schedule_hold_time_7
 
 def configuracao_pino_7():
     pin_leitura_7 = 1 if result_pin_output_checkbox_7.value else 0
-    canal_duty_cycle_7 = dutycycle_channel_input_7.value
     config_pino_7 = [
         pin_leitura_7,
-        canal_duty_cycle_7,
         test_vector_input_7.value if test_vector_input_7.value else 0,
         bit_hold_time_7.value if bit_hold_time_7.value else 0
     ]
@@ -573,14 +379,11 @@ pin_box_8 = Box(parametros_box, layout="grid", grid=[1, 2], width="fill", height
 Text(pin_box_8, width = 15, text="Pino 8:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_8, text = "DAC, ADC, PWM, GPIO25", grid = [0, 1], align="left")
+Text(pin_box_8, text = "DAC, ADC, GPIO25", grid = [0, 1], align="left")
 
 Text(pin_box_8, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_8 = CheckBox(
     pin_box_8, text="", align="left", grid=[1, 2])
-
-Text(pin_box_8, text="Canal Duty Cycle", grid=[0, 4], align="left")
-dutycycle_channel_input_8 = Combo(pin_box_8, options=list(range(8)), grid=[1, 4], align="left")
 
 Text(pin_box_8, text="Vetor de Teste:", grid=[0, 6], align="left")
 test_vector_input_8 = TextBox(pin_box_8, width = 13, grid = [1, 6], align="left")
@@ -623,10 +426,8 @@ bit_hold_time_8.when_key_pressed = schedule_hold_time_8
 
 def configuracao_pino_8():
     pin_leitura_8 = 1 if result_pin_output_checkbox_8.value else 0
-    canal_duty_cycle_8 = dutycycle_channel_input_8.value
     config_pino_8 = [
         pin_leitura_8,
-        canal_duty_cycle_8,
         test_vector_input_8.value if test_vector_input_8.value else 0,
         bit_hold_time_8.value if bit_hold_time_8.value else 0
     ]
@@ -640,14 +441,11 @@ pin_box_9 = Box(parametros_box, layout="grid", grid=[1, 3], width="fill", height
 Text(pin_box_9, width = 15, text="Pino 9:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_9, text = "DAC, ADC, PWM, GPIO26", grid = [0, 1], align="left")
+Text(pin_box_9, text = "DAC, ADC, GPIO26", grid = [0, 1], align="left")
 
 Text(pin_box_9, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_9 = CheckBox(
     pin_box_9, text="", align="left", grid=[1, 2])
-
-Text(pin_box_9, text="Canal Duty Cycle", grid=[0, 4], align="left")
-dutycycle_channel_input_9 = Combo(pin_box_9, options=list(range(8)), grid=[1, 4], align="left")
 
 Text(pin_box_9, text="Vetor de Teste:", grid=[0, 6], align="left")
 test_vector_input_9 = TextBox(pin_box_9, width = 13, grid = [1, 6], align="left")
@@ -690,10 +488,8 @@ bit_hold_time_9.when_key_pressed = schedule_hold_time_9
 
 def configuracao_pino_9():
     pin_leitura_9 = 1 if result_pin_output_checkbox_9.value else 0
-    canal_duty_cycle_9 = dutycycle_channel_input_9.value
     config_pino_9 = [
         pin_leitura_9,
-        canal_duty_cycle_9,
         test_vector_input_9.value if test_vector_input_9.value else 0,
         bit_hold_time_9.value if bit_hold_time_9.value else 0
     ]
@@ -707,20 +503,33 @@ pin_box_10 = Box(parametros_box, layout="grid", grid=[2, 0], width="fill", heigh
 Text(pin_box_10, width = 15, text="Pino 10:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_10, text = "ADC, PWM, GPIO27", grid = [0, 1], align="left")
+Text(pin_box_10, text = "PWM CH0, ADC, GPIO27", grid = [0, 1], align="left")
 
 Text(pin_box_10, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_10 = CheckBox(
     pin_box_10, text="", align="left", grid=[1, 2])
 
-Text(pin_box_10, text="Canal Duty Cycle", grid=[0, 4], align="left")
-dutycycle_channel_input_10 = Combo(pin_box_10, options=list(range(8)), grid=[1, 4], align="left")
+Text(pin_box_10, text="Enable PWM:", grid=[0, 3], align="left")
+enable_pwm_pin_10 = CheckBox(pin_box_10, text="", align="left", grid=[1, 3])
 
-Text(pin_box_10, text="Vetor de Teste:", grid=[0, 6], align="left")
-test_vector_input_10 = TextBox(pin_box_10, width = 13, grid = [1, 6], align="left")
+Text(pin_box_10, text="Duty Cycle (%):", grid=[0, 4], align="left")
+duty_cycle_pin_10 = Slider(
+    pin_box_10, start=0, end=100, grid=[1, 4], align="left")
 
-Text(pin_box_10, text="Bit Hold Time [ms]:", grid=[0, 7], align="left")
-bit_hold_time_10 = TextBox(pin_box_10, width = 5, grid = [1, 7], align="left")
+def configuracao_canal_0():
+    enable_pwm_ch_0 = 1 if enable_pwm_pin_10.value else 0
+    duty_cycle_ch_0 = int(duty_cycle_pin_10.value)
+    config_channel_0 = [
+        enable_pwm_ch_0,
+        duty_cycle_ch_0,
+    ]
+    pinos_valores["CH0"] = config_channel_0
+
+Text(pin_box_10, text="Vetor de Teste:", grid=[0, 5], align="left")
+test_vector_input_10 = TextBox(pin_box_10, width = 13, grid = [1, 5], align="left")
+
+Text(pin_box_10, text="Bit Hold Time [ms]:", grid=[0, 6], align="left")
+bit_hold_time_10 = TextBox(pin_box_10, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_10():
@@ -757,10 +566,8 @@ bit_hold_time_10.when_key_pressed = schedule_hold_time_10
 
 def configuracao_pino_10():
     pin_leitura_10 = 1 if result_pin_output_checkbox_10.value else 0
-    canal_duty_cycle_10 = dutycycle_channel_input_10.value
     config_pino_10 = [
         pin_leitura_10,
-        canal_duty_cycle_10,
         test_vector_input_10.value if test_vector_input_10.value else 0,
         bit_hold_time_10.value if bit_hold_time_10.value else 0
     ]
@@ -774,20 +581,33 @@ pin_box_11 = Box(parametros_box, layout="grid", grid=[2, 1], width="fill", heigh
 Text(pin_box_11, width = 15, text="Pino 11:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_11, text = "ADC, PWM, GPIO14", grid = [0, 1], align="left")
+Text(pin_box_11, text = "PWM CH1, ADC, GPIO14", grid = [0, 1], align="left")
 
 Text(pin_box_11, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_11 = CheckBox(
     pin_box_11, text="", align="left", grid=[1, 2])
 
-Text(pin_box_11, text="Canal Duty Cycle", grid=[0, 4], align="left")
-dutycycle_channel_input_11 = Combo(pin_box_11, options=list(range(8)), grid=[1, 4], align="left")
+Text(pin_box_11, text="Enable PWM:", grid=[0, 3], align="left")
+enable_pwm_pin_11 = CheckBox(pin_box_11, text="", align="left", grid=[1, 3])
 
-Text(pin_box_11, text="Vetor de Teste:", grid=[0, 6], align="left")
-test_vector_input_11 = TextBox(pin_box_11, width = 13, grid = [1, 6], align="left")
+Text(pin_box_11, text="Duty Cycle (%):", grid=[0, 4], align="left")
+duty_cycle_pin_11 = Slider(
+    pin_box_11, start=0, end=100, grid=[1, 4], align="left")
 
-Text(pin_box_11, text="Bit Hold Time [ms]:", grid=[0, 7], align="left")
-bit_hold_time_11 = TextBox(pin_box_11, width = 5, grid = [1, 7], align="left")
+def configuracao_canal_1():
+    enable_pwm_ch_1 = 1 if enable_pwm_pin_11.value else 0
+    duty_cycle_ch_1 = int(duty_cycle_pin_11.value)
+    config_channel_1 = [
+        enable_pwm_ch_1,
+        duty_cycle_ch_1,
+    ]
+    pinos_valores["CH1"] = config_channel_1
+
+Text(pin_box_11, text="Vetor de Teste:", grid=[0, 5], align="left")
+test_vector_input_11 = TextBox(pin_box_11, width = 13, grid = [1, 5], align="left")
+
+Text(pin_box_11, text="Bit Hold Time [ms]:", grid=[0, 6], align="left")
+bit_hold_time_11 = TextBox(pin_box_11, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_11():
@@ -824,10 +644,8 @@ bit_hold_time_11.when_key_pressed = schedule_hold_time_11
 
 def configuracao_pino_11():
     pin_leitura_11 = 1 if result_pin_output_checkbox_11.value else 0
-    canal_duty_cycle_11 = dutycycle_channel_input_11.value
     config_pino_11 = [
         pin_leitura_11,
-        canal_duty_cycle_11,
         test_vector_input_11.value if test_vector_input_11.value else 0,
         bit_hold_time_11.value if bit_hold_time_11.value else 0
     ]
@@ -841,20 +659,33 @@ pin_box_12 = Box(parametros_box, layout="grid", grid=[2, 2], width="fill", heigh
 Text(pin_box_12, width = 15, text="Pino 12:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_12, text = "ADC, PWM, GPIO12", grid = [0, 1], align="left")
+Text(pin_box_12, text = "PWM CH2, ADC, GPIO12", grid = [0, 1], align="left")
 
 Text(pin_box_12, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_12 = CheckBox(
     pin_box_12, text="", align="left", grid=[1, 2])
 
-Text(pin_box_12, text="Canal Duty Cycle", grid=[0, 4], align="left")
-dutycycle_channel_input_12 = Combo(pin_box_12, options=list(range(8)), grid=[1, 4], align="left")
+Text(pin_box_12, text="Enable PWM:", grid=[0, 3], align="left")
+enable_pwm_pin_12 = CheckBox(pin_box_12, text="", align="left", grid=[1, 3])
 
-Text(pin_box_12, text="Vetor de Teste:", grid=[0, 6], align="left")
-test_vector_input_12 = TextBox(pin_box_12, width = 13, grid = [1, 6], align="left")
+Text(pin_box_12, text="Duty Cycle (%):", grid=[0, 4], align="left")
+duty_cycle_pin_12 = Slider(
+    pin_box_12, start=0, end=100, grid=[1, 4], align="left")
 
-Text(pin_box_12, text="Bit Hold Time [ms]:", grid=[0, 7], align="left")
-bit_hold_time_12 = TextBox(pin_box_12, width = 5, grid = [1, 7], align="left")
+def configuracao_canal_2():
+    enable_pwm_ch_2 = 1 if enable_pwm_pin_12.value else 0
+    duty_cycle_ch_2 = int(duty_cycle_pin_12.value)
+    config_channel_2 = [
+        enable_pwm_ch_2,
+        duty_cycle_ch_2,
+    ]
+    pinos_valores["CH2"] = config_channel_2
+
+Text(pin_box_12, text="Vetor de Teste:", grid=[0, 5], align="left")
+test_vector_input_12 = TextBox(pin_box_12, width = 13, grid = [1, 5], align="left")
+
+Text(pin_box_12, text="Bit Hold Time [ms]:", grid=[0, 6], align="left")
+bit_hold_time_12 = TextBox(pin_box_12, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_12():
@@ -891,10 +722,8 @@ bit_hold_time_12.when_key_pressed = schedule_hold_time_12
 
 def configuracao_pino_12():
     pin_leitura_12 = 1 if result_pin_output_checkbox_12.value else 0
-    canal_duty_cycle_12 = dutycycle_channel_input_12.value
     config_pino_12 = [
         pin_leitura_12,
-        canal_duty_cycle_12,
         test_vector_input_12.value if test_vector_input_12.value else 0,
         bit_hold_time_12.value if bit_hold_time_12.value else 0
     ]
@@ -908,20 +737,33 @@ pin_box_13 = Box(parametros_box, layout="grid", grid=[2, 3], width="fill", heigh
 Text(pin_box_13, width = 15, text="Pino 13:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_13, text = "ADC, PWM, GPIO13", grid = [0, 1], align="left")
+Text(pin_box_13, text = "PWM CH3, ADC, GPIO13", grid = [0, 1], align="left")
 
 Text(pin_box_13, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_13 = CheckBox(
     pin_box_13, text="", align="left", grid=[1, 2])
 
-Text(pin_box_13, text="Canal Duty Cycle", grid=[0, 4], align="left")
-dutycycle_channel_input_13 = Combo(pin_box_13, options=list(range(8)), grid=[1, 4], align="left")
+Text(pin_box_13, text="Enable PWM:", grid=[0, 3], align="left")
+enable_pwm_pin_13 = CheckBox(pin_box_13, text="", align="left", grid=[1, 3])
 
-Text(pin_box_13, text="Vetor de Teste:", grid=[0, 6], align="left")
-test_vector_input_13 = TextBox(pin_box_13, width = 13, grid = [1, 6], align="left")
+Text(pin_box_13, text="Duty Cycle (%):", grid=[0, 4], align="left")
+duty_cycle_pin_13 = Slider(
+    pin_box_13, start=0, end=100, grid=[1, 4], align="left")
 
-Text(pin_box_13, text="Bit Hold Time [ms]:", grid=[0, 7], align="left")
-bit_hold_time_13 = TextBox(pin_box_13, width = 5, grid = [1, 7], align="left")
+def configuracao_canal_3():
+    enable_pwm_ch_3 = 1 if enable_pwm_pin_13.value else 0
+    duty_cycle_ch_3 = int(duty_cycle_pin_13.value)
+    config_channel_3 = [
+        enable_pwm_ch_3,
+        duty_cycle_ch_3,
+    ]
+    pinos_valores["CH3"] = config_channel_3
+
+Text(pin_box_13, text="Vetor de Teste:", grid=[0, 5], align="left")
+test_vector_input_13 = TextBox(pin_box_13, width = 13, grid = [1, 5], align="left")
+
+Text(pin_box_13, text="Bit Hold Time [ms]:", grid=[0, 6], align="left")
+bit_hold_time_13 = TextBox(pin_box_13, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_13():
@@ -958,10 +800,8 @@ bit_hold_time_13.when_key_pressed = schedule_hold_time_13
 
 def configuracao_pino_13():
     pin_leitura_13 = 1 if result_pin_output_checkbox_13.value else 0
-    canal_duty_cycle_13 = dutycycle_channel_input_13.value
     config_pino_13 = [
         pin_leitura_13,
-        canal_duty_cycle_13,
         test_vector_input_13.value if test_vector_input_13.value else 0,
         bit_hold_time_13.value if bit_hold_time_13.value else 0
     ]
@@ -974,14 +814,11 @@ pin_box_18 = Box(parametros_box, layout="grid", grid=[3, 0], width="fill", heigh
 Text(pin_box_18, width = 15, text="Pino 18:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_18, text = "ADC, PWM, GPIO15", grid = [0, 1], align="left")
+Text(pin_box_18, text = "ADC, GPIO15", grid = [0, 1], align="left")
 
 Text(pin_box_18, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_18 = CheckBox(
     pin_box_18, text="", align="left", grid=[1, 3])
-
-Text(pin_box_18, text="Canal Duty Cycle", grid=[0, 5], align="left")
-dutycycle_channel_input_18 = Combo(pin_box_18, options=list(range(8)), grid=[1, 5], align="left")
 
 Text(pin_box_18, text="Vetor de Teste:", grid=[0, 6], align="left")
 test_vector_input_18 = TextBox(pin_box_18, width = 13, grid = [1, 6], align="left")
@@ -1024,10 +861,8 @@ bit_hold_time_18.when_key_pressed = schedule_hold_time_18
 
 def configuracao_pino_18():
     pin_leitura_18 = 1 if result_pin_output_checkbox_18.value else 0
-    canal_duty_cycle_18 = dutycycle_channel_input_18.value
     config_pino_18 = [
         pin_leitura_18,
-        canal_duty_cycle_18,
         test_vector_input_18.value if test_vector_input_18.value else 0,
         bit_hold_time_18.value if bit_hold_time_18.value else 0
     ]
@@ -1041,14 +876,11 @@ pin_box_19 = Box(parametros_box, layout="grid", grid=[3, 1], width="fill", heigh
 Text(pin_box_19, width = 15, text="Pino 19:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_19, text = "ADC, PWM, GPIO2", grid = [0, 1], align="left")
+Text(pin_box_19, text = "ADC, GPIO2", grid = [0, 1], align="left")
 
 Text(pin_box_19, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_19 = CheckBox(
     pin_box_19, text="", align="left", grid=[1, 3])
-
-Text(pin_box_19, text="Canal Duty Cycle", grid=[0, 5], align="left")
-dutycycle_channel_input_19 = Combo(pin_box_19, options=list(range(8)), grid=[1, 5], align="left")
 
 Text(pin_box_19, text="Vetor de Teste:", grid=[0, 6], align="left")
 test_vector_input_19 = TextBox(pin_box_19, width = 13, grid = [1, 6], align="left")
@@ -1091,10 +923,8 @@ bit_hold_time_19.when_key_pressed = schedule_hold_time_19
 
 def configuracao_pino_19():
     pin_leitura_19 = 1 if result_pin_output_checkbox_19.value else 0
-    canal_duty_cycle_19 = dutycycle_channel_input_19.value
     config_pino_19 = [
         pin_leitura_19,
-        canal_duty_cycle_19,
         test_vector_input_19.value if test_vector_input_19.value else 0,
         bit_hold_time_19.value if bit_hold_time_19.value else 0
     ]
@@ -1108,14 +938,11 @@ pin_box_20 = Box(parametros_box, layout="grid", grid=[3, 2], width="fill", heigh
 Text(pin_box_20, width = 15, text="Pino 20:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_20, text = "ADC, PWM, GPIO4", grid = [0, 1], align="left")
+Text(pin_box_20, text = "ADC, GPIO4", grid = [0, 1], align="left")
 
 Text(pin_box_20, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_20 = CheckBox(
     pin_box_20, text="", align="left", grid=[1, 3])
-
-Text(pin_box_20, text="Canal Duty Cycle", grid=[0, 5], align="left")
-dutycycle_channel_input_20 = Combo(pin_box_20, options=list(range(8)), grid=[1, 5], align="left")
 
 Text(pin_box_20, text="Vetor de Teste:", grid=[0, 6], align="left")
 test_vector_input_20 = TextBox(pin_box_20, width = 13, grid = [1, 6], align="left")
@@ -1158,10 +985,8 @@ bit_hold_time_20.when_key_pressed = schedule_hold_time_20
 
 def configuracao_pino_20():
     pin_leitura_20 = 1 if result_pin_output_checkbox_20.value else 0
-    canal_duty_cycle_20 = dutycycle_channel_input_20.value
     config_pino_20 = [
         pin_leitura_20,
-        canal_duty_cycle_20,
         test_vector_input_20.value if test_vector_input_20.value else 0,
         bit_hold_time_20.value if bit_hold_time_20.value else 0
     ]
@@ -1175,14 +1000,27 @@ pin_box_25 = Box(parametros_box, layout="grid", grid=[3, 3], width="fill", heigh
 Text(pin_box_25, width = 15, text="Pino 25:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_25, text = "PWM, GPIO19", grid = [0, 1], align="left")
+Text(pin_box_25, text = "PWM CH4, GPIO19", grid = [0, 1], align="left")
 
 Text(pin_box_25, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_25 = CheckBox(
     pin_box_25, text="", align="left", grid=[1, 3])
 
-Text(pin_box_25, text="Canal Duty Cycle", grid=[0, 5], align="left")
-dutycycle_channel_input_25 = Combo(pin_box_25, options=list(range(8)), grid=[1, 5], align="left")
+Text(pin_box_25, text="Enable PWM:", grid=[0, 3], align="left")
+enable_pwm_pin_25 = CheckBox(pin_box_25, text="", align="left", grid=[1, 3])
+
+Text(pin_box_25, text="Duty Cycle (%):", grid=[0, 4], align="left")
+duty_cycle_pin_25 = Slider(
+    pin_box_25, start=0, end=100, grid=[1, 4], align="left")
+
+def configuracao_canal_4():
+    enable_pwm_ch_4 = 1 if enable_pwm_pin_25.value else 0
+    duty_cycle_ch_4 = int(duty_cycle_pin_25.value)
+    config_channel_4 = [
+        enable_pwm_ch_4,
+        duty_cycle_ch_4,
+    ]
+    pinos_valores["CH4"] = config_channel_4
 
 Text(pin_box_25, text="Vetor de Teste:", grid=[0, 6], align="left")
 test_vector_input_25 = TextBox(pin_box_25, width = 13, grid = [1, 6], align="left")
@@ -1225,10 +1063,8 @@ bit_hold_time_25.when_key_pressed = schedule_hold_time_25
 
 def configuracao_pino_25():
     pin_leitura_25 = 1 if result_pin_output_checkbox_25.value else 0
-    canal_duty_cycle_25 = dutycycle_channel_input_25.value
     config_pino_25 = [
         pin_leitura_25,
-        canal_duty_cycle_25,
         test_vector_input_25.value if test_vector_input_25.value else 0,
         bit_hold_time_25.value if bit_hold_time_25.value else 0
     ]
@@ -1242,14 +1078,27 @@ pin_box_26 = Box(parametros_box, layout="grid", grid=[4, 0], width="fill", heigh
 Text(pin_box_26, width = 15, text="Pino 26:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_26, text = "PWM, GPIO21", grid = [0, 1], align="left")
+Text(pin_box_26, text = "PWM CH5, GPIO21", grid = [0, 1], align="left")
 
 Text(pin_box_26, text="Pin Leitura:", grid=[0, 3], align="left")
 result_pin_output_checkbox_26 = CheckBox(
     pin_box_26, text="", align="left", grid=[1, 3])
 
-Text(pin_box_26, text="Canal Duty Cycle", grid=[0, 5], align="left")
-dutycycle_channel_input_26 = Combo(pin_box_26, options=list(range(8)), grid=[1, 5], align="left")
+Text(pin_box_26, text="Enable PWM:", grid=[0, 3], align="left")
+enable_pwm_pin_26 = CheckBox(pin_box_26, text="", align="left", grid=[1, 3])
+
+Text(pin_box_26, text="Duty Cycle (%):", grid=[0, 4], align="left")
+duty_cycle_pin_26 = Slider(
+    pin_box_26, start=0, end=100, grid=[1, 4], align="left")
+
+def configuracao_canal_5():
+    enable_pwm_ch_5 = 1 if enable_pwm_pin_26.value else 0
+    duty_cycle_ch_5 = int(duty_cycle_pin_26.value)
+    config_channel_5 = [
+        enable_pwm_ch_5,
+        duty_cycle_ch_5,
+    ]
+    pinos_valores["CH5"] = config_channel_5
 
 Text(pin_box_26, text="Vetor de Teste:", grid=[0, 6], align="left")
 test_vector_input_26 = TextBox(pin_box_26, width = 13, grid = [1, 6], align="left")
@@ -1292,10 +1141,8 @@ bit_hold_time_26.when_key_pressed = schedule_hold_time_26
 
 def configuracao_pino_26():
     pin_leitura_26 = 1 if result_pin_output_checkbox_26.value else 0
-    canal_duty_cycle_26 = dutycycle_channel_input_26.value
     config_pino_26 = [
         pin_leitura_26,
-        canal_duty_cycle_26,
         test_vector_input_26.value if test_vector_input_26.value else 0,
         bit_hold_time_26.value if bit_hold_time_26.value else 0
     ]
@@ -1309,20 +1156,17 @@ pin_box_27 = Box(parametros_box, layout="grid", grid=[4, 1], width="fill", heigh
 Text(pin_box_27, width = 15, text="Pino 27:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_27, text = "PWM, GPIO3", grid = [0, 1], align="left")
+Text(pin_box_27, text = "GPIO3", grid = [0, 1], align="left")
 
-Text(pin_box_27, text="Pin Leitura:", grid=[0, 3], align="left")
+Text(pin_box_27, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_27 = CheckBox(
-    pin_box_27, text="", align="left", grid=[1, 3])
+    pin_box_27, text="", align="left", grid=[1, 2])
 
-Text(pin_box_27, text="Canal Duty Cycle", grid=[0, 5], align="left")
-dutycycle_channel_input_27 = Combo(pin_box_27, options=list(range(8)), grid=[1, 5], align="left")
+Text(pin_box_27, text="Vetor de Teste:", grid=[0, 5], align="left")
+test_vector_input_27 = TextBox(pin_box_27, width = 13, grid = [1, 5], align="left")
 
-Text(pin_box_27, text="Vetor de Teste:", grid=[0, 6], align="left")
-test_vector_input_27 = TextBox(pin_box_27, width = 13, grid = [1, 6], align="left")
-
-Text(pin_box_27, text="Bit Hold Time [ms]:", grid=[0, 7], align="left")
-bit_hold_time_27 = TextBox(pin_box_27, width = 5, grid = [1, 7], align="left")
+Text(pin_box_27, text="Bit Hold Time [ms]:", grid=[0, 6], align="left")
+bit_hold_time_27 = TextBox(pin_box_27, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_27():
@@ -1359,10 +1203,8 @@ bit_hold_time_27.when_key_pressed = schedule_hold_time_27
 
 def configuracao_pino_27():
     pin_leitura_27 = 1 if result_pin_output_checkbox_27.value else 0
-    canal_duty_cycle_27 = dutycycle_channel_input_27.value
     config_pino_27 = [
         pin_leitura_27,
-        canal_duty_cycle_27,
         test_vector_input_27.value if test_vector_input_27.value else 0,
         bit_hold_time_27.value if bit_hold_time_27.value else 0
     ]
@@ -1376,20 +1218,17 @@ pin_box_28 = Box(parametros_box, layout="grid", grid=[4, 2], width="fill", heigh
 Text(pin_box_28, width = 15, text="Pino 28:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_28, text = "PWM, GPIO1", grid = [0, 1], align="left")
+Text(pin_box_28, text = "GPIO1", grid = [0, 1], align="left")
 
-Text(pin_box_28, text="Pin Leitura:", grid=[0, 3], align="left")
+Text(pin_box_28, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_28 = CheckBox(
-    pin_box_28, text="", align="left", grid=[1, 3])
+    pin_box_28, text="", align="left", grid=[1, 2])
 
-Text(pin_box_28, text="Canal Duty Cycle", grid=[0, 5], align="left")
-dutycycle_channel_input_28 = Combo(pin_box_28, options=list(range(8)), grid=[1, 5], align="left")
+Text(pin_box_28, text="Vetor de Teste:", grid=[0, 5], align="left")
+test_vector_input_28 = TextBox(pin_box_28, width = 13, grid = [1, 5], align="left")
 
-Text(pin_box_28, text="Vetor de Teste:", grid=[0, 6], align="left")
-test_vector_input_28 = TextBox(pin_box_28, width = 13, grid = [1, 6], align="left")
-
-Text(pin_box_28, text="Bit Hold Time [ms]:", grid=[0, 7], align="left")
-bit_hold_time_28 = TextBox(pin_box_28, width = 5, grid = [1, 7], align="left")
+Text(pin_box_28, text="Bit Hold Time [ms]:", grid=[0, 6], align="left")
+bit_hold_time_28 = TextBox(pin_box_28, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_28():
@@ -1426,10 +1265,8 @@ bit_hold_time_28.when_key_pressed = schedule_hold_time_28
 
 def configuracao_pino_28():
     pin_leitura_28 = 1 if result_pin_output_checkbox_28.value else 0
-    canal_duty_cycle_28 = dutycycle_channel_input_28.value
     config_pino_28 = [
         pin_leitura_28,
-        canal_duty_cycle_28,
         test_vector_input_28.value if test_vector_input_28.value else 0,
         bit_hold_time_28.value if bit_hold_time_28.value else 0
     ]
@@ -1443,20 +1280,33 @@ pin_box_29 = Box(parametros_box, layout="grid", grid=[4, 3], width="fill", heigh
 Text(pin_box_29, width = 15, text="Pino 29:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_29, text = "PWM, GPIO1", grid = [0, 1], align="left")
+Text(pin_box_29, text = "PWM CH6, GPIO22", grid = [0, 1], align="left")
 
-Text(pin_box_29, text="Pin Leitura:", grid=[0, 3], align="left")
+Text(pin_box_29, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_29 = CheckBox(
-    pin_box_29, text="", align="left", grid=[1, 3])
+    pin_box_29, text="", align="left", grid=[1, 2])
 
-Text(pin_box_29, text="Canal Duty Cycle", grid=[0, 5], align="left")
-dutycycle_channel_input_29 = Combo(pin_box_29, options=list(range(8)), grid=[1, 5], align="left")
+Text(pin_box_29, text="Enable PWM:", grid=[0, 3], align="left")
+enable_pwm_pin_29 = CheckBox(pin_box_29, text="", align="left", grid=[1, 3])
 
-Text(pin_box_29, text="Vetor de Teste:", grid=[0, 6], align="left")
-test_vector_input_29 = TextBox(pin_box_29, width = 13, grid = [1, 6], align="left")
+Text(pin_box_29, text="Duty Cycle (%):", grid=[0, 4], align="left")
+duty_cycle_pin_29 = Slider(
+    pin_box_29, start=0, end=100, grid=[1, 4], align="left")
 
-Text(pin_box_29, text="Bit Hold Time [ms]:", grid=[0, 7], align="left")
-bit_hold_time_29 = TextBox(pin_box_29, width = 5, grid = [1, 7], align="left")
+def configuracao_canal_6():
+    enable_pwm_ch_6 = 1 if enable_pwm_pin_29.value else 0
+    duty_cycle_ch_6 = int(duty_cycle_pin_29.value)
+    config_channel_6 = [
+        enable_pwm_ch_6,
+        duty_cycle_ch_6,
+    ]
+    pinos_valores["CH6"] = config_channel_6
+
+Text(pin_box_29, text="Vetor de Teste:", grid=[0, 5], align="left")
+test_vector_input_29 = TextBox(pin_box_29, width = 13, grid = [1, 5], align="left")
+
+Text(pin_box_29, text="Bit Hold Time [ms]:", grid=[0, 6], align="left")
+bit_hold_time_29 = TextBox(pin_box_29, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_29():
@@ -1493,10 +1343,8 @@ bit_hold_time_29.when_key_pressed = schedule_hold_time_29
 
 def configuracao_pino_29():
     pin_leitura_29 = 1 if result_pin_output_checkbox_29.value else 0
-    canal_duty_cycle_29 = dutycycle_channel_input_29.value
     config_pino_29 = [
         pin_leitura_29,
-        canal_duty_cycle_29,
         test_vector_input_29.value if test_vector_input_29.value else 0,
         bit_hold_time_29.value if bit_hold_time_29.value else 0
     ]
@@ -1510,20 +1358,33 @@ pin_box_30 = Box(parametros_box, layout="grid", grid=[5, 0], width="fill", heigh
 Text(pin_box_30, width = 15, text="Pino 30:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_30, text = "PWM, GPIO1", grid = [0, 1], align="left")
+Text(pin_box_30, text = "PWM CH7, GPIO23", grid = [0, 1], align="left")
 
-Text(pin_box_30, text="Pin Leitura:", grid=[0, 3], align="left")
+Text(pin_box_30, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_30 = CheckBox(
-    pin_box_30, text="", align="left", grid=[1, 3])
+    pin_box_30, text="", align="left", grid=[1, 2])
 
-Text(pin_box_30, text="Canal Duty Cycle", grid=[0, 5], align="left")
-dutycycle_channel_input_30 = Combo(pin_box_30, options=list(range(8)), grid=[1, 5], align="left")
+Text(pin_box_30, text="Enable PWM:", grid=[0, 3], align="left")
+enable_pwm_pin_30 = CheckBox(pin_box_30, text="", align="left", grid=[1, 3])
 
-Text(pin_box_30, text="Vetor de Teste:", grid=[0, 6], align="left")
-test_vector_input_30 = TextBox(pin_box_30, width = 13, grid = [1, 6], align="left")
+Text(pin_box_30, text="Duty Cycle (%):", grid=[0, 4], align="left")
+duty_cycle_pin_30 = Slider(
+    pin_box_30, start=0, end=100, grid=[1, 4], align="left")
 
-Text(pin_box_30, text="Bit Hold Time [ms]:", grid=[0, 7], align="left")
-bit_hold_time_30 = TextBox(pin_box_30, width = 5, grid = [1, 7], align="left")
+def configuracao_canal_7():
+    enable_pwm_ch_7 = 1 if enable_pwm_pin_30.value else 0
+    duty_cycle_ch_7 = int(duty_cycle_pin_30.value)
+    config_channel_7 = [
+        enable_pwm_ch_7,
+        duty_cycle_ch_7,
+    ]
+    pinos_valores["CH7"] = config_channel_7
+
+Text(pin_box_30, text="Vetor de Teste:", grid=[0, 5], align="left")
+test_vector_input_30 = TextBox(pin_box_30, width = 13, grid = [1, 5], align="left")
+
+Text(pin_box_30, text="Bit Hold Time [ms]:", grid=[0, 6], align="left")
+bit_hold_time_30 = TextBox(pin_box_30, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_30():
@@ -1560,10 +1421,8 @@ bit_hold_time_30.when_key_pressed = schedule_hold_time_30
 
 def configuracao_pino_30():
     pin_leitura_30 = 1 if result_pin_output_checkbox_30.value else 0
-    canal_duty_cycle_30 = dutycycle_channel_input_30.value
     config_pino_30 = [
         pin_leitura_30,
-        canal_duty_cycle_30,
         test_vector_input_30.value if test_vector_input_30.value else 0,
         bit_hold_time_30.value if bit_hold_time_30.value else 0
     ]
@@ -1586,6 +1445,10 @@ send_config_button = PushButton(config_btn_box, command=send_test_config,
 # Start Button
 start_button = PushButton(config_btn_box, command=start_test,
                           text="START TEST", grid=[1,0], align="left")
+
+# Reset System
+reset_button = PushButton(config_btn_box, command=reset_system,
+                          text="RESET ESP", grid=[2,0], align="left")
 
 
 # Display

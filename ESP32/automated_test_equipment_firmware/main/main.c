@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <esp_system.h>
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -36,10 +37,31 @@
 #define PIN_12V GPIO_NUM_5
 #define PIN_24V GPIO_NUM_18
 
-#define PIN_06 GPIO_NUM_32
 
-#define set_duty(duty) ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0, duty)
-#define upt_duty ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0)
+#define PIN_02 GPIO_NUM_36
+#define PIN_03 GPIO_NUM_39
+#define PIN_04 GPIO_NUM_34
+#define PIN_05 GPIO_NUM_35
+#define PIN_06 GPIO_NUM_32
+#define PIN_07 GPIO_NUM_33
+#define PIN_08 GPIO_NUM_25
+#define PIN_09 GPIO_NUM_26
+#define PIN_10 GPIO_NUM_27 //PWM CH0
+#define PIN_11 GPIO_NUM_14 //PWM CH1
+#define PIN_12 GPIO_NUM_12 //PWM CH2
+#define PIN_13 GPIO_NUM_13 //PWM CH3
+#define PIN_18 GPIO_NUM_15
+#define PIN_19 GPIO_NUM_2 
+#define PIN_20 GPIO_NUM_4 
+#define PIN_25 GPIO_NUM_19 //PWM CH4
+#define PIN_26 GPIO_NUM_21 //PWM CH5
+#define PIN_27 GPIO_NUM_3
+#define PIN_28 GPIO_NUM_1
+#define PIN_29 GPIO_NUM_22 //PWM CH6
+#define PIN_30 GPIO_NUM_23 //PWM CH7
+
+// #define set_duty(duty) ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0, duty)
+// #define upt_duty ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0)
 
 
 #define PORT 3333
@@ -47,15 +69,7 @@ static const char *TAG = "UDP SOCKET SERVER";
 
 //Variáveis Globais
 int frequency = 0;
-
-// void pwm_set(void);
-// void pwm_update_duty(void);
-
-
-
-
-
-
+int timer_bits = 8191; //2^13
 
 
 
@@ -78,33 +92,6 @@ typedef struct
 } VoltageConfig;
 
 
-// Função PWM
-void pwm_set(int frequency){
-//void pwm_set(int frequency, int channel, int duty, int pin){
-
-    ledc_channel_config_t pwm_channel_config = {0};
-    pwm_channel_config.gpio_num = PIN_06; //varia conforme o pino
-    pwm_channel_config.speed_mode = LEDC_HIGH_SPEED_MODE; // pode ser escolhido
-    pwm_channel_config.channel = LEDC_CHANNEL_0; // até 8 canais
-    pwm_channel_config.intr_type = LEDC_INTR_DISABLE; //interrupção
-    pwm_channel_config.timer_sel = LEDC_TIMER_0; //pode variar timers
-    pwm_channel_config.duty = 0; // dutycicle inicial
-
-    ledc_channel_config(&pwm_channel_config);
-
-
-    ledc_timer_config_t pwm_timer_config = {0};
-    pwm_timer_config.speed_mode = LEDC_HIGH_SPEED_MODE;
-    pwm_timer_config.duty_resolution = LEDC_TIMER_12_BIT; //Pode ter mais bits
-    pwm_timer_config.timer_num = LEDC_TIMER_0;
-    pwm_timer_config.freq_hz = 5000;
-
-    ledc_timer_config(&pwm_timer_config);
-
-}
-
-
-
 void start_test()
 {
     printf("\n START TESTE\n");
@@ -112,13 +99,338 @@ void start_test()
 
 void config_freq(char *message){
     frequency = atoi(&message[6]);
+    printf("Frequancia de %d Hz \n", frequency);    
+}
+
+void reset_system(){
+    printf("\n REINICIANDO ESP... \n");
+    esp_restart();
+}
+
+
+// ######### Funções PWM #########
+
+// Canal 0
+void config_pwm_0(char *message){
+    int dutyCycle = 0;
+    int duty = 0;
+    double dutyCalc = 0.0;
+
+    printf("Configura PWM Canal 0\n");
     printf("Frequancia de %d Hz \n", frequency);
 
-    pwm_set(frequency);
-    set_duty(4091);
-    upt_duty;
-    
+    dutyCycle = atoi(&message[9]);
+    dutyCalc = (float)((dutyCycle/100.0)*timer_bits);
+    duty = (int)dutyCalc;
+
+    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
+    printf("*****DUTYCYCLE de %f \n", dutyCalc);
+    printf("*****DUTY de %d \n", duty);
+
+    ledc_channel_config_t pwm_config_ch_0 = {
+        .gpio_num = PIN_10, //varia conforme o pino
+        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .channel = LEDC_CHANNEL_0, // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE, //interrupção
+        .timer_sel = LEDC_TIMER_0, //pode variar timers
+        .duty = 0 // dutycicle inicial
+    };
+    ledc_channel_config(&pwm_config_ch_0);
+
+
+    ledc_timer_config_t pwm_timer_config_ch_0 = {
+    .speed_mode = LEDC_HIGH_SPEED_MODE,
+    .duty_resolution = LEDC_TIMER_13_BIT, //Pode ter mais bits
+    .timer_num = LEDC_TIMER_0,
+    .freq_hz = frequency
+    };
+    ledc_timer_config(&pwm_timer_config_ch_0);
+
+    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0, duty);
+    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0);
+
 }
+
+// Canal 1
+void config_pwm_1(char *message){
+    int dutyCycle = 0;
+    int duty = 0;
+    double dutyCalc = 0.0;
+
+    printf("Configura PWM Canal 1\n");
+    printf("Frequancia de %d Hz \n", frequency);
+
+    dutyCycle = atoi(&message[9]);
+    dutyCalc = (float)((dutyCycle/100.0)*timer_bits);
+    duty = (int)dutyCalc;
+
+    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
+    printf("*****DUTYCYCLE de %f \n", dutyCalc);
+    printf("*****DUTY de %d \n", duty);
+
+    ledc_channel_config_t pwm_config_ch_1 = {
+        .gpio_num = PIN_11, //varia conforme o pino
+        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .channel = LEDC_CHANNEL_1, // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE, //interrupção
+        .timer_sel = LEDC_TIMER_0, //pode variar timers
+        .duty = 0 // dutycicle inicial
+    };
+    ledc_channel_config(&pwm_config_ch_1);
+
+
+    ledc_timer_config_t pwm_timer_config_ch_1 = {
+    .speed_mode = LEDC_HIGH_SPEED_MODE,
+    .duty_resolution = LEDC_TIMER_13_BIT, //Pode ter mais bits
+    .timer_num = LEDC_TIMER_0,
+    .freq_hz = frequency
+    };
+    ledc_timer_config(&pwm_timer_config_ch_1);
+
+    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_1, duty);
+    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_1);
+}
+
+// Canal 2
+void config_pwm_2(char *message){
+    int dutyCycle = 0;
+    int duty = 0;
+    double dutyCalc = 0.0;
+
+    printf("Configura PWM Canal 2\n");
+    printf("Frequancia de %d Hz \n", frequency);
+
+    dutyCycle = atoi(&message[9]);
+    dutyCalc = (float)((dutyCycle/100.0)*timer_bits);
+    duty = (int)dutyCalc;
+
+    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
+    printf("*****DUTYCYCLE de %f \n", dutyCalc);
+    printf("*****DUTY de %d \n", duty);
+
+    ledc_channel_config_t pwm_config_ch_2 = {
+        .gpio_num = PIN_12, //varia conforme o pino
+        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .channel = LEDC_CHANNEL_2, // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE, //interrupção
+        .timer_sel = LEDC_TIMER_0, //pode variar timers
+        .duty = 0 // dutycicle inicial
+    };
+    ledc_channel_config(&pwm_config_ch_2);
+
+
+    ledc_timer_config_t pwm_timer_config_ch_2 = {
+    .speed_mode = LEDC_HIGH_SPEED_MODE,
+    .duty_resolution = LEDC_TIMER_13_BIT, //Pode ter mais bits
+    .timer_num = LEDC_TIMER_0,
+    .freq_hz = frequency
+    };
+    ledc_timer_config(&pwm_timer_config_ch_2);
+
+    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_2, duty);
+    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_2);
+}
+
+// Canal 3
+void config_pwm_3(char *message){
+    int dutyCycle = 0;
+    int duty = 0;
+    double dutyCalc = 0.0;
+
+    printf("Configura PWM Canal 3\n");
+    printf("Frequancia de %d Hz \n", frequency);
+
+    dutyCycle = atoi(&message[9]);
+    dutyCalc = (float)((dutyCycle/100.0)*timer_bits);
+    duty = (int)dutyCalc;
+
+    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
+    printf("*****DUTYCYCLE de %f \n", dutyCalc);
+    printf("*****DUTY de %d \n", duty);
+
+    ledc_channel_config_t pwm_config_ch_3 = {
+        .gpio_num = PIN_13, //varia conforme o pino
+        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .channel = LEDC_CHANNEL_3, // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE, //interrupção
+        .timer_sel = LEDC_TIMER_0, //pode variar timers
+        .duty = 0 // dutycicle inicial
+    };
+    ledc_channel_config(&pwm_config_ch_3);
+
+
+    ledc_timer_config_t pwm_timer_config_ch_3 = {
+    .speed_mode = LEDC_HIGH_SPEED_MODE,
+    .duty_resolution = LEDC_TIMER_13_BIT, //Pode ter mais bits
+    .timer_num = LEDC_TIMER_0,
+    .freq_hz = frequency
+    };
+    ledc_timer_config(&pwm_timer_config_ch_3);
+
+    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_3, duty);
+    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_3);
+}
+
+// Canal 4
+void config_pwm_4(char *message){
+    int dutyCycle = 0;
+    int duty = 0;
+    double dutyCalc = 0.0;
+
+    printf("Configura PWM Canal 4\n");
+    printf("Frequancia de %d Hz \n", frequency);
+
+    dutyCycle = atoi(&message[9]);
+    dutyCalc = (float)((dutyCycle/100.0)*timer_bits);
+    duty = (int)dutyCalc;
+
+    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
+    printf("*****DUTYCYCLE de %f \n", dutyCalc);
+    printf("*****DUTY de %d \n", duty);
+
+    ledc_channel_config_t pwm_config_ch_4 = {
+        .gpio_num = PIN_25, //varia conforme o pino
+        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .channel = LEDC_CHANNEL_4, // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE, //interrupção
+        .timer_sel = LEDC_TIMER_0, //pode variar timers
+        .duty = 0 // dutycicle inicial
+    };
+    ledc_channel_config(&pwm_config_ch_4);
+
+
+    ledc_timer_config_t pwm_timer_config_ch_4 = {
+    .speed_mode = LEDC_HIGH_SPEED_MODE,
+    .duty_resolution = LEDC_TIMER_13_BIT, //Pode ter mais bits
+    .timer_num = LEDC_TIMER_0,
+    .freq_hz = frequency
+    };
+    ledc_timer_config(&pwm_timer_config_ch_4);
+
+    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_4, duty);
+    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_4);
+}
+
+// Canal 5
+void config_pwm_5(char *message){
+    int dutyCycle = 0;
+    int duty = 0;
+    double dutyCalc = 0.0;
+
+    printf("Configura PWM Canal 5\n");
+    printf("Frequancia de %d Hz \n", frequency);
+
+    dutyCycle = atoi(&message[9]);
+    dutyCalc = (float)((dutyCycle/100.0)*timer_bits);
+    duty = (int)dutyCalc;
+
+    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
+    printf("*****DUTYCYCLE de %f \n", dutyCalc);
+    printf("*****DUTY de %d \n", duty);
+
+    ledc_channel_config_t pwm_config_ch_5 = {
+        .gpio_num = PIN_26, //varia conforme o pino
+        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .channel = LEDC_CHANNEL_5, // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE, //interrupção
+        .timer_sel = LEDC_TIMER_0, //pode variar timers
+        .duty = 0 // dutycicle inicial
+    };
+    ledc_channel_config(&pwm_config_ch_5);
+
+
+    ledc_timer_config_t pwm_timer_config_ch_5 = {
+    .speed_mode = LEDC_HIGH_SPEED_MODE,
+    .duty_resolution = LEDC_TIMER_13_BIT, //Pode ter mais bits
+    .timer_num = LEDC_TIMER_0,
+    .freq_hz = frequency
+    };
+    ledc_timer_config(&pwm_timer_config_ch_5);
+
+    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_5, duty);
+    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_5);
+}
+
+// Canal 6
+void config_pwm_6(char *message){
+    int dutyCycle = 0;
+    int duty = 0;
+    double dutyCalc = 0.0;
+
+    printf("Configura PWM Canal 6\n");
+    printf("Frequancia de %d Hz \n", frequency);
+
+    dutyCycle = atoi(&message[9]);
+    dutyCalc = (float)((dutyCycle/100.0)*timer_bits);
+    duty = (int)dutyCalc;
+
+    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
+    printf("*****DUTYCYCLE de %f \n", dutyCalc);
+    printf("*****DUTY de %d \n", duty);
+
+    ledc_channel_config_t pwm_config_ch_6 = {
+        .gpio_num = PIN_29, //varia conforme o pino
+        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .channel = LEDC_CHANNEL_6, // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE, //interrupção
+        .timer_sel = LEDC_TIMER_0, //pode variar timers
+        .duty = 0 // dutycicle inicial
+    };
+    ledc_channel_config(&pwm_config_ch_6);
+
+
+    ledc_timer_config_t pwm_timer_config_ch_6 = {
+    .speed_mode = LEDC_HIGH_SPEED_MODE,
+    .duty_resolution = LEDC_TIMER_13_BIT, //Pode ter mais bits
+    .timer_num = LEDC_TIMER_0,
+    .freq_hz = frequency
+    };
+    ledc_timer_config(&pwm_timer_config_ch_6);
+
+    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_6, duty);
+    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_6);
+}
+
+// Canal 7
+void config_pwm_7(char *message){
+    int dutyCycle = 0;
+    int duty = 0;
+    double dutyCalc = 0.0;
+
+    printf("Configura PWM Canal 7\n");
+    printf("Frequancia de %d Hz \n", frequency);
+
+    dutyCycle = atoi(&message[9]);
+    dutyCalc = (float)((dutyCycle/100.0)*timer_bits);
+    duty = (int)dutyCalc;
+
+    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
+    printf("*****DUTYCYCLE de %f \n", dutyCalc);
+    printf("*****DUTY de %d \n", duty);
+
+    ledc_channel_config_t pwm_config_ch_7 = {
+        .gpio_num = PIN_30, //varia conforme o pino
+        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .channel = LEDC_CHANNEL_7, // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE, //interrupção
+        .timer_sel = LEDC_TIMER_0, //pode variar timers
+        .duty = 0 // dutycicle inicial
+    };
+    ledc_channel_config(&pwm_config_ch_7);
+
+
+    ledc_timer_config_t pwm_timer_config_ch_7 = {
+    .speed_mode = LEDC_HIGH_SPEED_MODE,
+    .duty_resolution = LEDC_TIMER_13_BIT, //Pode ter mais bits
+    .timer_num = LEDC_TIMER_0,
+    .freq_hz = frequency
+    };
+    ledc_timer_config(&pwm_timer_config_ch_7);
+
+    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_7, duty);
+    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_7);
+}
+
 
 void config_pin_02(char *message)
 {
@@ -333,6 +645,40 @@ static void udp_server_task(void *pvParameters)
                 {
                     config_freq(rx_buffer);
                 }
+
+                if (rx_buffer[1] == 'C' && rx_buffer[2] == 'H' && rx_buffer[3] == '0' && rx_buffer[6] == '1')
+                {
+                    config_pwm_0(rx_buffer);
+                }
+                if (rx_buffer[1] == 'C' && rx_buffer[2] == 'H' && rx_buffer[3] == '1' && rx_buffer[6] == '1')
+                {
+                    config_pwm_1(rx_buffer);
+                }
+                if (rx_buffer[1] == 'C' && rx_buffer[2] == 'H' && rx_buffer[3] == '2' && rx_buffer[6] == '1')
+                {
+                    config_pwm_2(rx_buffer);
+                }
+                if (rx_buffer[1] == 'C' && rx_buffer[2] == 'H' && rx_buffer[3] == '3' && rx_buffer[6] == '1')
+                {
+                    config_pwm_3(rx_buffer);
+                }
+                if (rx_buffer[1] == 'C' && rx_buffer[2] == 'H' && rx_buffer[3] == '4' && rx_buffer[6] == '1')
+                {
+                    config_pwm_4(rx_buffer);
+                }
+                if (rx_buffer[1] == 'C' && rx_buffer[2] == 'H' && rx_buffer[3] == '5' && rx_buffer[6] == '1')
+                {
+                    config_pwm_5(rx_buffer);
+                }
+                if (rx_buffer[1] == 'C' && rx_buffer[2] == 'H' && rx_buffer[3] == '6' && rx_buffer[6] == '1')
+                {
+                    config_pwm_6(rx_buffer);
+                }
+                if (rx_buffer[1] == 'C' && rx_buffer[2] == 'H' && rx_buffer[3] == '7'&& rx_buffer[6] == '1' )
+                {
+                    config_pwm_7(rx_buffer);
+                }
+
                 if (rx_buffer[1] == '0' && rx_buffer[2] == '2')
                 {
                     config_pin_02(rx_buffer);
@@ -438,6 +784,11 @@ static void udp_server_task(void *pvParameters)
                 if (strstr(rx_buffer, "START") != NULL)
                 {
                     start_test();
+                }
+
+                if (strstr(rx_buffer, "RESET") != NULL)
+                {
+                    reset_system();
                 }
 
                 sendto(sock, rx_buffer, len, 0, (struct sockaddr *)&source_addr, sizeof(source_addr));
