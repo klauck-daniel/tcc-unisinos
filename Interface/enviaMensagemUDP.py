@@ -1,11 +1,11 @@
-import socket
+import socket, time
 
 def envia_mensagem_udp(ip_destino, porta_destino, pino_valor):
     # Cria um socket UDP
     udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
     # Divide o dicionário em conjuntos de três itens
-    conjuntos = [list(pino_valor.items())[i:i+3] for i in range(0, len(pino_valor), 3)]
+    conjuntos = [list(pino_valor.items())[i:i+1] for i in range(0, len(pino_valor), 1)]
 
     # Itera sobre cada conjunto de três itens
     for conjunto in conjuntos:
@@ -16,6 +16,7 @@ def envia_mensagem_udp(ip_destino, porta_destino, pino_valor):
         
         # Envia a mensagem para o endereço IP e porta especificados
         udp_socket.sendto(mensagem.encode(), (ip_destino, porta_destino))
+        time.sleep(0.2)
 
     # Fecha o socket
     udp_socket.close()
