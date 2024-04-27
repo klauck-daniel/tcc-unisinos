@@ -466,8 +466,14 @@ void config_pin_02(char *message)
     if (message[5] == '1')
     {
         printf("Pino 2 será entrada de dados.\n");
+        gpio_set_direction(PIN_02, GPIO_MODE_INPUT);
     }
-    else printf("Pino 2 sem uso. \n");
+    else
+    {
+        printf("Pino 2 sem uso. \n");
+        gpio_set_direction(PIN_02, GPIO_MODE_DISABLE);
+    } 
+    
 }
 
 void config_pin_03(char *message)
@@ -555,6 +561,9 @@ void config_pin_10(char *message)
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
     {
         printf("Pino 10 sem uso. \n");
+        gpio_reset_pin(PIN_10);
+        gpio_set_direction(PIN_10, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_10, 0);
     }
 }
 
@@ -575,6 +584,9 @@ void config_pin_11(char *message)
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
     {
         printf("Pino 11 sem uso. \n");
+        gpio_reset_pin(PIN_11);
+        gpio_set_direction(PIN_11, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_11, 0);
     }
 }
 
@@ -595,6 +607,9 @@ void config_pin_12(char *message)
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
     {
         printf("Pino 12 sem uso. \n");
+        gpio_reset_pin(PIN_12);
+        gpio_set_direction(PIN_12, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_12, 0);
     }
 }
 
@@ -615,6 +630,9 @@ void config_pin_13(char *message)
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
     {
         printf("Pino 13 sem uso. \n");
+        gpio_reset_pin(PIN_13);
+        gpio_set_direction(PIN_13, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_13, 0);
     }
 }
 
@@ -726,6 +744,9 @@ void config_pin_25(char *message)
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
     {
         printf("Pino 25 sem uso. \n");
+        gpio_reset_pin(PIN_25);
+        gpio_set_direction(PIN_25, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_25, 0);
     }
 }
 
@@ -746,6 +767,9 @@ void config_pin_26(char *message)
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
     {
         printf("Pino 26 sem uso. \n");
+        gpio_reset_pin(PIN_26);
+        gpio_set_direction(PIN_26, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_26, 0);
     }
 }
 
@@ -788,6 +812,9 @@ void config_pin_29(char *message)
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
     {
         printf("Pino 29 sem uso. \n");
+        gpio_reset_pin(PIN_29);
+        gpio_set_direction(PIN_29, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_29, 0);
     }
 }
 
@@ -811,6 +838,7 @@ void config_pin_30(char *message)
     {
         printf("Pino 30 sem uso. \n");
         gpio_reset_pin(PIN_30);
+        gpio_set_direction(PIN_30, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_30, 0);
     }
 }
