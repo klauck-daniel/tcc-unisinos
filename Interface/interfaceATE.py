@@ -2,7 +2,7 @@ from enviaMensagemUDP import envia_mensagem_udp, envia_start_mensagem_udp
 from guizero import App, Text, PushButton, CheckBox, TextBox, Slider, Box
 
 #Variáveis Globais
-esp_ip = "192.168.1.29" 
+esp_ip = "192.168.3.29" 
 esp_porta = 3333
 pinos_valores = {}
 
@@ -69,7 +69,7 @@ def send_test_config():
     configuracao_pino_25()
     configuracao_pino_26()
     configuracao_pino_27()
-    configuracao_pino_28()
+    # configuracao_pino_28()
     configuracao_pino_29()
     configuracao_pino_30()
 
@@ -157,12 +157,12 @@ def configuracao_frequencia():
 parametros_box = Box(content_box, layout="grid", width="fill", height="fill",
                      align="left", border=True, grid=[0, 3])
 
-# Pinos disponíveis
-available_pins = [2,  3,  6,  7,
-                  8,  9,  10, 11,
-                  12, 13, 18, 19,
-                  20, 23, 24, 25,
-                  26, 27, 28]
+# # Pinos disponíveis
+# available_pins = [2,  3,  6,  7,
+#                   8,  9,  10, 11,
+#                   12, 13, 18, 19,
+#                   20, 23, 24, 25,
+#                   26, 27, 28]
 
 
 ### Configuração Pino 2 ####
@@ -566,8 +566,10 @@ bit_hold_time_10.when_key_pressed = schedule_hold_time_10
 
 def configuracao_pino_10():
     pin_leitura_10 = 1 if result_pin_output_checkbox_10.value else 0
+    enable_pwm_ch_0 = 1 if enable_pwm_pin_10.value else 0
     config_pino_10 = [
         pin_leitura_10,
+        enable_pwm_ch_0,
         test_vector_input_10.value if test_vector_input_10.value else 0,
         bit_hold_time_10.value if bit_hold_time_10.value else 0
     ]
@@ -644,8 +646,10 @@ bit_hold_time_11.when_key_pressed = schedule_hold_time_11
 
 def configuracao_pino_11():
     pin_leitura_11 = 1 if result_pin_output_checkbox_11.value else 0
+    enable_pwm_ch_1 = 1 if enable_pwm_pin_11.value else 0
     config_pino_11 = [
         pin_leitura_11,
+        enable_pwm_ch_1,
         test_vector_input_11.value if test_vector_input_11.value else 0,
         bit_hold_time_11.value if bit_hold_time_11.value else 0
     ]
@@ -722,8 +726,10 @@ bit_hold_time_12.when_key_pressed = schedule_hold_time_12
 
 def configuracao_pino_12():
     pin_leitura_12 = 1 if result_pin_output_checkbox_12.value else 0
+    enable_pwm_ch_2 = 1 if enable_pwm_pin_12.value else 0
     config_pino_12 = [
         pin_leitura_12,
+        enable_pwm_ch_2,
         test_vector_input_12.value if test_vector_input_12.value else 0,
         bit_hold_time_12.value if bit_hold_time_12.value else 0
     ]
@@ -800,8 +806,10 @@ bit_hold_time_13.when_key_pressed = schedule_hold_time_13
 
 def configuracao_pino_13():
     pin_leitura_13 = 1 if result_pin_output_checkbox_13.value else 0
+    enable_pwm_ch_3 = 1 if enable_pwm_pin_13.value else 0
     config_pino_13 = [
         pin_leitura_13,
+        enable_pwm_ch_3,
         test_vector_input_13.value if test_vector_input_13.value else 0,
         bit_hold_time_13.value if bit_hold_time_13.value else 0
     ]
@@ -1063,8 +1071,10 @@ bit_hold_time_25.when_key_pressed = schedule_hold_time_25
 
 def configuracao_pino_25():
     pin_leitura_25 = 1 if result_pin_output_checkbox_25.value else 0
+    enable_pwm_ch_4 = 1 if enable_pwm_pin_25.value else 0
     config_pino_25 = [
         pin_leitura_25,
+        enable_pwm_ch_4,
         test_vector_input_25.value if test_vector_input_25.value else 0,
         bit_hold_time_25.value if bit_hold_time_25.value else 0
     ]
@@ -1141,8 +1151,10 @@ bit_hold_time_26.when_key_pressed = schedule_hold_time_26
 
 def configuracao_pino_26():
     pin_leitura_26 = 1 if result_pin_output_checkbox_26.value else 0
+    enable_pwm_ch_5 = 1 if enable_pwm_pin_26.value else 0
     config_pino_26 = [
         pin_leitura_26,
+        enable_pwm_ch_5,
         test_vector_input_26.value if test_vector_input_26.value else 0,
         bit_hold_time_26.value if bit_hold_time_26.value else 0
     ]
@@ -1211,66 +1223,66 @@ def configuracao_pino_27():
     pinos_valores["27"] = config_pino_27
 
 
-#### Configuração Pino 28 ####
-pin_box_28 = Box(parametros_box, layout="grid", grid=[4, 2], width="fill", height="fill",
-                  align="left", border = True)
+# #### Configuração Pino 28 ####
+# pin_box_28 = Box(parametros_box, layout="grid", grid=[4, 2], width="fill", height="fill",
+#                   align="left", border = True)
 
-Text(pin_box_28, width = 15, text="Pino 28:", grid=[0, 0], align="left")
+# Text(pin_box_28, width = 15, text="Pino 28:", grid=[0, 0], align="left")
 
-# Descrição do Pinos
-Text(pin_box_28, text = "GPIO1", grid = [0, 1], align="left")
+# # Descrição do Pinos
+# Text(pin_box_28, text = "GPIO1", grid = [0, 1], align="left")
 
-Text(pin_box_28, text="Pin Leitura:", grid=[0, 2], align="left")
-result_pin_output_checkbox_28 = CheckBox(
-    pin_box_28, text="", align="left", grid=[1, 2])
+# Text(pin_box_28, text="Pin Leitura:", grid=[0, 2], align="left")
+# result_pin_output_checkbox_28 = CheckBox(
+#     pin_box_28, text="", align="left", grid=[1, 2])
 
-Text(pin_box_28, text="Vetor de Teste:", grid=[0, 5], align="left")
-test_vector_input_28 = TextBox(pin_box_28, width = 13, grid = [1, 5], align="left")
+# Text(pin_box_28, text="Vetor de Teste:", grid=[0, 5], align="left")
+# test_vector_input_28 = TextBox(pin_box_28, width = 13, grid = [1, 5], align="left")
 
-Text(pin_box_28, text="Bit Hold Time [ms]:", grid=[0, 6], align="left")
-bit_hold_time_28 = TextBox(pin_box_28, width = 5, grid = [1, 6], align="left")
+# Text(pin_box_28, text="Bit Hold Time [ms]:", grid=[0, 6], align="left")
+# bit_hold_time_28 = TextBox(pin_box_28, width = 5, grid = [1, 6], align="left")
 
-#Validações
-def schedule_test_vector_28():
-    app.after(ms_valida, valida_test_vector_28)
+# #Validações
+# def schedule_test_vector_28():
+#     app.after(ms_valida, valida_test_vector_28)
 
-def schedule_hold_time_28():
-    app.after(ms_valida, valida_hold_time_28)
+# def schedule_hold_time_28():
+#     app.after(ms_valida, valida_hold_time_28)
 
-def valida_test_vector_28():
-    try:
-        test_vector = test_vector_input_28.value.strip()
+# def valida_test_vector_28():
+#     try:
+#         test_vector = test_vector_input_28.value.strip()
 
-        if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
-                raise ValueError("Vetor de teste em formato inválido")
-            error_message.value = ""  # Limpa a mensagem de erro se a validação passar
-    except ValueError:
-        error_message.value = "Erro Pino 28: Vetor de Teste deve ser um valor binário de 12 bits."
-        test_vector_input_28.value = ""
+#         if test_vector != "":
+#             if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+#                 raise ValueError("Vetor de teste em formato inválido")
+#             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
+#     except ValueError:
+#         error_message.value = "Erro Pino 28: Vetor de Teste deve ser um valor binário de 12 bits."
+#         test_vector_input_28.value = ""
 
-test_vector_input_28.when_key_pressed = schedule_test_vector_28
+# test_vector_input_28.when_key_pressed = schedule_test_vector_28
 
-def valida_hold_time_28():
-    try:
-        hold_time = int(bit_hold_time_28.value)
-        if hold_time < hold_time_min or hold_time > hold_time_max:
-            raise ValueError("Fora do intervalo")
-        error_message.value = ""  # Limpa a mensagem de erro se a validação passar
-    except ValueError:
-        error_message.value = f"Erro Pino 28: Bit Hold Time deve estar entre {hold_time_min} ms e {hold_time_max} ms."
-        bit_hold_time_28.value = ""  
+# def valida_hold_time_28():
+#     try:
+#         hold_time = int(bit_hold_time_28.value)
+#         if hold_time < hold_time_min or hold_time > hold_time_max:
+#             raise ValueError("Fora do intervalo")
+#         error_message.value = ""  # Limpa a mensagem de erro se a validação passar
+#     except ValueError:
+#         error_message.value = f"Erro Pino 28: Bit Hold Time deve estar entre {hold_time_min} ms e {hold_time_max} ms."
+#         bit_hold_time_28.value = ""  
 
-bit_hold_time_28.when_key_pressed = schedule_hold_time_28
+# bit_hold_time_28.when_key_pressed = schedule_hold_time_28
 
-def configuracao_pino_28():
-    pin_leitura_28 = 1 if result_pin_output_checkbox_28.value else 0
-    config_pino_28 = [
-        pin_leitura_28,
-        test_vector_input_28.value if test_vector_input_28.value else 0,
-        bit_hold_time_28.value if bit_hold_time_28.value else 0
-    ]
-    pinos_valores["28"] = config_pino_28
+# def configuracao_pino_28():
+#     pin_leitura_28 = 1 if result_pin_output_checkbox_28.value else 0
+#     config_pino_28 = [
+#         pin_leitura_28,
+#         test_vector_input_28.value if test_vector_input_28.value else 0,
+#         bit_hold_time_28.value if bit_hold_time_28.value else 0
+#     ]
+#     pinos_valores["28"] = config_pino_28
 
 
 #### Configuração Pino 29 ####
@@ -1343,8 +1355,10 @@ bit_hold_time_29.when_key_pressed = schedule_hold_time_29
 
 def configuracao_pino_29():
     pin_leitura_29 = 1 if result_pin_output_checkbox_29.value else 0
+    enable_pwm_ch_6 = 1 if enable_pwm_pin_29.value else 0
     config_pino_29 = [
         pin_leitura_29,
+        enable_pwm_ch_6,
         test_vector_input_29.value if test_vector_input_29.value else 0,
         bit_hold_time_29.value if bit_hold_time_29.value else 0
     ]
@@ -1421,8 +1435,10 @@ bit_hold_time_30.when_key_pressed = schedule_hold_time_30
 
 def configuracao_pino_30():
     pin_leitura_30 = 1 if result_pin_output_checkbox_30.value else 0
+    enable_pwm_ch_7 = 1 if enable_pwm_pin_30.value else 0
     config_pino_30 = [
         pin_leitura_30,
+        enable_pwm_ch_7,
         test_vector_input_30.value if test_vector_input_30.value else 0,
         bit_hold_time_30.value if bit_hold_time_30.value else 0
     ]

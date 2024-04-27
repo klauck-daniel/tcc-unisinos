@@ -56,7 +56,7 @@
 #define PIN_25 GPIO_NUM_19 //PWM CH4
 #define PIN_26 GPIO_NUM_21 //PWM CH5
 #define PIN_27 GPIO_NUM_3
-#define PIN_28 GPIO_NUM_1
+//#define PIN_28 GPIO_NUM_1
 #define PIN_29 GPIO_NUM_22 //PWM CH6
 #define PIN_30 GPIO_NUM_23 //PWM CH7
 
@@ -105,6 +105,35 @@ void config_freq(char *message){
 void reset_system(){
     printf("\n REINICIANDO ESP... \n");
     esp_restart();
+}
+
+void resetar_all_gpio() {
+
+    printf("\n RESET GPIO... \n");
+    gpio_set_level(PIN_03V, 0);
+    gpio_set_level(PIN_05V, 0);
+    gpio_set_level(PIN_12V, 0);
+    gpio_set_level(PIN_24V, 0);
+    gpio_set_level(PIN_02, 0);
+    gpio_set_level(PIN_03, 0);
+    gpio_set_level(PIN_04, 0);
+    gpio_set_level(PIN_05, 0);
+    gpio_set_level(PIN_06, 0);
+    gpio_set_level(PIN_07, 0);
+    gpio_set_level(PIN_08, 0);
+    gpio_set_level(PIN_09, 0);
+    gpio_set_level(PIN_10, 0);
+    gpio_set_level(PIN_11, 0);
+    gpio_set_level(PIN_12, 0);
+    gpio_set_level(PIN_13, 0);
+    gpio_set_level(PIN_18, 0);
+    gpio_set_level(PIN_19, 0);
+    gpio_set_level(PIN_20, 0);
+    gpio_set_level(PIN_25, 0);
+    gpio_set_level(PIN_26, 0);
+    gpio_set_level(PIN_27, 0);
+    gpio_set_level(PIN_29, 0);
+    
 }
 
 
@@ -434,66 +463,190 @@ void config_pwm_7(char *message){
 
 void config_pin_02(char *message)
 {
-    printf("Configura pino 02 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 2 será entrada de dados.\n");
+    }
+    else printf("Pino 2 sem uso. \n");
 }
+
 void config_pin_03(char *message)
 {
-    printf("Configura pino 03 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 3 será entrada de dados.\n");
+    }
+    else printf("Pino 3 sem uso. \n");
 }
 
 void config_pin_04(char *message)
 {
-    printf("Configura pino 04 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 4 será entrada de dados.\n");
+    }
+    else printf("Pino 4 sem uso. \n");
 }
 
 void config_pin_05(char *message)
 {
-    printf("Configura pino 05 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 5 será entrada de dados.\n");
+    }
+    else printf("Pino 5 sem uso. \n");
 }
 
 void config_pin_06(char *message)
 {
-    printf("Configura pino 06 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 6 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
+        printf("Pino 6 sem uso. \n");
+    } 
 }
 void config_pin_07(char *message)
 {
-    printf("Configura pino 07 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 7 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
+        printf("Pino 7 sem uso. \n");
+    }
 }
 void config_pin_08(char *message)
 {
-    printf("Configura pino 08 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 8 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
+        printf("Pino 8 sem uso. \n");
+    }
 }
 void config_pin_09(char *message)
 {
-    printf("Configura pino 09 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 9 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
+        printf("Pino 9 sem uso. \n");
+    }
 }
+
 void config_pin_10(char *message)
 {
-    printf("Configura pino 10 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 10 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '1')
+    {
+        printf("Pino 10 usado para PWM. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
+    {
+        printf("Pino 10 com vetor de teste. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
+    {
+        printf("Pino 10 sem uso. \n");
+    }
 }
+
 void config_pin_11(char *message)
 {
-    printf("Configura pino 11 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 11 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '1')
+    {
+        printf("Pino 11 usado para PWM. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
+    {
+        printf("Pino 11 com vetor de teste. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
+    {
+        printf("Pino 11 sem uso. \n");
+    }
 }
+
 void config_pin_12(char *message)
 {
-    printf("Configura pino 12 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 12 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '1')
+    {
+        printf("Pino 12 usado para PWM. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
+    {
+        printf("Pino 12 com vetor de teste. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
+    {
+        printf("Pino 12 sem uso. \n");
+    }
 }
+
 void config_pin_13(char *message)
 {
-    printf("Configura pino 13 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 13 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '1')
+    {
+        printf("Pino 13 usado para PWM. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
+    {
+        printf("Pino 13 com vetor de teste. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
+    {
+        printf("Pino 13 sem uso. \n");
+    }
 }
+
 void config_pin_18(char *message)
 {
-    printf("Configura pino 18 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 18 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
+        printf("Pino 18 sem uso. \n");
+    }
 }
 void config_pin_19(char *message)
 {
-    printf("Configura pino 19 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 19 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
+        printf("Pino 19 sem uso. \n");
+    }
 }
 void config_pin_20(char *message)
 {
-    printf("Configura pino 20 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 20 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
+        printf("Pino 20 sem uso. \n");
+    }
 }
 
 void config_pin_21(char *message)
@@ -558,27 +711,108 @@ void config_pin_24(char *message)
 
 void config_pin_25(char *message)
 {
-    printf("Configura pino 25 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 25 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '1')
+    {
+        printf("Pino 25 usado para PWM. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
+    {
+        printf("Pino 25 com vetor de teste. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
+    {
+        printf("Pino 25 sem uso. \n");
+    }
 }
+
 void config_pin_26(char *message)
 {
-    printf("Configura pino 26 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 26 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '1')
+    {
+        printf("Pino 26 usado para PWM. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
+    {
+        printf("Pino 26 com vetor de teste. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
+    {
+        printf("Pino 26 sem uso. \n");
+    }
 }
+
 void config_pin_27(char *message)
 {
-    printf("Configura pino 27 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 27 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
+        printf("Pino 27 sem uso. \n");
+    }
 }
-void config_pin_28(char *message)
-{
-    printf("Configura pino 28 \n");
-}
+
+// void config_pin_28(char *message)
+// {
+//     if (message[5] == '1')
+//     {
+//         printf("Pino 28 será entrada de dados.\n");
+//     }
+//     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
+//         printf("Pino 28 sem uso. \n");
+//     }
+// }
+
 void config_pin_29(char *message)
 {
-    printf("Configura pino 29 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 29 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '1')
+    {
+        printf("Pino 29 usado para PWM. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
+    {
+        printf("Pino 29 com vetor de teste. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
+    {
+        printf("Pino 29 sem uso. \n");
+    }
 }
+
+
 void config_pin_30(char *message)
 {
-    printf("Configura pino 30 \n");
+    if (message[5] == '1')
+    {
+        printf("Pino 30 será entrada de dados.\n");
+    }
+    if (message[5] == '0' && message[8] == '1')
+    {
+        printf("Pino 30 usado para PWM. \n");
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
+    {
+        printf("Pino 30 com vetor de teste. \n");
+
+    }
+    if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0' && message[12] == ',')
+    {
+        printf("Pino 30 sem uso. \n");
+        gpio_reset_pin(PIN_30);
+        gpio_set_level(PIN_30, 0);
+    }
 }
 
 void process_pin_config(char *message)
@@ -767,10 +1001,10 @@ static void udp_server_task(void *pvParameters)
                 {
                     config_pin_27(rx_buffer);
                 }
-                if (rx_buffer[1] == '2' && rx_buffer[2] == '8')
-                {
-                    config_pin_28(rx_buffer);
-                }
+                // if (rx_buffer[1] == '2' && rx_buffer[2] == '8')
+                // {
+                //     config_pin_28(rx_buffer);
+                // }
                 if (rx_buffer[1] == '2' && rx_buffer[2] == '9')
                 {
                     config_pin_29(rx_buffer);
@@ -788,6 +1022,7 @@ static void udp_server_task(void *pvParameters)
 
                 if (strstr(rx_buffer, "RESET") != NULL)
                 {
+                    resetar_all_gpio();
                     reset_system();
                 }
 
