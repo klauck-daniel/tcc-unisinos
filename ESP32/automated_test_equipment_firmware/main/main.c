@@ -107,36 +107,6 @@ void reset_system(){
     esp_restart();
 }
 
-void resetar_all_gpio() {
-
-    printf("\n RESET GPIO... \n");
-    gpio_set_level(PIN_03V, 0);
-    gpio_set_level(PIN_05V, 0);
-    gpio_set_level(PIN_12V, 0);
-    gpio_set_level(PIN_24V, 0);
-    gpio_set_level(PIN_02, 0);
-    gpio_set_level(PIN_03, 0);
-    gpio_set_level(PIN_04, 0);
-    gpio_set_level(PIN_05, 0);
-    gpio_set_level(PIN_06, 0);
-    gpio_set_level(PIN_07, 0);
-    gpio_set_level(PIN_08, 0);
-    gpio_set_level(PIN_09, 0);
-    gpio_set_level(PIN_10, 0);
-    gpio_set_level(PIN_11, 0);
-    gpio_set_level(PIN_12, 0);
-    gpio_set_level(PIN_13, 0);
-    gpio_set_level(PIN_18, 0);
-    gpio_set_level(PIN_19, 0);
-    gpio_set_level(PIN_20, 0);
-    gpio_set_level(PIN_25, 0);
-    gpio_set_level(PIN_26, 0);
-    gpio_set_level(PIN_27, 0);
-    gpio_set_level(PIN_29, 0);
-    
-}
-
-
 // ######### Funções PWM #########
 
 // Canal 0
@@ -481,8 +451,13 @@ void config_pin_03(char *message)
     if (message[5] == '1')
     {
         printf("Pino 3 será entrada de dados.\n");
+        gpio_set_direction(PIN_03, GPIO_MODE_INPUT);
     }
-    else printf("Pino 3 sem uso. \n");
+    else
+    {
+        printf("Pino 3 sem uso. \n");
+        gpio_set_direction(PIN_03, GPIO_MODE_DISABLE);
+    }
 }
 
 void config_pin_04(char *message)
@@ -490,8 +465,13 @@ void config_pin_04(char *message)
     if (message[5] == '1')
     {
         printf("Pino 4 será entrada de dados.\n");
+        gpio_set_direction(PIN_04, GPIO_MODE_INPUT);
     }
-    else printf("Pino 4 sem uso. \n");
+    else
+    {
+        printf("Pino 4 sem uso. \n");
+        gpio_set_direction(PIN_04, GPIO_MODE_DISABLE);
+    }
 }
 
 void config_pin_05(char *message)
@@ -499,8 +479,13 @@ void config_pin_05(char *message)
     if (message[5] == '1')
     {
         printf("Pino 5 será entrada de dados.\n");
+        gpio_set_direction(PIN_05, GPIO_MODE_INPUT);
     }
-    else printf("Pino 5 sem uso. \n");
+    else
+    {
+        printf("Pino 5 sem uso. \n");
+        gpio_set_direction(PIN_05, GPIO_MODE_DISABLE);
+    }
 }
 
 void config_pin_06(char *message)
@@ -511,8 +496,49 @@ void config_pin_06(char *message)
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
         printf("Pino 6 sem uso. \n");
-    } 
+        gpio_reset_pin(PIN_06);
+        gpio_set_direction(PIN_06, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_06, 0);
+    }
+    if (message[5] == '0' && message[9]!= ',')
+    {
+        char test_vector[12];
+        int hold_time = 0;
+
+        printf("Pino 6 terá vetor de teste. \n");
+        gpio_set_direction(PIN_06, GPIO_MODE_OUTPUT);
+
+        for (int i = 8; i < 20; i++) {
+            test_vector[i - 8] = message[i];
+        }
+
+        int hold_time_index = 22; // Onde o valor do hold_time começa na mensagem
+        while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9') {
+            hold_time = hold_time * 10 + (message[hold_time_index] - '0');
+            hold_time_index++;
+        }
+
+        printf("Hold Time: %d\n", hold_time);
+
+        for (int i = 0; i <= 12; i++)
+        {
+            printf("TEST_VECTOR: %c ", test_vector[i]);
+            if (test_vector[i]=='1')
+            {
+                gpio_set_level(PIN_06, 1);
+            }
+
+            if (test_vector[i]=='0')
+            {
+                gpio_set_level(PIN_06, 0);
+            }
+
+            vTaskDelay(hold_time / portTICK_PERIOD_MS);
+        }
+    }  
 }
+
+
 void config_pin_07(char *message)
 {
     if (message[5] == '1')
@@ -521,6 +547,9 @@ void config_pin_07(char *message)
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
         printf("Pino 7 sem uso. \n");
+        gpio_reset_pin(PIN_07);
+        gpio_set_direction(PIN_07, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_07, 0);
     }
 }
 void config_pin_08(char *message)
@@ -531,6 +560,9 @@ void config_pin_08(char *message)
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
         printf("Pino 8 sem uso. \n");
+        gpio_reset_pin(PIN_08);
+        gpio_set_direction(PIN_08, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_08, 0);
     }
 }
 void config_pin_09(char *message)
@@ -541,6 +573,9 @@ void config_pin_09(char *message)
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
         printf("Pino 9 sem uso. \n");
+        gpio_reset_pin(PIN_09);
+        gpio_set_direction(PIN_09, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_09, 0);
     }
 }
 
@@ -644,6 +679,9 @@ void config_pin_18(char *message)
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
         printf("Pino 18 sem uso. \n");
+        gpio_reset_pin(PIN_18);
+        gpio_set_direction(PIN_18, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_18, 0);
     }
 }
 void config_pin_19(char *message)
@@ -654,6 +692,9 @@ void config_pin_19(char *message)
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
         printf("Pino 19 sem uso. \n");
+        gpio_reset_pin(PIN_19);
+        gpio_set_direction(PIN_19, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_19, 0);
     }
 }
 void config_pin_20(char *message)
@@ -664,6 +705,9 @@ void config_pin_20(char *message)
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
         printf("Pino 20 sem uso. \n");
+        gpio_reset_pin(PIN_20);
+        gpio_set_direction(PIN_20, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_20, 0);
     }
 }
 
@@ -781,6 +825,9 @@ void config_pin_27(char *message)
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11]== '0'){
         printf("Pino 27 sem uso. \n");
+        gpio_reset_pin(PIN_27);
+        gpio_set_direction(PIN_27, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_27, 0);
     }
 }
 
@@ -1050,7 +1097,6 @@ static void udp_server_task(void *pvParameters)
 
                 if (strstr(rx_buffer, "RESET") != NULL)
                 {
-                    resetar_all_gpio();
                     reset_system();
                 }
 
