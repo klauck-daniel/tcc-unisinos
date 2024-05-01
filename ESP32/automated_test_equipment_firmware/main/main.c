@@ -71,6 +71,54 @@ static const char *TAG = "UDP SOCKET SERVER";
 int frequency = 0;
 int timer_bits = 8191; //2^13
 
+char test_vector_pin_6[12];
+int hold_time_pin_6 = 0;
+
+char test_vector_pin_7[12];
+int hold_time_pin_7 = 0;
+
+char test_vector_pin_8[12];
+int hold_time_pin_8 = 0;
+
+char test_vector_pin_9[12];
+int hold_time_pin_9 = 0;
+
+char test_vector_pin_10[12];
+int hold_time_pin_10 = 0;
+
+char test_vector_pin_11[12];
+int hold_time_pin_11 = 0;
+
+char test_vector_pin_12[12];
+int hold_time_pin_12 = 0;
+
+char test_vector_pin_13[12];
+int hold_time_pin_13 = 0;
+
+char test_vector_pin_18[12];
+int hold_time_pin_18 = 0;
+
+char test_vector_pin_19[12];
+int hold_time_pin_19 = 0;
+
+char test_vector_pin_20[12];
+int hold_time_pin_20 = 0;
+
+char test_vector_pin_25[12];
+int hold_time_pin_25 = 0;
+
+char test_vector_pin_26[12];
+int hold_time_pin_26 = 0;
+
+char test_vector_pin_27[12];
+int hold_time_pin_27 = 0;
+
+char test_vector_pin_29[12];
+int hold_time_pin_29 = 0;
+
+char test_vector_pin_30[12];
+int hold_time_pin_30 = 0;
+
 
 
 // Struct de configuração dos pinos
@@ -92,10 +140,81 @@ typedef struct
 } VoltageConfig;
 
 
-void start_test()
-{
-    printf("\n START TESTE\n");
+// void start_test(){
+
+//     printf("START TESTE\n");
+
+//     if (hold_time_pin_6 != 0 && test_vector_pin_6[0] != 2)
+//     {
+//         TickType_t start_time = xTaskGetTickCount(); //1000
+//         TickType_t elapsed_time = 0;
+
+//         printf("START TIME: %ld \n", start_time);
+        
+
+//         for (int i = 0; i < 12; i++)
+//         {
+//             printf("TEST_VECTOR PIN 6: %c \n", test_vector_pin_6[i]);
+//             if (test_vector_pin_6[i]=='1')
+//             {
+//                 gpio_set_level(PIN_06, 1);
+//             }
+
+//             if (test_vector_pin_6[i]=='0')
+//             {
+//                 gpio_set_level(PIN_06, 0);
+//             }
+
+//             elapsed_time = xTaskGetTickCount() - start_time;
+//             printf("ELAPSED TIME: %ld \n", elapsed_time);
+
+//             if (elapsed_time >= (hold_time_pin_6 * 1000) / portTICK_PERIOD_MS)
+//             {
+//                 start_time = xTaskGetTickCount();
+//                 // Add any code here that needs to be executed every hold_time_pin_6 milliseconds
+//             }
+//         }
+//     }   
+// }
+
+void start_test(){
+
+    printf("START TESTE\n");
+
+    if (hold_time_pin_6 != 0 && test_vector_pin_6[0] != 2){
+        TickType_t start_time = xTaskGetTickCount();
+        TickType_t elapsed_time = 0;
+
+        for (int i = 0; i < 12; i++)
+        {
+            printf("START TIME: %ld \n", start_time);
+            printf("TEST_VECTOR PIN 6: %c \n", test_vector_pin_6[i]);
+            if (test_vector_pin_6[i]=='1'){
+                gpio_set_level(PIN_06, 1);
+            }
+
+            if (test_vector_pin_6[i]=='0'){
+                gpio_set_level(PIN_06, 0);
+            }
+
+            elapsed_time = xTaskGetTickCount() - start_time;
+
+            if (elapsed_time >= hold_time_pin_6  / portTICK_PERIOD_MS){
+                start_time = xTaskGetTickCount();
+            }
+            
+            while ((xTaskGetTickCount() - start_time) < (hold_time_pin_6 / portTICK_PERIOD_MS)){
+                vTaskDelay(1); // Espera 1 milissegundo, não sei como fazer para continuar o código sem esperar
+            }
+            printf("ELAPSED TIME: %ld \n", (xTaskGetTickCount() - start_time));
+            // Atualize o tempo de início do loop atual
+            start_time = xTaskGetTickCount();
+        }
+    }   
 }
+
+// add lógica ao pino 7 e tentar fazer o vetor funcionar
+
 
 void config_freq(char *message){
     frequency = atoi(&message[6]);
@@ -502,39 +621,25 @@ void config_pin_06(char *message)
     }
     if (message[5] == '0' && message[9]!= ',')
     {
-        char test_vector[12];
-        int hold_time = 0;
-
+        memset(test_vector_pin_6, 2, 12); // Initialize the array with the value 2
+        hold_time_pin_6 = 0;
         printf("Pino 6 terá vetor de teste. \n");
         gpio_set_direction(PIN_06, GPIO_MODE_OUTPUT);
 
-        for (int i = 8; i < 20; i++) {
-            test_vector[i - 8] = message[i];
+        for (int i = 8; i <= 19; i++) {
+            test_vector_pin_6[i - 8] = message[i];
         }
 
         int hold_time_index = 22; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9') {
-            hold_time = hold_time * 10 + (message[hold_time_index] - '0');
+            hold_time_pin_6 = hold_time_pin_6 * 10 + (message[hold_time_index] - '0');
             hold_time_index++;
         }
 
-        printf("Hold Time: %d\n", hold_time);
+        printf("Vetor Teste Pino 6: %s\n", test_vector_pin_6);
 
-        for (int i = 0; i <= 12; i++)
-        {
-            printf("TEST_VECTOR: %c ", test_vector[i]);
-            if (test_vector[i]=='1')
-            {
-                gpio_set_level(PIN_06, 1);
-            }
+        printf("Hold Time Pino 6: %d\n", hold_time_pin_6);
 
-            if (test_vector[i]=='0')
-            {
-                gpio_set_level(PIN_06, 0);
-            }
-
-            vTaskDelay(hold_time / portTICK_PERIOD_MS);
-        }
     }  
 }
 

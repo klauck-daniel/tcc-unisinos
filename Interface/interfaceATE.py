@@ -2,7 +2,7 @@ from enviaMensagemUDP import envia_mensagem_udp, envia_start_mensagem_udp
 from guizero import App, Text, PushButton, CheckBox, TextBox, Slider, Box
 
 #Variáveis Globais
-esp_ip = "192.168.1.29" 
+esp_ip = "192.168.1.22" 
 esp_porta = 3333
 pinos_valores = {}
 
@@ -657,9 +657,9 @@ Text(pin_box_12, width = 15, text="Pino 12:", grid=[0, 0], align="left")
 # Descrição do Pinos
 Text(pin_box_12, text = "PWM CH2, ADC, GPIO12", grid = [0, 1], align="left")
 
-Text(pin_box_12, text="Pin Leitura:", grid=[0, 2], align="left")
-result_pin_output_checkbox_12 = CheckBox(
-    pin_box_12, text="", align="left", grid=[1, 2])
+# Text(pin_box_12, text="Pin Leitura:", grid=[0, 2], align="left")
+# result_pin_output_checkbox_12 = CheckBox(
+#     pin_box_12, text="", align="left", grid=[1, 2])
 
 Text(pin_box_12, text="Enable PWM:", grid=[0, 3], align="left")
 enable_pwm_pin_12 = CheckBox(pin_box_12, text="", align="left", grid=[1, 3])
@@ -717,7 +717,7 @@ def valida_hold_time_12():
 bit_hold_time_12.when_key_pressed = schedule_hold_time_12
 
 def configuracao_pino_12():
-    pin_leitura_12 = 1 if result_pin_output_checkbox_12.value else 0
+    pin_leitura_12 = 0 #1 if result_pin_output_checkbox_12.value else 0
     enable_pwm_ch_2 = 1 if enable_pwm_pin_12.value else 0
     config_pino_12 = [
         pin_leitura_12,
@@ -816,9 +816,9 @@ Text(pin_box_18, width = 15, text="Pino 18:", grid=[0, 0], align="left")
 # Descrição do Pinos
 Text(pin_box_18, text = "ADC, GPIO15", grid = [0, 1], align="left")
 
-Text(pin_box_18, text="Pin Leitura:", grid=[0, 3], align="left")
-result_pin_output_checkbox_18 = CheckBox(
-    pin_box_18, text="", align="left", grid=[1, 3])
+# Text(pin_box_18, text="Pin Leitura:", grid=[0, 3], align="left")
+# result_pin_output_checkbox_18 = CheckBox(
+#     pin_box_18, text="", align="left", grid=[1, 3])
 
 Text(pin_box_18, text="Vetor de Teste:", grid=[0, 6], align="left")
 test_vector_input_18 = TextBox(pin_box_18, width = 13, grid = [1, 6], align="left")
@@ -860,7 +860,7 @@ def valida_hold_time_18():
 bit_hold_time_18.when_key_pressed = schedule_hold_time_18
 
 def configuracao_pino_18():
-    pin_leitura_18 = 1 if result_pin_output_checkbox_18.value else 0
+    pin_leitura_18 = 0 #1 if result_pin_output_checkbox_18.value else 0
     config_pino_18 = [
         pin_leitura_18,
         test_vector_input_18.value if test_vector_input_18.value else 0,
@@ -878,9 +878,9 @@ Text(pin_box_19, width = 15, text="Pino 19:", grid=[0, 0], align="left")
 # Descrição do Pinos
 Text(pin_box_19, text = "ADC, GPIO2", grid = [0, 1], align="left")
 
-Text(pin_box_19, text="Pin Leitura:", grid=[0, 3], align="left")
-result_pin_output_checkbox_19 = CheckBox(
-    pin_box_19, text="", align="left", grid=[1, 3])
+# Text(pin_box_19, text="Pin Leitura:", grid=[0, 3], align="left")
+# result_pin_output_checkbox_19 = CheckBox(
+#     pin_box_19, text="", align="left", grid=[1, 3])
 
 Text(pin_box_19, text="Vetor de Teste:", grid=[0, 6], align="left")
 test_vector_input_19 = TextBox(pin_box_19, width = 13, grid = [1, 6], align="left")
@@ -922,7 +922,7 @@ def valida_hold_time_19():
 bit_hold_time_19.when_key_pressed = schedule_hold_time_19
 
 def configuracao_pino_19():
-    pin_leitura_19 = 1 if result_pin_output_checkbox_19.value else 0
+    pin_leitura_19 = 0 #1 if result_pin_output_checkbox_19.value else 0
     config_pino_19 = [
         pin_leitura_19,
         test_vector_input_19.value if test_vector_input_19.value else 0,
