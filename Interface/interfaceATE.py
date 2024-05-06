@@ -2,7 +2,7 @@ from enviaMensagemUDP import envia_mensagem_udp, envia_start_mensagem_udp
 from guizero import App, Text, PushButton, CheckBox, TextBox, Slider, Box
 
 #Variáveis Globais
-esp_ip = "192.168.1.22" 
+esp_ip = "192.168.1.24" 
 esp_porta = 3333
 pinos_valores = {}
 
@@ -261,7 +261,7 @@ bit_hold_time_6 = TextBox(pin_box_6, width = 5, grid = [1, 7], align="left")
 
 #Validações
 def schedule_test_vector_6():
-    app.after(ms_valida, valida_test_vector_6)
+    app.after(ms_valida*3, valida_test_vector_6)
 
 def schedule_hold_time_6():
     app.after(ms_valida, valida_hold_time_6)
@@ -271,7 +271,7 @@ def valida_test_vector_6():
         test_vector = test_vector_input_6.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -323,7 +323,7 @@ bit_hold_time_7 = TextBox(pin_box_7, width = 5, grid = [1, 7], align="left")
 
 #Validações
 def schedule_test_vector_7():
-    app.after(ms_valida, valida_test_vector_7)
+    app.after(ms_valida*3, valida_test_vector_7)
 
 def schedule_hold_time_7():
     app.after(ms_valida, valida_hold_time_7)
@@ -333,7 +333,7 @@ def valida_test_vector_7():
         test_vector = test_vector_input_7.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -385,7 +385,7 @@ bit_hold_time_8 = TextBox(pin_box_8, width = 5, grid = [1, 7], align="left")
 
 #Validações
 def schedule_test_vector_8():
-    app.after(ms_valida, valida_test_vector_8)
+    app.after(ms_valida*3, valida_test_vector_8)
 
 def schedule_hold_time_8():
     app.after(ms_valida, valida_hold_time_8)
@@ -395,7 +395,7 @@ def valida_test_vector_8():
         test_vector = test_vector_input_8.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -447,7 +447,7 @@ bit_hold_time_9 = TextBox(pin_box_9, width = 5, grid = [1, 7], align="left")
 
 #Validações
 def schedule_test_vector_9():
-    app.after(ms_valida, valida_test_vector_9)
+    app.after(ms_valida*3, valida_test_vector_9)
 
 def schedule_hold_time_9():
     app.after(ms_valida, valida_hold_time_9)
@@ -457,7 +457,7 @@ def valida_test_vector_9():
         test_vector = test_vector_input_9.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -525,7 +525,7 @@ bit_hold_time_10 = TextBox(pin_box_10, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_10():
-    app.after(ms_valida, valida_test_vector_10)
+    app.after(ms_valida*3, valida_test_vector_10)
 
 def schedule_hold_time_10():
     app.after(ms_valida, valida_hold_time_10)
@@ -535,7 +535,7 @@ def valida_test_vector_10():
         test_vector = test_vector_input_10.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -605,7 +605,7 @@ bit_hold_time_11 = TextBox(pin_box_11, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_11():
-    app.after(ms_valida, valida_test_vector_11)
+    app.after(ms_valida*3, valida_test_vector_11)
 
 def schedule_hold_time_11():
     app.after(ms_valida, valida_hold_time_11)
@@ -615,7 +615,7 @@ def valida_test_vector_11():
         test_vector = test_vector_input_11.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -685,7 +685,7 @@ bit_hold_time_12 = TextBox(pin_box_12, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_12():
-    app.after(ms_valida, valida_test_vector_12)
+    app.after(ms_valida*3, valida_test_vector_12)
 
 def schedule_hold_time_12():
     app.after(ms_valida, valida_hold_time_12)
@@ -695,7 +695,7 @@ def valida_test_vector_12():
         test_vector = test_vector_input_12.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -765,7 +765,7 @@ bit_hold_time_13 = TextBox(pin_box_13, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_13():
-    app.after(ms_valida, valida_test_vector_13)
+    app.after(ms_valida*3, valida_test_vector_13)
 
 def schedule_hold_time_13():
     app.after(ms_valida, valida_hold_time_13)
@@ -775,7 +775,7 @@ def valida_test_vector_13():
         test_vector = test_vector_input_13.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -828,7 +828,7 @@ bit_hold_time_18 = TextBox(pin_box_18, width = 5, grid = [1, 7], align="left")
 
 #Validações
 def schedule_test_vector_18():
-    app.after(ms_valida, valida_test_vector_18)
+    app.after(ms_valida*3, valida_test_vector_18)
 
 def schedule_hold_time_18():
     app.after(ms_valida, valida_hold_time_18)
@@ -838,7 +838,7 @@ def valida_test_vector_18():
         test_vector = test_vector_input_18.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -890,7 +890,7 @@ bit_hold_time_19 = TextBox(pin_box_19, width = 5, grid = [1, 7], align="left")
 
 #Validações
 def schedule_test_vector_19():
-    app.after(ms_valida, valida_test_vector_19)
+    app.after(ms_valida*3, valida_test_vector_19)
 
 def schedule_hold_time_19():
     app.after(ms_valida, valida_hold_time_19)
@@ -900,7 +900,7 @@ def valida_test_vector_19():
         test_vector = test_vector_input_19.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -952,7 +952,7 @@ bit_hold_time_20 = TextBox(pin_box_20, width = 5, grid = [1, 7], align="left")
 
 #Validações
 def schedule_test_vector_20():
-    app.after(ms_valida, valida_test_vector_20)
+    app.after(ms_valida*3, valida_test_vector_20)
 
 def schedule_hold_time_20():
     app.after(ms_valida, valida_hold_time_20)
@@ -962,7 +962,7 @@ def valida_test_vector_20():
         test_vector = test_vector_input_20.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -1030,7 +1030,7 @@ bit_hold_time_25 = TextBox(pin_box_25, width = 5, grid = [1, 7], align="left")
 
 #Validações
 def schedule_test_vector_25():
-    app.after(ms_valida, valida_test_vector_25)
+    app.after(ms_valida*3, valida_test_vector_25)
 
 def schedule_hold_time_25():
     app.after(ms_valida, valida_hold_time_25)
@@ -1040,7 +1040,7 @@ def valida_test_vector_25():
         test_vector = test_vector_input_25.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -1110,7 +1110,7 @@ bit_hold_time_26 = TextBox(pin_box_26, width = 5, grid = [1, 7], align="left")
 
 #Validações
 def schedule_test_vector_26():
-    app.after(ms_valida, valida_test_vector_26)
+    app.after(ms_valida*3, valida_test_vector_26)
 
 def schedule_hold_time_26():
     app.after(ms_valida, valida_hold_time_26)
@@ -1120,7 +1120,7 @@ def valida_test_vector_26():
         test_vector = test_vector_input_26.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -1174,7 +1174,7 @@ bit_hold_time_27 = TextBox(pin_box_27, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_27():
-    app.after(ms_valida, valida_test_vector_27)
+    app.after(ms_valida*3, valida_test_vector_27)
 
 def schedule_hold_time_27():
     app.after(ms_valida, valida_hold_time_27)
@@ -1184,7 +1184,7 @@ def valida_test_vector_27():
         test_vector = test_vector_input_27.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -1252,7 +1252,7 @@ bit_hold_time_29 = TextBox(pin_box_29, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_29():
-    app.after(ms_valida, valida_test_vector_29)
+    app.after(ms_valida*3, valida_test_vector_29)
 
 def schedule_hold_time_29():
     app.after(ms_valida, valida_hold_time_29)
@@ -1262,7 +1262,7 @@ def valida_test_vector_29():
         test_vector = test_vector_input_29.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
@@ -1332,7 +1332,7 @@ bit_hold_time_30 = TextBox(pin_box_30, width = 5, grid = [1, 6], align="left")
 
 #Validações
 def schedule_test_vector_30():
-    app.after(ms_valida, valida_test_vector_30)
+    app.after(ms_valida*3, valida_test_vector_30)
 
 def schedule_hold_time_30():
     app.after(ms_valida, valida_hold_time_30)
@@ -1342,7 +1342,7 @@ def valida_test_vector_30():
         test_vector = test_vector_input_30.value.strip()
 
         if test_vector != "":
-            if len(test_vector) > 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
