@@ -16,7 +16,7 @@ def envia_mensagem_udp(ip_destino, porta_destino, pino_valor):
         
         # Envia a mensagem para o endereço IP e porta especificados
         udp_socket.sendto(mensagem.encode(), (ip_destino, porta_destino))
-        time.sleep(0.2)
+        time.sleep(0.250)
 
         #Printa mensagem
         print(mensagem)

@@ -59,14 +59,14 @@
 #define PIN_29 GPIO_NUM_22 // PWM CH6
 #define PIN_30 GPIO_NUM_23 // PWM CH7
 
-// #define set_duty(duty) ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0, duty)
-// #define upt_duty ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0)
+// #define set_duty(duty) ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, duty)
+// #define upt_duty ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0)
 
 #define PORT 3333
 static const char *TAG = "UDP SOCKET SERVER";
 
 // Variáveis Globais
-int frequency = 0;
+int frequency = 100;
 int timer_bits = 8191; // 2^13
 
 char test_vector_pin_6[12];
@@ -821,24 +821,24 @@ void reset_system()
 // Canal 0
 void config_pwm_0(char *message)
 {
-    int dutyCycle = 0;
-    int duty = 0;
-    double dutyCalc = 0.0;
+    int dutyCycle_ch0 = 0;
+    int duty_ch0 = 0;
+    double dutyCalc_ch0 = 0.0;
 
     printf("Configura PWM Canal 0\n");
     printf("Frequancia de %d Hz \n", frequency);
 
-    dutyCycle = atoi(&message[9]);
-    dutyCalc = (float)((dutyCycle / 100.0) * timer_bits);
-    duty = (int)dutyCalc;
+    dutyCycle_ch0 = atoi(&message[9]);
+    dutyCalc_ch0 = (float)((dutyCycle_ch0 / 100.0) * timer_bits);
+    duty_ch0 = (int)dutyCalc_ch0;
 
-    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
-    printf("*****DUTYCYCLE de %f \n", dutyCalc);
-    printf("*****DUTY de %d \n", duty);
+    printf("*****MENSAGEM DUTYCYCLE_ch0 de %d \n", dutyCycle_ch0);
+    printf("*****DUTYCYCLE_ch0 de %f \n", dutyCalc_ch0);
+    printf("*****DUTY de %d \n", duty_ch0);
 
     ledc_channel_config_t pwm_config_ch_0 = {
         .gpio_num = PIN_10,                 // varia conforme o pino
-        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
         .channel = LEDC_CHANNEL_0,          // até 8 canais
         .intr_type = LEDC_INTR_DISABLE,     // interrupção
         .timer_sel = LEDC_TIMER_0,          // pode variar timers
@@ -847,37 +847,37 @@ void config_pwm_0(char *message)
     ledc_channel_config(&pwm_config_ch_0);
 
     ledc_timer_config_t pwm_timer_config_ch_0 = {
-        .speed_mode = LEDC_HIGH_SPEED_MODE,
+        .speed_mode = LEDC_LOW_SPEED_MODE,
         .duty_resolution = LEDC_TIMER_13_BIT, // Pode ter mais bits
         .timer_num = LEDC_TIMER_0,
         .freq_hz = frequency};
     ledc_timer_config(&pwm_timer_config_ch_0);
 
-    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0, duty);
-    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0);
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, duty_ch0);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
 }
 
 // Canal 1
 void config_pwm_1(char *message)
 {
-    int dutyCycle = 0;
-    int duty = 0;
-    double dutyCalc = 0.0;
+    int dutyCycle_ch1 = 0;
+    int duty_ch1 = 0;
+    double dutyCalc_ch1 = 0.0;
 
     printf("Configura PWM Canal 1\n");
     printf("Frequancia de %d Hz \n", frequency);
 
-    dutyCycle = atoi(&message[9]);
-    dutyCalc = (float)((dutyCycle / 100.0) * timer_bits);
-    duty = (int)dutyCalc;
+    dutyCycle_ch1 = atoi(&message[9]);
+    dutyCalc_ch1 = (float)((dutyCycle_ch1 / 100.0) * timer_bits);
+    duty_ch1 = (int)dutyCalc_ch1;
 
-    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
-    printf("*****DUTYCYCLE de %f \n", dutyCalc);
-    printf("*****DUTY de %d \n", duty);
+    printf("*****MENSAGEM DUTYCYCLE_ch1 de %d \n", dutyCycle_ch1);
+    printf("*****DUTYCYCLE_ch1 de %f \n", dutyCalc_ch1);
+    printf("*****DUTY de %d \n", duty_ch1);
 
     ledc_channel_config_t pwm_config_ch_1 = {
         .gpio_num = PIN_11,                 // varia conforme o pino
-        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
         .channel = LEDC_CHANNEL_1,          // até 8 canais
         .intr_type = LEDC_INTR_DISABLE,     // interrupção
         .timer_sel = LEDC_TIMER_0,          // pode variar timers
@@ -886,248 +886,248 @@ void config_pwm_1(char *message)
     ledc_channel_config(&pwm_config_ch_1);
 
     ledc_timer_config_t pwm_timer_config_ch_1 = {
-        .speed_mode = LEDC_HIGH_SPEED_MODE,
+        .speed_mode = LEDC_LOW_SPEED_MODE,
         .duty_resolution = LEDC_TIMER_13_BIT, // Pode ter mais bits
         .timer_num = LEDC_TIMER_0,
         .freq_hz = frequency};
     ledc_timer_config(&pwm_timer_config_ch_1);
 
-    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_1, duty);
-    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_1);
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, duty_ch1);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1);
 }
 
 // Canal 2
 void config_pwm_2(char *message)
 {
-    int dutyCycle = 0;
-    int duty = 0;
-    double dutyCalc = 0.0;
+    int dutyCycle_ch2 = 0;
+    int duty_ch2 = 0;
+    double dutyCalc_ch2 = 0.0;
 
     printf("Configura PWM Canal 2\n");
     printf("Frequancia de %d Hz \n", frequency);
 
-    dutyCycle = atoi(&message[9]);
-    dutyCalc = (float)((dutyCycle / 100.0) * timer_bits);
-    duty = (int)dutyCalc;
+    dutyCycle_ch2 = atoi(&message[9]);
+    dutyCalc_ch2 = (float)((dutyCycle_ch2 / 100.0) * timer_bits);
+    duty_ch2 = (int)dutyCalc_ch2;
 
-    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
-    printf("*****DUTYCYCLE de %f \n", dutyCalc);
-    printf("*****DUTY de %d \n", duty);
+    printf("*****MENSAGEM DUTYCYCLE_ch2 de %d \n", dutyCycle_ch2);
+    printf("*****DUTYCYCLE_ch2 de %f \n", dutyCalc_ch2);
+    printf("*****DUTY de %d \n", duty_ch2);
 
     ledc_channel_config_t pwm_config_ch_2 = {
         .gpio_num = PIN_12,                 // varia conforme o pino
-        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
         .channel = LEDC_CHANNEL_2,          // até 8 canais
         .intr_type = LEDC_INTR_DISABLE,     // interrupção
-        .timer_sel = LEDC_TIMER_0,          // pode variar timers
+        .timer_sel = LEDC_TIMER_1,          // pode variar timers
         .duty = 0                           // dutycicle inicial
     };
     ledc_channel_config(&pwm_config_ch_2);
 
     ledc_timer_config_t pwm_timer_config_ch_2 = {
-        .speed_mode = LEDC_HIGH_SPEED_MODE,
+        .speed_mode = LEDC_LOW_SPEED_MODE,
         .duty_resolution = LEDC_TIMER_13_BIT, // Pode ter mais bits
-        .timer_num = LEDC_TIMER_0,
+        .timer_num = LEDC_TIMER_1,
         .freq_hz = frequency};
     ledc_timer_config(&pwm_timer_config_ch_2);
 
-    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_2, duty);
-    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_2);
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2, duty_ch2);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2);
 }
 
 // Canal 3
 void config_pwm_3(char *message)
 {
-    int dutyCycle = 0;
-    int duty = 0;
-    double dutyCalc = 0.0;
+    int dutyCycle_ch3 = 0;
+    int duty_ch3 = 0;
+    double dutyCalc_ch3 = 0.0;
 
     printf("Configura PWM Canal 3\n");
     printf("Frequancia de %d Hz \n", frequency);
 
-    dutyCycle = atoi(&message[9]);
-    dutyCalc = (float)((dutyCycle / 100.0) * timer_bits);
-    duty = (int)dutyCalc;
+    dutyCycle_ch3 = atoi(&message[9]);
+    dutyCalc_ch3 = (float)((dutyCycle_ch3 / 100.0) * timer_bits);
+    duty_ch3 = (int)dutyCalc_ch3;
 
-    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
-    printf("*****DUTYCYCLE de %f \n", dutyCalc);
-    printf("*****DUTY de %d \n", duty);
+    printf("*****MENSAGEM DUTYCYCLE_ch3 de %d \n", dutyCycle_ch3);
+    printf("*****DUTYCYCLE_ch3 de %f \n", dutyCalc_ch3);
+    printf("*****DUTY de %d \n", duty_ch3);
 
     ledc_channel_config_t pwm_config_ch_3 = {
         .gpio_num = PIN_13,                 // varia conforme o pino
-        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
         .channel = LEDC_CHANNEL_3,          // até 8 canais
         .intr_type = LEDC_INTR_DISABLE,     // interrupção
-        .timer_sel = LEDC_TIMER_0,          // pode variar timers
+        .timer_sel = LEDC_TIMER_1,          // pode variar timers
         .duty = 0                           // dutycicle inicial
     };
     ledc_channel_config(&pwm_config_ch_3);
 
     ledc_timer_config_t pwm_timer_config_ch_3 = {
-        .speed_mode = LEDC_HIGH_SPEED_MODE,
+        .speed_mode = LEDC_LOW_SPEED_MODE,
         .duty_resolution = LEDC_TIMER_13_BIT, // Pode ter mais bits
-        .timer_num = LEDC_TIMER_0,
+        .timer_num = LEDC_TIMER_1,
         .freq_hz = frequency};
     ledc_timer_config(&pwm_timer_config_ch_3);
 
-    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_3, duty);
-    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_3);
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_3, duty_ch3);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_3);
 }
 
 // Canal 4
 void config_pwm_4(char *message)
 {
-    int dutyCycle = 0;
-    int duty = 0;
-    double dutyCalc = 0.0;
+    int dutyCycle_ch4 = 0;
+    int duty_ch4 = 0;
+    double dutyCalc_ch4 = 0.0;
 
     printf("Configura PWM Canal 4\n");
     printf("Frequancia de %d Hz \n", frequency);
 
-    dutyCycle = atoi(&message[9]);
-    dutyCalc = (float)((dutyCycle / 100.0) * timer_bits);
-    duty = (int)dutyCalc;
+    dutyCycle_ch4 = atoi(&message[9]);
+    dutyCalc_ch4 = (float)((dutyCycle_ch4 / 100.0) * timer_bits);
+    duty_ch4 = (int)dutyCalc_ch4;
 
-    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
-    printf("*****DUTYCYCLE de %f \n", dutyCalc);
-    printf("*****DUTY de %d \n", duty);
+    printf("*****MENSAGEM DUTYCYCLE_ch4 de %d \n", dutyCycle_ch4);
+    printf("*****DUTYCYCLE_ch4 de %f \n", dutyCalc_ch4);
+    printf("*****DUTY de %d \n", duty_ch4);
 
     ledc_channel_config_t pwm_config_ch_4 = {
         .gpio_num = PIN_25,                 // varia conforme o pino
-        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
         .channel = LEDC_CHANNEL_4,          // até 8 canais
         .intr_type = LEDC_INTR_DISABLE,     // interrupção
-        .timer_sel = LEDC_TIMER_0,          // pode variar timers
+        .timer_sel = LEDC_TIMER_2,          // pode variar timers
         .duty = 0                           // dutycicle inicial
     };
     ledc_channel_config(&pwm_config_ch_4);
 
     ledc_timer_config_t pwm_timer_config_ch_4 = {
-        .speed_mode = LEDC_HIGH_SPEED_MODE,
+        .speed_mode = LEDC_LOW_SPEED_MODE,
         .duty_resolution = LEDC_TIMER_13_BIT, // Pode ter mais bits
-        .timer_num = LEDC_TIMER_0,
+        .timer_num = LEDC_TIMER_2,
         .freq_hz = frequency};
     ledc_timer_config(&pwm_timer_config_ch_4);
 
-    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_4, duty);
-    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_4);
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_4, duty_ch4);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_4);
 }
 
 // Canal 5
 void config_pwm_5(char *message)
 {
-    int dutyCycle = 0;
-    int duty = 0;
-    double dutyCalc = 0.0;
+    int dutyCycle_ch5 = 0;
+    int duty_ch5 = 0;
+    double dutyCalc_ch5 = 0.0;
 
     printf("Configura PWM Canal 5\n");
     printf("Frequancia de %d Hz \n", frequency);
 
-    dutyCycle = atoi(&message[9]);
-    dutyCalc = (float)((dutyCycle / 100.0) * timer_bits);
-    duty = (int)dutyCalc;
+    dutyCycle_ch5 = atoi(&message[9]);
+    dutyCalc_ch5 = (float)((dutyCycle_ch5 / 100.0) * timer_bits);
+    duty_ch5 = (int)dutyCalc_ch5;
 
-    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
-    printf("*****DUTYCYCLE de %f \n", dutyCalc);
-    printf("*****DUTY de %d \n", duty);
+    printf("*****MENSAGEM DUTYCYCLE_ch5 de %d \n", dutyCycle_ch5);
+    printf("*****DUTYCYCLE_ch5 de %f \n", dutyCalc_ch5);
+    printf("*****DUTY de %d \n", duty_ch5);
 
     ledc_channel_config_t pwm_config_ch_5 = {
         .gpio_num = PIN_26,                 // varia conforme o pino
-        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
         .channel = LEDC_CHANNEL_5,          // até 8 canais
         .intr_type = LEDC_INTR_DISABLE,     // interrupção
-        .timer_sel = LEDC_TIMER_0,          // pode variar timers
+        .timer_sel = LEDC_TIMER_2,          // pode variar timers
         .duty = 0                           // dutycicle inicial
     };
     ledc_channel_config(&pwm_config_ch_5);
 
     ledc_timer_config_t pwm_timer_config_ch_5 = {
-        .speed_mode = LEDC_HIGH_SPEED_MODE,
+        .speed_mode = LEDC_LOW_SPEED_MODE,
         .duty_resolution = LEDC_TIMER_13_BIT, // Pode ter mais bits
-        .timer_num = LEDC_TIMER_0,
+        .timer_num = LEDC_TIMER_2,
         .freq_hz = frequency};
     ledc_timer_config(&pwm_timer_config_ch_5);
 
-    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_5, duty);
-    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_5);
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_5, duty_ch5);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_5);
 }
 
 // Canal 6
 void config_pwm_6(char *message)
 {
-    int dutyCycle = 0;
-    int duty = 0;
-    double dutyCalc = 0.0;
+    int dutyCycle_ch6 = 0;
+    int duty_ch6 = 0;
+    double dutyCalc_ch6 = 0.0;
 
     printf("Configura PWM Canal 6\n");
     printf("Frequancia de %d Hz \n", frequency);
 
-    dutyCycle = atoi(&message[9]);
-    dutyCalc = (float)((dutyCycle / 100.0) * timer_bits);
-    duty = (int)dutyCalc;
+    dutyCycle_ch6 = atoi(&message[9]);
+    dutyCalc_ch6 = (float)((dutyCycle_ch6 / 100.0) * timer_bits);
+    duty_ch6 = (int)dutyCalc_ch6;
 
-    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
-    printf("*****DUTYCYCLE de %f \n", dutyCalc);
-    printf("*****DUTY de %d \n", duty);
+    printf("*****MENSAGEM DUTYCYCLE_ch6 de %d \n", dutyCycle_ch6);
+    printf("*****DUTYCYCLE_ch6 de %f \n", dutyCalc_ch6);
+    printf("*****DUTY de %d \n", duty_ch6);
 
     ledc_channel_config_t pwm_config_ch_6 = {
         .gpio_num = PIN_29,                 // varia conforme o pino
-        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
         .channel = LEDC_CHANNEL_6,          // até 8 canais
         .intr_type = LEDC_INTR_DISABLE,     // interrupção
-        .timer_sel = LEDC_TIMER_0,          // pode variar timers
+        .timer_sel = LEDC_TIMER_3,          // pode variar timers
         .duty = 0                           // dutycicle inicial
     };
     ledc_channel_config(&pwm_config_ch_6);
 
     ledc_timer_config_t pwm_timer_config_ch_6 = {
-        .speed_mode = LEDC_HIGH_SPEED_MODE,
+        .speed_mode = LEDC_LOW_SPEED_MODE,
         .duty_resolution = LEDC_TIMER_13_BIT, // Pode ter mais bits
-        .timer_num = LEDC_TIMER_0,
+        .timer_num = LEDC_TIMER_3,
         .freq_hz = frequency};
     ledc_timer_config(&pwm_timer_config_ch_6);
 
-    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_6, duty);
-    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_6);
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_6, duty_ch6);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_6);
 }
 
 // Canal 7
 void config_pwm_7(char *message)
 {
-    int dutyCycle = 0;
-    int duty = 0;
-    double dutyCalc = 0.0;
+    int dutyCycle_ch7 = 0;
+    int duty_ch7 = 0;
+    double dutyCalc_ch7 = 0.0;
 
     printf("Configura PWM Canal 7\n");
     printf("Frequancia de %d Hz \n", frequency);
 
-    dutyCycle = atoi(&message[9]);
-    dutyCalc = (float)((dutyCycle / 100.0) * timer_bits);
-    duty = (int)dutyCalc;
+    dutyCycle_ch7 = atoi(&message[9]);
+    dutyCalc_ch7 = (float)((dutyCycle_ch7 / 100.0) * timer_bits);
+    duty_ch7 = (int)dutyCalc_ch7;
 
-    printf("*****MENSAGEM DUTYCYCLE de %d \n", dutyCycle);
-    printf("*****DUTYCYCLE de %f \n", dutyCalc);
-    printf("*****DUTY de %d \n", duty);
+    printf("*****MENSAGEM DUTYCYCLE_ch7 de %d \n", dutyCycle_ch7);
+    printf("*****DUTYCYCLE_ch7 de %f \n", dutyCalc_ch7);
+    printf("*****DUTY de %d \n", duty_ch7);
 
     ledc_channel_config_t pwm_config_ch_7 = {
         .gpio_num = PIN_30,                 // varia conforme o pino
-        .speed_mode = LEDC_HIGH_SPEED_MODE, // pode ser escolhido
+        .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
         .channel = LEDC_CHANNEL_7,          // até 8 canais
         .intr_type = LEDC_INTR_DISABLE,     // interrupção
-        .timer_sel = LEDC_TIMER_0,          // pode variar timers
+        .timer_sel = LEDC_TIMER_3,          // pode variar timers
         .duty = 0                           // dutycicle inicial
     };
     ledc_channel_config(&pwm_config_ch_7);
 
     ledc_timer_config_t pwm_timer_config_ch_7 = {
-        .speed_mode = LEDC_HIGH_SPEED_MODE,
+        .speed_mode = LEDC_LOW_SPEED_MODE,
         .duty_resolution = LEDC_TIMER_13_BIT, // Pode ter mais bits
-        .timer_num = LEDC_TIMER_0,
+        .timer_num = LEDC_TIMER_3,
         .freq_hz = frequency};
     ledc_timer_config(&pwm_timer_config_ch_7);
 
-    ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_7, duty);
-    ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_7);
+    ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_7, duty_ch7);
+    ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_7);
 }
 
 // ########### PINOS DE LEITURA #########
@@ -1216,6 +1216,7 @@ void config_pin_06(char *message)
         hold_time_pin_6 = 0;
         printf("Pino 6 terá vetor de teste. \n");
         gpio_set_direction(PIN_06, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_06, 0);
 
         for (int i = 8; i <= 19; i++)
         {
@@ -1268,6 +1269,7 @@ void config_pin_07(char *message)
         hold_time_pin_7 = 0;
         printf("Pino 7 terá vetor de teste. \n");
         gpio_set_direction(PIN_07, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_07, 0);
 
         for (int i = 8; i <= 19; i++)
         {
@@ -1320,6 +1322,7 @@ void config_pin_08(char *message)
         hold_time_pin_8 = 0;
         printf("Pino 8 terá vetor de teste. \n");
         gpio_set_direction(PIN_08, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_08, 0);
 
         for (int i = 8; i <= 19; i++)
         {
@@ -1372,6 +1375,7 @@ void config_pin_09(char *message)
         printf("Vetor Teste Pino 9: %s\n", test_vector_pin_9);
         printf("Pino 9 terá vetor de teste. \n");
         gpio_set_direction(PIN_09, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_09, 0);
 
         for (int i = 8; i <= 19; i++)
         {
@@ -1408,8 +1412,10 @@ void config_pin_10(char *message)
     if (message[5] == '0' && message[8] == '1')
     {
         printf("Pino 10 usado para PWM. \n");
+        
         memset(test_vector_pin_10, '2', 12); // garantir que não executa o vetor
         hold_time_pin_10 = 0;
+        
     }
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
@@ -1429,8 +1435,9 @@ void config_pin_10(char *message)
         memset(test_vector_pin_10, '2', 12); // Initialize the array with the value 2
         hold_time_pin_10 = 0;
         printf("Vetor Teste Pino 10: %s\n", test_vector_pin_10);
-        printf("Pino 10 com vetor de teste. \n");
+        printf("Pino 10 terá vetor de teste. \n");
         gpio_set_direction(PIN_10, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_10, 0);
 
         for (int i = 11; i <= 22; i++)
         {
@@ -1467,8 +1474,10 @@ void config_pin_11(char *message)
     if (message[5] == '0' && message[8] == '1')
     {
         printf("Pino 11 usado para PWM. \n");
+
         memset(test_vector_pin_11, '2', 12); // garantir que não executa o vetor
         hold_time_pin_11 = 0;
+
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
     {
@@ -1485,8 +1494,9 @@ void config_pin_11(char *message)
     {
         memset(test_vector_pin_11, '2', 12); // Initialize the array with the value 2
         hold_time_pin_11 = 0;
-        printf("Pino 11 com vetor de teste. \n");
+        printf("Pino 11 terá vetor de teste. \n");
         gpio_set_direction(PIN_11, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_11, 0);
 
         for (int i = 11; i <= 22; i++)
         {
@@ -1523,8 +1533,10 @@ void config_pin_12(char *message)
     if (message[5] == '0' && message[8] == '1')
     {
         printf("Pino 12 usado para PWM. \n");
+
         memset(test_vector_pin_12, '2', 12); // garantir que não executa o vetor
         hold_time_pin_12 = 0;
+
     }
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
@@ -1545,6 +1557,7 @@ void config_pin_12(char *message)
         hold_time_pin_12 = 0;
         printf("Pino 12 terá vetor de teste. \n");
         gpio_set_direction(PIN_12, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_12, 0);
 
         for (int i = 11; i <= 22; i++)
         {
@@ -1581,8 +1594,10 @@ void config_pin_13(char *message)
     if (message[5] == '0' && message[8] == '1')
     {
         printf("Pino 13 usado para PWM. \n");
+
         memset(test_vector_pin_13, '2', 12); // garantir que não executa o vetor
         hold_time_pin_13 = 0;
+
     }
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
@@ -1602,6 +1617,7 @@ void config_pin_13(char *message)
         hold_time_pin_13 = 0;
         printf("Pino 13 terá vetor de teste. \n");
         gpio_set_direction(PIN_13, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_13, 0);
 
         for (int i = 11; i <= 22; i++)
         {
@@ -1652,6 +1668,7 @@ void config_pin_18(char *message)
         hold_time_pin_18 = 0;
         printf("Pino 18 terá vetor de teste. \n");
         gpio_set_direction(PIN_18, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_18, 0);
 
         for (int i = 8; i <= 19; i++)
         {
@@ -1702,6 +1719,7 @@ void config_pin_19(char *message)
         hold_time_pin_19 = 0;
         printf("Pino 19 terá vetor de teste. \n");
         gpio_set_direction(PIN_19, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_19, 0);
 
         for (int i = 8; i <= 19; i++)
         {
@@ -1752,6 +1770,7 @@ void config_pin_20(char *message)
         hold_time_pin_20 = 0;
         printf("Pino 20 terá vetor de teste. \n");
         gpio_set_direction(PIN_20, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_20, 0);
 
         for (int i = 8; i <= 19; i++)
         {
@@ -1852,8 +1871,10 @@ void config_pin_25(char *message)
     if (message[5] == '0' && message[8] == '1')
     {
         printf("Pino 25 usado para PWM. \n");
+
         memset(test_vector_pin_25, '2', 12); // garantir que não executa o vetor
         hold_time_pin_25 = 0;
+
     }
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
@@ -1874,6 +1895,7 @@ void config_pin_25(char *message)
         hold_time_pin_25 = 0;
         printf("Pino 25 terá vetor de teste. \n");
         gpio_set_direction(PIN_25, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_25, 0);
 
         for (int i = 11; i <= 22; i++)
         {
@@ -1910,8 +1932,10 @@ void config_pin_26(char *message)
     if (message[5] == '0' && message[8] == '1')
     {
         printf("Pino 26 usado para PWM. \n");
+
         memset(test_vector_pin_26, '2', 12); // garantir que não executa o vetor
         hold_time_pin_26 = 0;
+
     }
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
@@ -1931,6 +1955,7 @@ void config_pin_26(char *message)
         hold_time_pin_26 = 0;
         printf("Pino 26 terá vetor de teste. \n");
         gpio_set_direction(PIN_26, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_26, 0);
 
         for (int i = 11; i <= 22; i++)
         {
@@ -1981,6 +2006,7 @@ void config_pin_27(char *message)
         hold_time_pin_27 = 0;
         printf("Pino 27 terá vetor de teste. \n");
         gpio_set_direction(PIN_27, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_27, 0);
 
         for (int i = 8; i <= 19; i++)
         {
@@ -2017,8 +2043,10 @@ void config_pin_29(char *message)
     if (message[5] == '0' && message[8] == '1')
     {
         printf("Pino 29 usado para PWM. \n");
+
         memset(test_vector_pin_29, '2', 12); // garantir que não executa o vetor
         hold_time_pin_29 = 0;
+
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
     {
@@ -2037,6 +2065,7 @@ void config_pin_29(char *message)
         hold_time_pin_29 = 0;
         printf("Pino 29 terá vetor de teste. \n");
         gpio_set_direction(PIN_29, GPIO_MODE_OUTPUT);
+        gpio_set_level(PIN_29, 0);
 
         for (int i = 11; i <= 22; i++)
         {
@@ -2073,8 +2102,10 @@ void config_pin_30(char *message)
     if (message[5] == '0' && message[8] == '1')
     {
         printf("Pino 30 usado para PWM. \n");
+
         memset(test_vector_pin_30, '2', 12); // garantir que não executa o vetor
         hold_time_pin_30 = 0;
+    
     }
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
@@ -2094,6 +2125,7 @@ void config_pin_30(char *message)
         memset(test_vector_pin_30, '2', 12); // Initialize the array with the value 2
         hold_time_pin_30 = 0;
         printf("Pino 30 terá vetor de teste. \n");
+        gpio_set_level(PIN_30, 0);
 
         for (int i = 11; i <= 22; i++)
         {

@@ -27,7 +27,7 @@ def reset_system():
 def send_test_config():
     print("Enviando Configuração.")
     configuracao_frequencia()
-    
+
     configuracao_canal_0()
     configuracao_canal_1()
     configuracao_canal_2()
