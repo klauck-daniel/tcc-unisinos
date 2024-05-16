@@ -21,6 +21,7 @@
 #include "esp_http_client.h"
 #include "esp_event.h"
 #include "esp_system.h"
+#include "esp_timer.h"
 
 #include "lwip/inet.h"
 #include "lwip/netdb.h"
@@ -31,6 +32,7 @@
 #include "ping/ping_sock.h"
 #include "driver/gpio.h"
 #include "driver/ledc.h"
+#include "driver/adc.h"
 
 #define PIN_03V GPIO_NUM_16
 #define PIN_05V GPIO_NUM_17
@@ -59,66 +61,92 @@
 #define PIN_29 GPIO_NUM_22 // PWM CH6
 #define PIN_30 GPIO_NUM_23 // PWM CH7
 
-// #define set_duty(duty) ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, duty)
-// #define upt_duty ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0)
-
 #define PORT 3333
 static const char *TAG = "UDP SOCKET SERVER";
+
+static void read_task_pin_2();
+static void read_task_pin_3();
+static void read_task_pin_4();
+static void read_task_pin_5();
 
 // Variáveis Globais
 int frequency = 100;
 int timer_bits = 8191; // 2^13
+double amostra_periodo_us = 0.00;
+
+bool input_pin_2 = false;
+
+bool input_pin_3 = false;
+
+bool input_pin_4 = false;
+
+bool input_pin_5 = false;
 
 char test_vector_pin_6[12];
 int hold_time_pin_6 = 0;
+bool input_pin_6 = false;
 
 char test_vector_pin_7[12];
 int hold_time_pin_7 = 0;
+bool input_pin_7 = false;
 
 char test_vector_pin_8[12];
 int hold_time_pin_8 = 0;
+bool input_pin_8 = false;
 
 char test_vector_pin_9[12];
 int hold_time_pin_9 = 0;
+bool input_pin_9 = false;
 
 char test_vector_pin_10[12];
 int hold_time_pin_10 = 0;
+bool input_pin_10 = false;
 
 char test_vector_pin_11[12];
 int hold_time_pin_11 = 0;
+bool input_pin_11 = false;
 
 char test_vector_pin_12[12];
 int hold_time_pin_12 = 0;
+bool input_pin_12 = false;
 
 char test_vector_pin_13[12];
 int hold_time_pin_13 = 0;
+bool input_pin_13 = false;
 
 char test_vector_pin_18[12];
 int hold_time_pin_18 = 0;
+bool input_pin_18 = false;
 
 char test_vector_pin_19[12];
 int hold_time_pin_19 = 0;
+bool input_pin_19 = false;
 
 char test_vector_pin_20[12];
 int hold_time_pin_20 = 0;
+bool input_pin_20 = false;
 
 char test_vector_pin_25[12];
 int hold_time_pin_25 = 0;
+bool input_pin_25 = false;
 
 char test_vector_pin_26[12];
 int hold_time_pin_26 = 0;
+bool input_pin_26 = false;
 
 char test_vector_pin_27[12];
 int hold_time_pin_27 = 0;
+bool input_pin_27 = false;
 
 char test_vector_pin_29[12];
 int hold_time_pin_29 = 0;
+bool input_pin_29 = false;
+
 
 char test_vector_pin_30[12];
 int hold_time_pin_30 = 0;
+bool input_pin_30 = false;
 
-// Struct de configuração dos pinos
-//[pin_number, output, frequencia, dutyCycle, vetorTeste, bitHoldTime]
 typedef struct
 {
     int pin;
@@ -138,6 +166,108 @@ typedef struct
 void start_test()
 {
     printf("START TESTE\n");
+
+    amostra_periodo_us = 1 / (frequency*5);
+
+    if (input_pin_2){
+        //chama a task e começa a ler o pino 2;
+        xTaskCreate(read_task_pin_2, "pin_read", 4096, NULL, 4, NULL);
+    }
+
+    if (input_pin_3){
+        //chama a task e começa a ler o pino 2;
+        xTaskCreate(read_task_pin_3, "pin_read", 4096, NULL, 4, NULL);
+    }
+
+    if (input_pin_4){
+        //chama a task e começa a ler o pino 2;
+        xTaskCreate(read_task_pin_4, "pin_read", 4096, NULL, 4, NULL);
+    }
+
+    if (input_pin_5){
+        //chama a task e começa a ler o pino 2;
+        xTaskCreate(read_task_pin_5, "pin_read", 4096, NULL, 4, NULL);
+    }
+
+    // if (input_pin_6){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_6, "pin_read", 4096, NULL, 4, NULL);
+    // }
+
+    // if (input_pin_7){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_7, "pin_read", 4096, NULL, 4, NULL);
+    // }
+
+    // if (input_pin_8){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_8, "pin_read", 4096, NULL, 4, NULL);
+    // }
+
+    // if (input_pin_9){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_9, "pin_read", 4096, NULL, 4, NULL);
+    // }
+    // if (input_pin_10){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_10, "pin_read", 4096, NULL, 4, NULL);
+    // }
+
+    // if (input_pin_11){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_11, "pin_read", 4096, NULL, 4, NULL);
+    // }
+
+    // if (input_pin_12){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_12, "pin_read", 4096, NULL, 4, NULL);
+    // }
+
+    // if (input_pin_13){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_13, "pin_read", 4096, NULL, 4, NULL);
+    // }
+
+    // if (input_pin_18){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_18, "pin_read", 4096, NULL, 4, NULL);
+    // }
+
+    // if (input_pin_19){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_19, "pin_read", 4096, NULL, 4, NULL);
+    // }
+
+    // if (input_pin_20){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_20, "pin_read", 4096, NULL, 4, NULL);
+    // }
+
+    // if (input_pin_25){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_25, "pin_read", 4096, NULL, 4, NULL);
+    // }
+
+    // if (input_pin_26){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_26, "pin_read", 4096, NULL, 4, NULL);
+    // }
+
+    // if (input_pin_27){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_27, "pin_read", 4096, NULL, 4, NULL);
+    // }
+
+    // if (input_pin_29){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_29, "pin_read", 4096, NULL, 4, NULL);
+    // }
+
+    // if (input_pin_30){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_30, "pin_read", 4096, NULL, 4, NULL);
+    // }
+    
 
     TickType_t start_time_pin_6 = xTaskGetTickCount();
     int bit_index_pin_6 = 0;
@@ -837,12 +967,12 @@ void config_pwm_0(char *message)
     printf("*****DUTY de %d \n", duty_ch0);
 
     ledc_channel_config_t pwm_config_ch_0 = {
-        .gpio_num = PIN_10,                 // varia conforme o pino
+        .gpio_num = PIN_10,                // varia conforme o pino
         .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
-        .channel = LEDC_CHANNEL_0,          // até 8 canais
-        .intr_type = LEDC_INTR_DISABLE,     // interrupção
-        .timer_sel = LEDC_TIMER_0,          // pode variar timers
-        .duty = 0                           // dutycicle inicial
+        .channel = LEDC_CHANNEL_0,         // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE,    // interrupção
+        .timer_sel = LEDC_TIMER_0,         // pode variar timers
+        .duty = 0                          // dutycicle inicial
     };
     ledc_channel_config(&pwm_config_ch_0);
 
@@ -876,12 +1006,12 @@ void config_pwm_1(char *message)
     printf("*****DUTY de %d \n", duty_ch1);
 
     ledc_channel_config_t pwm_config_ch_1 = {
-        .gpio_num = PIN_11,                 // varia conforme o pino
+        .gpio_num = PIN_11,                // varia conforme o pino
         .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
-        .channel = LEDC_CHANNEL_1,          // até 8 canais
-        .intr_type = LEDC_INTR_DISABLE,     // interrupção
-        .timer_sel = LEDC_TIMER_0,          // pode variar timers
-        .duty = 0                           // dutycicle inicial
+        .channel = LEDC_CHANNEL_1,         // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE,    // interrupção
+        .timer_sel = LEDC_TIMER_0,         // pode variar timers
+        .duty = 0                          // dutycicle inicial
     };
     ledc_channel_config(&pwm_config_ch_1);
 
@@ -915,12 +1045,12 @@ void config_pwm_2(char *message)
     printf("*****DUTY de %d \n", duty_ch2);
 
     ledc_channel_config_t pwm_config_ch_2 = {
-        .gpio_num = PIN_12,                 // varia conforme o pino
+        .gpio_num = PIN_12,                // varia conforme o pino
         .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
-        .channel = LEDC_CHANNEL_2,          // até 8 canais
-        .intr_type = LEDC_INTR_DISABLE,     // interrupção
-        .timer_sel = LEDC_TIMER_1,          // pode variar timers
-        .duty = 0                           // dutycicle inicial
+        .channel = LEDC_CHANNEL_2,         // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE,    // interrupção
+        .timer_sel = LEDC_TIMER_1,         // pode variar timers
+        .duty = 0                          // dutycicle inicial
     };
     ledc_channel_config(&pwm_config_ch_2);
 
@@ -954,12 +1084,12 @@ void config_pwm_3(char *message)
     printf("*****DUTY de %d \n", duty_ch3);
 
     ledc_channel_config_t pwm_config_ch_3 = {
-        .gpio_num = PIN_13,                 // varia conforme o pino
+        .gpio_num = PIN_13,                // varia conforme o pino
         .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
-        .channel = LEDC_CHANNEL_3,          // até 8 canais
-        .intr_type = LEDC_INTR_DISABLE,     // interrupção
-        .timer_sel = LEDC_TIMER_1,          // pode variar timers
-        .duty = 0                           // dutycicle inicial
+        .channel = LEDC_CHANNEL_3,         // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE,    // interrupção
+        .timer_sel = LEDC_TIMER_1,         // pode variar timers
+        .duty = 0                          // dutycicle inicial
     };
     ledc_channel_config(&pwm_config_ch_3);
 
@@ -993,12 +1123,12 @@ void config_pwm_4(char *message)
     printf("*****DUTY de %d \n", duty_ch4);
 
     ledc_channel_config_t pwm_config_ch_4 = {
-        .gpio_num = PIN_25,                 // varia conforme o pino
+        .gpio_num = PIN_25,                // varia conforme o pino
         .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
-        .channel = LEDC_CHANNEL_4,          // até 8 canais
-        .intr_type = LEDC_INTR_DISABLE,     // interrupção
-        .timer_sel = LEDC_TIMER_2,          // pode variar timers
-        .duty = 0                           // dutycicle inicial
+        .channel = LEDC_CHANNEL_4,         // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE,    // interrupção
+        .timer_sel = LEDC_TIMER_2,         // pode variar timers
+        .duty = 0                          // dutycicle inicial
     };
     ledc_channel_config(&pwm_config_ch_4);
 
@@ -1032,12 +1162,12 @@ void config_pwm_5(char *message)
     printf("*****DUTY de %d \n", duty_ch5);
 
     ledc_channel_config_t pwm_config_ch_5 = {
-        .gpio_num = PIN_26,                 // varia conforme o pino
+        .gpio_num = PIN_26,                // varia conforme o pino
         .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
-        .channel = LEDC_CHANNEL_5,          // até 8 canais
-        .intr_type = LEDC_INTR_DISABLE,     // interrupção
-        .timer_sel = LEDC_TIMER_2,          // pode variar timers
-        .duty = 0                           // dutycicle inicial
+        .channel = LEDC_CHANNEL_5,         // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE,    // interrupção
+        .timer_sel = LEDC_TIMER_2,         // pode variar timers
+        .duty = 0                          // dutycicle inicial
     };
     ledc_channel_config(&pwm_config_ch_5);
 
@@ -1071,12 +1201,12 @@ void config_pwm_6(char *message)
     printf("*****DUTY de %d \n", duty_ch6);
 
     ledc_channel_config_t pwm_config_ch_6 = {
-        .gpio_num = PIN_29,                 // varia conforme o pino
+        .gpio_num = PIN_29,                // varia conforme o pino
         .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
-        .channel = LEDC_CHANNEL_6,          // até 8 canais
-        .intr_type = LEDC_INTR_DISABLE,     // interrupção
-        .timer_sel = LEDC_TIMER_3,          // pode variar timers
-        .duty = 0                           // dutycicle inicial
+        .channel = LEDC_CHANNEL_6,         // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE,    // interrupção
+        .timer_sel = LEDC_TIMER_3,         // pode variar timers
+        .duty = 0                          // dutycicle inicial
     };
     ledc_channel_config(&pwm_config_ch_6);
 
@@ -1110,12 +1240,12 @@ void config_pwm_7(char *message)
     printf("*****DUTY de %d \n", duty_ch7);
 
     ledc_channel_config_t pwm_config_ch_7 = {
-        .gpio_num = PIN_30,                 // varia conforme o pino
+        .gpio_num = PIN_30,                // varia conforme o pino
         .speed_mode = LEDC_LOW_SPEED_MODE, // pode ser escolhido
-        .channel = LEDC_CHANNEL_7,          // até 8 canais
-        .intr_type = LEDC_INTR_DISABLE,     // interrupção
-        .timer_sel = LEDC_TIMER_3,          // pode variar timers
-        .duty = 0                           // dutycicle inicial
+        .channel = LEDC_CHANNEL_7,         // até 8 canais
+        .intr_type = LEDC_INTR_DISABLE,    // interrupção
+        .timer_sel = LEDC_TIMER_3,         // pode variar timers
+        .duty = 0                          // dutycicle inicial
     };
     ledc_channel_config(&pwm_config_ch_7);
 
@@ -1136,11 +1266,13 @@ void config_pin_02(char *message)
     if (message[5] == '1')
     {
         printf("Pino 2 será entrada de dados.\n");
-        gpio_set_direction(PIN_02, GPIO_MODE_INPUT);
+
+        input_pin_2 = true;
     }
     else
     {
         printf("Pino 2 sem uso. \n");
+        input_pin_2 = false;
         gpio_set_direction(PIN_02, GPIO_MODE_DISABLE);
     }
 }
@@ -1196,7 +1328,7 @@ void config_pin_06(char *message)
         gpio_reset_pin(PIN_06);                       // Garantir reset do pino
         gpio_set_direction(PIN_06, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_06, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_6, '2', 12);             // Garante que não executa o vetor
+        memset(test_vector_pin_6, '2', 12);           // Garante que não executa o vetor
         hold_time_pin_6 = 0;                          // Garante que não executa o vetor
 
         gpio_set_direction(PIN_06, GPIO_MODE_INPUT);
@@ -1208,7 +1340,7 @@ void config_pin_06(char *message)
         gpio_set_direction(PIN_06, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_06, 0);
         memset(test_vector_pin_6, '2', 12); // Garante que não executa o vetor
-        hold_time_pin_6 = 0;              // Garante que não executa o vetor
+        hold_time_pin_6 = 0;                // Garante que não executa o vetor
     }
     if (message[5] == '0' && message[9] != ',')
     {
@@ -1245,7 +1377,7 @@ void config_pin_07(char *message)
         gpio_reset_pin(PIN_07);                       // Garantir reset do pino
         gpio_set_direction(PIN_07, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_07, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_7, '2', 12);             // garantir que não executa o vetor
+        memset(test_vector_pin_7, '2', 12);           // garantir que não executa o vetor
         hold_time_pin_7 = 0;                          // garantir que não executa o vetor
 
         gpio_set_direction(PIN_07, GPIO_MODE_INPUT);
@@ -1255,8 +1387,8 @@ void config_pin_07(char *message)
     {
         printf("Pino 7 sem uso. \n");
 
-        memset(test_vector_pin_7, '2', 12); //garantir que não executa o vetor
-        hold_time_pin_7 = 0; //garantir que não executa o vetor
+        memset(test_vector_pin_7, '2', 12); // garantir que não executa o vetor
+        hold_time_pin_7 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_07);
         gpio_set_direction(PIN_07, GPIO_MODE_OUTPUT);
@@ -1298,7 +1430,7 @@ void config_pin_08(char *message)
         gpio_reset_pin(PIN_08);                       // Garantir reset do pino
         gpio_set_direction(PIN_08, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_08, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_8, '2', 12);             // garantir que não executa o vetor
+        memset(test_vector_pin_8, '2', 12);           // garantir que não executa o vetor
         hold_time_pin_8 = 0;                          // garantir que não executa o vetor
 
         gpio_set_direction(PIN_08, GPIO_MODE_INPUT);
@@ -1309,7 +1441,7 @@ void config_pin_08(char *message)
         printf("Pino 8 sem uso. \n");
 
         memset(test_vector_pin_8, '2', 12); // garantir que não executa o vetor
-        hold_time_pin_8 = 0;              // garantir que não executa o vetor
+        hold_time_pin_8 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_08);
         gpio_set_direction(PIN_08, GPIO_MODE_OUTPUT);
@@ -1351,7 +1483,7 @@ void config_pin_09(char *message)
         gpio_reset_pin(PIN_09);                       // Garantir reset do pino
         gpio_set_direction(PIN_09, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_09, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_9, '2', 12);             // garantir que não executa o vetor
+        memset(test_vector_pin_9, '2', 12);           // garantir que não executa o vetor
         hold_time_pin_9 = 0;                          // garantir que não executa o vetor
 
         gpio_set_direction(PIN_09, GPIO_MODE_INPUT);
@@ -1361,7 +1493,7 @@ void config_pin_09(char *message)
         printf("Pino 9 sem uso. \n");
 
         memset(test_vector_pin_9, '2', 12); // garantir que não executa o vetor
-        hold_time_pin_9 = 0;              // garantir que não executa o vetor
+        hold_time_pin_9 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_09);
         gpio_set_direction(PIN_09, GPIO_MODE_OUTPUT);
@@ -1404,7 +1536,7 @@ void config_pin_10(char *message)
         gpio_reset_pin(PIN_10);                       // Garantir reset do pino
         gpio_set_direction(PIN_10, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_10, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_10, '2', 12);            // garantir que não executa o vetor
+        memset(test_vector_pin_10, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_10 = 0;                         // garantir que não executa o vetor
 
         gpio_set_direction(PIN_10, GPIO_MODE_INPUT);
@@ -1412,10 +1544,9 @@ void config_pin_10(char *message)
     if (message[5] == '0' && message[8] == '1')
     {
         printf("Pino 10 usado para PWM. \n");
-        
+
         memset(test_vector_pin_10, '2', 12); // garantir que não executa o vetor
         hold_time_pin_10 = 0;
-        
     }
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
@@ -1423,7 +1554,7 @@ void config_pin_10(char *message)
         printf("Pino 10 sem uso. \n");
 
         memset(test_vector_pin_10, '2', 12); // garantir que não executa o vetor
-        hold_time_pin_10 = 0;              // garantir que não executa o vetor
+        hold_time_pin_10 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_10);
         gpio_set_direction(PIN_10, GPIO_MODE_OUTPUT);
@@ -1466,7 +1597,7 @@ void config_pin_11(char *message)
         gpio_reset_pin(PIN_11);                       // Garantir reset do pino
         gpio_set_direction(PIN_11, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_11, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_11, '2', 12);            // garantir que não executa o vetor
+        memset(test_vector_pin_11, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_11 = 0;                         // garantir que não executa o vetor
 
         gpio_set_direction(PIN_11, GPIO_MODE_INPUT);
@@ -1477,14 +1608,13 @@ void config_pin_11(char *message)
 
         memset(test_vector_pin_11, '2', 12); // garantir que não executa o vetor
         hold_time_pin_11 = 0;
-
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
     {
         printf("Pino 11 sem uso. \n");
 
         memset(test_vector_pin_11, '2', 12); // garantir que não executa o vetor
-        hold_time_pin_11 = 0;              // garantir que não executa o vetor
+        hold_time_pin_11 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_11);
         gpio_set_direction(PIN_11, GPIO_MODE_OUTPUT);
@@ -1525,7 +1655,7 @@ void config_pin_12(char *message)
         gpio_reset_pin(PIN_12);                       // Garantir reset do pino
         gpio_set_direction(PIN_12, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_12, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_12, '2', 12);            // garantir que não executa o vetor
+        memset(test_vector_pin_12, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_12 = 0;                         // garantir que não executa o vetor
 
         gpio_set_direction(PIN_12, GPIO_MODE_INPUT);
@@ -1536,7 +1666,6 @@ void config_pin_12(char *message)
 
         memset(test_vector_pin_12, '2', 12); // garantir que não executa o vetor
         hold_time_pin_12 = 0;
-
     }
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
@@ -1544,7 +1673,7 @@ void config_pin_12(char *message)
         printf("Pino 12 sem uso. \n");
 
         memset(test_vector_pin_12, '2', 12); // garantir que não executa o vetor
-        hold_time_pin_12 = 0;              // garantir que não executa o vetor
+        hold_time_pin_12 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_12);
         gpio_set_direction(PIN_12, GPIO_MODE_OUTPUT);
@@ -1586,7 +1715,7 @@ void config_pin_13(char *message)
         gpio_reset_pin(PIN_13);                       // Garantir reset do pino
         gpio_set_direction(PIN_13, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_13, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_13, '2', 12);            // garantir que não executa o vetor
+        memset(test_vector_pin_13, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_13 = 0;                         // garantir que não executa o vetor
 
         gpio_set_direction(PIN_13, GPIO_MODE_INPUT);
@@ -1597,7 +1726,6 @@ void config_pin_13(char *message)
 
         memset(test_vector_pin_13, '2', 12); // garantir que não executa o vetor
         hold_time_pin_13 = 0;
-
     }
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
@@ -1605,7 +1733,7 @@ void config_pin_13(char *message)
         printf("Pino 13 sem uso. \n");
 
         memset(test_vector_pin_13, '2', 12); // garantir que não executa o vetor
-        hold_time_pin_13 = 0;              // garantir que não executa o vetor
+        hold_time_pin_13 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_13);
         gpio_set_direction(PIN_13, GPIO_MODE_OUTPUT);
@@ -1646,7 +1774,7 @@ void config_pin_18(char *message)
         gpio_reset_pin(PIN_18);                       // Garantir reset do pino
         gpio_set_direction(PIN_18, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_18, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_18, '2', 12);            // garantir que não executa o vetor
+        memset(test_vector_pin_18, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_18 = 0;                         // garantir que não executa o vetor
 
         gpio_set_direction(PIN_18, GPIO_MODE_INPUT);
@@ -1656,7 +1784,7 @@ void config_pin_18(char *message)
         printf("Pino 18 sem uso. \n");
 
         memset(test_vector_pin_18, '2', 12); // garantir que não executa o vetor
-        hold_time_pin_18 = 0;              // garantir que não executa o vetor
+        hold_time_pin_18 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_18);
         gpio_set_direction(PIN_18, GPIO_MODE_OUTPUT);
@@ -1697,7 +1825,7 @@ void config_pin_19(char *message)
         gpio_reset_pin(PIN_19);                       // Garantir reset do pino
         gpio_set_direction(PIN_19, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_19, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_19, '2', 12);            // garantir que não executa o vetor
+        memset(test_vector_pin_19, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_19 = 0;                         // garantir que não executa o vetor
 
         gpio_set_direction(PIN_19, GPIO_MODE_INPUT);
@@ -1707,7 +1835,7 @@ void config_pin_19(char *message)
         printf("Pino 19 sem uso. \n");
 
         memset(test_vector_pin_19, '2', 12); // garantir que não executa o vetor
-        hold_time_pin_19 = 0;              // garantir que não executa o vetor
+        hold_time_pin_19 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_19);
         gpio_set_direction(PIN_19, GPIO_MODE_OUTPUT);
@@ -1748,7 +1876,7 @@ void config_pin_20(char *message)
         gpio_reset_pin(PIN_20);                       // Garantir reset do pino
         gpio_set_direction(PIN_20, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_20, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_20, '2', 12);            // garantir que não executa o vetor
+        memset(test_vector_pin_20, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_20 = 0;                         // garantir que não executa o vetor
 
         gpio_set_direction(PIN_20, GPIO_MODE_INPUT);
@@ -1758,7 +1886,7 @@ void config_pin_20(char *message)
         printf("Pino 20 sem uso. \n");
 
         memset(test_vector_pin_20, '2', 12); // garantir que não executa o vetor
-        hold_time_pin_20 = 0;              // garantir que não executa o vetor
+        hold_time_pin_20 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_20);
         gpio_set_direction(PIN_20, GPIO_MODE_OUTPUT);
@@ -1863,7 +1991,7 @@ void config_pin_25(char *message)
         gpio_reset_pin(PIN_25);                       // Garantir reset do pino
         gpio_set_direction(PIN_25, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_25, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_25, '2', 12);            // garantir que não executa o vetor
+        memset(test_vector_pin_25, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_25 = 0;                         // garantir que não executa o vetor
 
         gpio_set_direction(PIN_25, GPIO_MODE_INPUT);
@@ -1874,7 +2002,6 @@ void config_pin_25(char *message)
 
         memset(test_vector_pin_25, '2', 12); // garantir que não executa o vetor
         hold_time_pin_25 = 0;
-
     }
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
@@ -1882,7 +2009,7 @@ void config_pin_25(char *message)
         printf("Pino 25 sem uso. \n");
 
         memset(test_vector_pin_25, '2', 12); // garantir que não executa o vetor
-        hold_time_pin_25 = 0;              // garantir que não executa o vetor
+        hold_time_pin_25 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_25);
         gpio_set_direction(PIN_25, GPIO_MODE_OUTPUT);
@@ -1924,7 +2051,7 @@ void config_pin_26(char *message)
         gpio_reset_pin(PIN_26);                       // Garantir reset do pino
         gpio_set_direction(PIN_26, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_26, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_26, '2', 12);            // garantir que não executa o vetor
+        memset(test_vector_pin_26, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_26 = 0;                         // garantir que não executa o vetor
 
         gpio_set_direction(PIN_26, GPIO_MODE_INPUT);
@@ -1935,7 +2062,6 @@ void config_pin_26(char *message)
 
         memset(test_vector_pin_26, '2', 12); // garantir que não executa o vetor
         hold_time_pin_26 = 0;
-
     }
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
@@ -1943,7 +2069,7 @@ void config_pin_26(char *message)
         printf("Pino 26 sem uso. \n");
 
         memset(test_vector_pin_26, '2', 12); // garantir que não executa o vetor
-        hold_time_pin_26 = 0;              // garantir que não executa o vetor
+        hold_time_pin_26 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_26);
         gpio_set_direction(PIN_26, GPIO_MODE_OUTPUT);
@@ -1984,7 +2110,7 @@ void config_pin_27(char *message)
         gpio_reset_pin(PIN_27);                       // Garantir reset do pino
         gpio_set_direction(PIN_27, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_27, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_27, '2', 12);            // garantir que não executa o vetor
+        memset(test_vector_pin_27, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_27 = 0;                         // garantir que não executa o vetor
 
         gpio_set_direction(PIN_27, GPIO_MODE_INPUT);
@@ -1994,7 +2120,7 @@ void config_pin_27(char *message)
         printf("Pino 27 sem uso. \n");
 
         memset(test_vector_pin_27, '2', 12); // garantir que não executa o vetor
-        hold_time_pin_27 = 0;              // garantir que não executa o vetor
+        hold_time_pin_27 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_27);
         gpio_set_direction(PIN_27, GPIO_MODE_OUTPUT);
@@ -2035,7 +2161,7 @@ void config_pin_29(char *message)
         gpio_reset_pin(PIN_29);                       // Garantir reset do pino
         gpio_set_direction(PIN_29, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_29, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_29, '2', 12);            // garantir que não executa o vetor
+        memset(test_vector_pin_29, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_29 = 0;                         // garantir que não executa o vetor
 
         gpio_set_direction(PIN_29, GPIO_MODE_INPUT);
@@ -2046,14 +2172,13 @@ void config_pin_29(char *message)
 
         memset(test_vector_pin_29, '2', 12); // garantir que não executa o vetor
         hold_time_pin_29 = 0;
-
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
     {
         printf("Pino 29 sem uso. \n");
 
         memset(test_vector_pin_29, '2', 12); // garantir que não executa o vetor
-        hold_time_pin_29 = 0;              // garantir que não executa o vetor
+        hold_time_pin_29 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_29);
         gpio_set_direction(PIN_29, GPIO_MODE_OUTPUT);
@@ -2094,7 +2219,7 @@ void config_pin_30(char *message)
         gpio_reset_pin(PIN_30);                       // Garantir reset do pino
         gpio_set_direction(PIN_30, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_30, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_30, '2', 12);            // garantir que não executa o vetor
+        memset(test_vector_pin_30, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_30 = 0;                         // garantir que não executa o vetor
 
         gpio_set_direction(PIN_30, GPIO_MODE_INPUT);
@@ -2105,7 +2230,6 @@ void config_pin_30(char *message)
 
         memset(test_vector_pin_30, '2', 12); // garantir que não executa o vetor
         hold_time_pin_30 = 0;
-    
     }
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
@@ -2113,7 +2237,7 @@ void config_pin_30(char *message)
         printf("Pino 30 sem uso. \n");
 
         memset(test_vector_pin_30, '2', 12); // garantir que não executa o vetor
-        hold_time_pin_30 = 0;              // garantir que não executa o vetor
+        hold_time_pin_30 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_30);
         gpio_set_direction(PIN_30, GPIO_MODE_OUTPUT);
@@ -2148,6 +2272,52 @@ void config_pin_30(char *message)
 void process_pin_config(char *message)
 {
     printf("\n CONFIGURAR TESTE\n");
+}
+
+// static TaskHandle_t taskHandler = NULL;
+//  ***************** TASKS DE LEITURA DE PINOS ***********
+static void read_task_pin_2()
+{
+    if (input_pin_2)
+    {
+        gpio_set_direction(PIN_02, GPIO_MODE_INPUT);
+
+        int64_t start_time = esp_timer_get_time();
+        int64_t elapsed_time = 0;
+
+        while (elapsed_time < 30000000)
+        {
+            int pin2_value = gpio_get_level(PIN_02);
+            int64_t current_time = esp_timer_get_time();
+            printf("[%lld us] PIN_2: %d\n", current_time, pin2_value);
+
+            vTaskDelay(amostra_periodo_us / portTICK_PERIOD_MS);
+
+            elapsed_time = esp_timer_get_time() - start_time;
+        }
+        vTaskDelete(NULL);
+    }
+}
+
+static void read_task_pin_3()
+{
+    gpio_set_direction(PIN_03, GPIO_MODE_INPUT);
+    int pin3_value = gpio_get_level(PIN_03);
+    printf("PIN_3: %d", pin3_value);
+}
+
+static void read_task_pin_4()
+{
+    gpio_set_direction(PIN_04, GPIO_MODE_INPUT);
+    int pin4_value = gpio_get_level(PIN_04);
+    printf("PIN_4: %d", pin4_value);
+}
+
+static void read_task_pin_5()
+{
+    gpio_set_direction(PIN_05, GPIO_MODE_INPUT);
+    int pin5_value = gpio_get_level(PIN_05);
+    printf("PIN_5: %d", pin5_value);
 }
 
 static void udp_server_task(void *pvParameters)
@@ -2330,10 +2500,6 @@ static void udp_server_task(void *pvParameters)
                 {
                     config_pin_27(rx_buffer);
                 }
-                // if (rx_buffer[1] == '2' && rx_buffer[2] == '8')
-                // {
-                //     config_pin_28(rx_buffer);
-                // }
                 if (rx_buffer[1] == '2' && rx_buffer[2] == '9')
                 {
                     config_pin_29(rx_buffer);
@@ -2342,7 +2508,6 @@ static void udp_server_task(void *pvParameters)
                 {
                     config_pin_30(rx_buffer);
                 }
-
                 if (strstr(rx_buffer, "START") != NULL)
                 {
                     start_test();
@@ -2357,7 +2522,7 @@ static void udp_server_task(void *pvParameters)
             }
             else
             {
-                ESP_LOGI(TAG, "Did not received data");
+                // ESP_LOGI(TAG, "Did not received data");
             }
         }
 
@@ -2416,5 +2581,5 @@ void app_main(void)
 {
     wifi_connection();
     vTaskDelay(5000 / portTICK_PERIOD_MS);
-    xTaskCreate(udp_server_task, "udp_server", 4096, (void *)AF_INET, 5, NULL);
+    xTaskCreate(udp_server_task, "udp_server", 4096, (void *)AF_INET, 4, NULL);
 }

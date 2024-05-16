@@ -2,7 +2,7 @@ from enviaMensagemUDP import envia_mensagem_udp, envia_start_mensagem_udp
 from guizero import App, Text, PushButton, CheckBox, TextBox, Slider, Box
 
 #Variáveis Globais
-esp_ip = "192.168.1.24" 
+esp_ip = "192.168.1.23" 
 esp_porta = 3333
 pinos_valores = {}
 
@@ -1396,8 +1396,5 @@ start_button = PushButton(config_btn_box, command=start_test,
 reset_button = PushButton(config_btn_box, command=reset_system,
                           text="RESET ESP", grid=[2,0], align="left")
 
-
 # Display
 app.display()
-
-
