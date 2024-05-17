@@ -64,10 +64,7 @@
 #define PORT 3333
 static const char *TAG = "UDP SOCKET SERVER";
 
-static void read_task_pin_2();
-static void read_task_pin_3();
-static void read_task_pin_4();
-static void read_task_pin_5();
+static void read_pin_task();
 
 // Variáveis Globais
 int frequency = 100;
@@ -167,27 +164,28 @@ void start_test()
 {
     printf("START TESTE\n");
 
-    amostra_periodo_us = 1 / (frequency*5);
+    
 
     if (input_pin_2){
         //chama a task e começa a ler o pino 2;
-        xTaskCreate(read_task_pin_2, "pin_read", 4096, NULL, 4, NULL);
+        //xTaskCreatePinnedToCore(read_pin_task, "pin_read", 4096, NULL, 4, NULL, 0);
+        xTaskCreate(read_pin_task, "pin_read", 4096, NULL, 4, NULL);
     }
 
-    if (input_pin_3){
-        //chama a task e começa a ler o pino 2;
-        xTaskCreate(read_task_pin_3, "pin_read", 4096, NULL, 4, NULL);
-    }
+    // if (input_pin_3){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_3, "pin_read", 4096, NULL, 4, NULL);
+    // }
 
-    if (input_pin_4){
-        //chama a task e começa a ler o pino 2;
-        xTaskCreate(read_task_pin_4, "pin_read", 4096, NULL, 4, NULL);
-    }
+    // if (input_pin_4){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_4, "pin_read", 4096, NULL, 4, NULL);
+    // }
 
-    if (input_pin_5){
-        //chama a task e começa a ler o pino 2;
-        xTaskCreate(read_task_pin_5, "pin_read", 4096, NULL, 4, NULL);
-    }
+    // if (input_pin_5){
+    //     //chama a task e começa a ler o pino 2;
+    //     xTaskCreate(read_task_pin_5, "pin_read", 4096, NULL, 4, NULL);
+    // }
 
     // if (input_pin_6){
     //     //chama a task e começa a ler o pino 2;
@@ -2274,51 +2272,54 @@ void process_pin_config(char *message)
     printf("\n CONFIGURAR TESTE\n");
 }
 
-// static TaskHandle_t taskHandler = NULL;
-//  ***************** TASKS DE LEITURA DE PINOS ***********
-static void read_task_pin_2()
+
+//  ***************** TASKS DE LEITURA DE PINOS ********************
+// Manipulador do timer de leitura
+esp_timer_handle_t readEspPinsHandler;
+
+// Configuração e leitura dos pinos
+void readEspPinsConfig(void *arg)
 {
+    //int64_t current_time = esp_timer_get_time();
+
     if (input_pin_2)
     {
         gpio_set_direction(PIN_02, GPIO_MODE_INPUT);
-
-        int64_t start_time = esp_timer_get_time();
-        int64_t elapsed_time = 0;
-
-        while (elapsed_time < 30000000)
-        {
-            int pin2_value = gpio_get_level(PIN_02);
-            int64_t current_time = esp_timer_get_time();
-            printf("[%lld us] PIN_2: %d\n", current_time, pin2_value);
-
-            vTaskDelay(amostra_periodo_us / portTICK_PERIOD_MS);
-
-            elapsed_time = esp_timer_get_time() - start_time;
-        }
-        vTaskDelete(NULL);
+        int pin2_value = gpio_get_level(PIN_02);
+        printf("PIN_2: %d\n", pin2_value);
     }
 }
 
-static void read_task_pin_3()
-{
-    gpio_set_direction(PIN_03, GPIO_MODE_INPUT);
-    int pin3_value = gpio_get_level(PIN_03);
-    printf("PIN_3: %d", pin3_value);
+// Função chamada pelo timer para parar a leitura após 30 segundos
+void stopReadEspPins(void *arg) {
+    esp_timer_stop(readEspPinsHandler);
+    esp_timer_delete(readEspPinsHandler);
+    printf("Leitura dos pinos finalizada.\n");
 }
 
-static void read_task_pin_4()
+//Criar e iniciar a task de leitura com timers 
+static void read_pin_task()
 {
-    gpio_set_direction(PIN_04, GPIO_MODE_INPUT);
-    int pin4_value = gpio_get_level(PIN_04);
-    printf("PIN_4: %d", pin4_value);
+    const esp_timer_create_args_t esp_read_timer = {
+        .callback = readEspPinsConfig,
+        .name = "EspReadTimer"};
+
+    esp_timer_create(&esp_read_timer, &readEspPinsHandler);
+    esp_timer_start_periodic(readEspPinsHandler, 100); // neste caso, 100 us
+
+    // Timer para parar a leitura após 30 segundos
+    const esp_timer_create_args_t stop_timer = {
+        .callback = &stopReadEspPins,
+        .name = "StopReadTimer"
+    };
+
+    esp_timer_handle_t stopReadHandler;
+    esp_timer_create(&stop_timer, &stopReadHandler);
+    esp_timer_start_once(stopReadHandler, 30 * 1000000); // 30 segundos em us
+
+    vTaskDelete(NULL);
 }
 
-static void read_task_pin_5()
-{
-    gpio_set_direction(PIN_05, GPIO_MODE_INPUT);
-    int pin5_value = gpio_get_level(PIN_05);
-    printf("PIN_5: %d", pin5_value);
-}
 
 static void udp_server_task(void *pvParameters)
 {
@@ -2581,5 +2582,7 @@ void app_main(void)
 {
     wifi_connection();
     vTaskDelay(5000 / portTICK_PERIOD_MS);
+    //xTaskCreatePinnedToCore(udp_server_task, "udp_server", 4096, (void *)AF_INET, 4, NULL, 1);
     xTaskCreate(udp_server_task, "udp_server", 4096, (void *)AF_INET, 4, NULL);
+
 }
