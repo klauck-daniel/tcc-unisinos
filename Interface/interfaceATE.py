@@ -10,7 +10,7 @@ freq_min = 1
 freq_max = 5000
 
 hold_time_min = 100
-hold_time_max = 2000
+hold_time_max = 1000
 
 ms_valida = 1500
 
@@ -497,9 +497,9 @@ Text(pin_box_10, width = 15, text="Pino 10:", grid=[0, 0], align="left")
 # Descrição do Pinos
 Text(pin_box_10, text = "PWM CH0, ADC, GPIO27", grid = [0, 1], align="left")
 
-Text(pin_box_10, text="Pin Leitura:", grid=[0, 2], align="left")
-result_pin_output_checkbox_10 = CheckBox(
-    pin_box_10, text="", align="left", grid=[1, 2])
+# Text(pin_box_10, text="Pin Leitura:", grid=[0, 2], align="left")
+# result_pin_output_checkbox_10 = CheckBox(
+#     pin_box_10, text="", align="left", grid=[1, 2])
 
 Text(pin_box_10, text="Enable PWM:", grid=[0, 3], align="left")
 enable_pwm_pin_10 = CheckBox(pin_box_10, text="", align="left", grid=[1, 3])
@@ -557,7 +557,7 @@ def valida_hold_time_10():
 bit_hold_time_10.when_key_pressed = schedule_hold_time_10
 
 def configuracao_pino_10():
-    pin_leitura_10 = 1 if result_pin_output_checkbox_10.value else 0
+    pin_leitura_10 = 0
     enable_pwm_ch_0 = 1 if enable_pwm_pin_10.value else 0
     config_pino_10 = [
         pin_leitura_10,
@@ -577,9 +577,9 @@ Text(pin_box_11, width = 15, text="Pino 11:", grid=[0, 0], align="left")
 # Descrição do Pinos
 Text(pin_box_11, text = "PWM CH1, ADC, GPIO14", grid = [0, 1], align="left")
 
-Text(pin_box_11, text="Pin Leitura:", grid=[0, 2], align="left")
-result_pin_output_checkbox_11 = CheckBox(
-    pin_box_11, text="", align="left", grid=[1, 2])
+# Text(pin_box_11, text="Pin Leitura:", grid=[0, 2], align="left")
+# result_pin_output_checkbox_11 = CheckBox(
+#     pin_box_11, text="", align="left", grid=[1, 2])
 
 Text(pin_box_11, text="Enable PWM:", grid=[0, 3], align="left")
 enable_pwm_pin_11 = CheckBox(pin_box_11, text="", align="left", grid=[1, 3])
@@ -637,7 +637,7 @@ def valida_hold_time_11():
 bit_hold_time_11.when_key_pressed = schedule_hold_time_11
 
 def configuracao_pino_11():
-    pin_leitura_11 = 1 if result_pin_output_checkbox_11.value else 0
+    pin_leitura_11 = 0
     enable_pwm_ch_1 = 1 if enable_pwm_pin_11.value else 0
     config_pino_11 = [
         pin_leitura_11,
@@ -737,9 +737,9 @@ Text(pin_box_13, width = 15, text="Pino 13:", grid=[0, 0], align="left")
 # Descrição do Pinos
 Text(pin_box_13, text = "PWM CH3, ADC, GPIO13", grid = [0, 1], align="left")
 
-Text(pin_box_13, text="Pin Leitura:", grid=[0, 2], align="left")
-result_pin_output_checkbox_13 = CheckBox(
-    pin_box_13, text="", align="left", grid=[1, 2])
+# Text(pin_box_13, text="Pin Leitura:", grid=[0, 2], align="left")
+# result_pin_output_checkbox_13 = CheckBox(
+#     pin_box_13, text="", align="left", grid=[1, 2])
 
 Text(pin_box_13, text="Enable PWM:", grid=[0, 3], align="left")
 enable_pwm_pin_13 = CheckBox(pin_box_13, text="", align="left", grid=[1, 3])
@@ -797,7 +797,7 @@ def valida_hold_time_13():
 bit_hold_time_13.when_key_pressed = schedule_hold_time_13
 
 def configuracao_pino_13():
-    pin_leitura_13 = 1 if result_pin_output_checkbox_13.value else 0
+    pin_leitura_13 = 0
     enable_pwm_ch_3 = 1 if enable_pwm_pin_13.value else 0
     config_pino_13 = [
         pin_leitura_13,
@@ -940,9 +940,9 @@ Text(pin_box_20, width = 15, text="Pino 20:", grid=[0, 0], align="left")
 # Descrição do Pinos
 Text(pin_box_20, text = "ADC, GPIO4", grid = [0, 1], align="left")
 
-Text(pin_box_20, text="Pin Leitura:", grid=[0, 3], align="left")
-result_pin_output_checkbox_20 = CheckBox(
-    pin_box_20, text="", align="left", grid=[1, 3])
+# Text(pin_box_20, text="Pin Leitura:", grid=[0, 3], align="left")
+# result_pin_output_checkbox_20 = CheckBox(
+#     pin_box_20, text="", align="left", grid=[1, 3])
 
 Text(pin_box_20, text="Vetor de Teste:", grid=[0, 6], align="left")
 test_vector_input_20 = TextBox(pin_box_20, width = 13, grid = [1, 6], align="left")
@@ -984,7 +984,7 @@ def valida_hold_time_20():
 bit_hold_time_20.when_key_pressed = schedule_hold_time_20
 
 def configuracao_pino_20():
-    pin_leitura_20 = 1 if result_pin_output_checkbox_20.value else 0
+    pin_leitura_20 = 0
     config_pino_20 = [
         pin_leitura_20,
         test_vector_input_20.value if test_vector_input_20.value else 0,
@@ -1162,9 +1162,9 @@ Text(pin_box_27, width = 15, text="Pino 27:", grid=[0, 0], align="left")
 # Descrição do Pinos
 Text(pin_box_27, text = "GPIO3", grid = [0, 1], align="left")
 
-Text(pin_box_27, text="Pin Leitura:", grid=[0, 2], align="left")
-result_pin_output_checkbox_27 = CheckBox(
-    pin_box_27, text="", align="left", grid=[1, 2])
+# Text(pin_box_27, text="Pin Leitura:", grid=[0, 2], align="left")
+# result_pin_output_checkbox_27 = CheckBox(
+#     pin_box_27, text="", align="left", grid=[1, 2])
 
 Text(pin_box_27, text="Vetor de Teste:", grid=[0, 5], align="left")
 test_vector_input_27 = TextBox(pin_box_27, width = 13, grid = [1, 5], align="left")
@@ -1206,7 +1206,7 @@ def valida_hold_time_27():
 bit_hold_time_27.when_key_pressed = schedule_hold_time_27
 
 def configuracao_pino_27():
-    pin_leitura_27 = 1 if result_pin_output_checkbox_27.value else 0
+    pin_leitura_27 = 0
     config_pino_27 = [
         pin_leitura_27,
         test_vector_input_27.value if test_vector_input_27.value else 0,
@@ -1224,9 +1224,9 @@ Text(pin_box_29, width = 15, text="Pino 29:", grid=[0, 0], align="left")
 # Descrição do Pinos
 Text(pin_box_29, text = "PWM CH6, GPIO22", grid = [0, 1], align="left")
 
-Text(pin_box_29, text="Pin Leitura:", grid=[0, 2], align="left")
-result_pin_output_checkbox_29 = CheckBox(
-    pin_box_29, text="", align="left", grid=[1, 2])
+# Text(pin_box_29, text="Pin Leitura:", grid=[0, 2], align="left")
+# result_pin_output_checkbox_29 = CheckBox(
+#     pin_box_29, text="", align="left", grid=[1, 2])
 
 Text(pin_box_29, text="Enable PWM:", grid=[0, 3], align="left")
 enable_pwm_pin_29 = CheckBox(pin_box_29, text="", align="left", grid=[1, 3])
@@ -1284,7 +1284,7 @@ def valida_hold_time_29():
 bit_hold_time_29.when_key_pressed = schedule_hold_time_29
 
 def configuracao_pino_29():
-    pin_leitura_29 = 1 if result_pin_output_checkbox_29.value else 0
+    pin_leitura_29 = 0
     enable_pwm_ch_6 = 1 if enable_pwm_pin_29.value else 0
     config_pino_29 = [
         pin_leitura_29,
@@ -1304,9 +1304,9 @@ Text(pin_box_30, width = 15, text="Pino 30:", grid=[0, 0], align="left")
 # Descrição do Pinos
 Text(pin_box_30, text = "PWM CH7, GPIO23", grid = [0, 1], align="left")
 
-Text(pin_box_30, text="Pin Leitura:", grid=[0, 2], align="left")
-result_pin_output_checkbox_30 = CheckBox(
-    pin_box_30, text="", align="left", grid=[1, 2])
+# Text(pin_box_30, text="Pin Leitura:", grid=[0, 2], align="left")
+# result_pin_output_checkbox_30 = CheckBox(
+#     pin_box_30, text="", align="left", grid=[1, 2])
 
 Text(pin_box_30, text="Enable PWM:", grid=[0, 3], align="left")
 enable_pwm_pin_30 = CheckBox(pin_box_30, text="", align="left", grid=[1, 3])
@@ -1364,7 +1364,7 @@ def valida_hold_time_30():
 bit_hold_time_30.when_key_pressed = schedule_hold_time_30
 
 def configuracao_pino_30():
-    pin_leitura_30 = 1 if result_pin_output_checkbox_30.value else 0
+    pin_leitura_30 = 0
     enable_pwm_ch_7 = 1 if enable_pwm_pin_30.value else 0
     config_pino_30 = [
         pin_leitura_30,

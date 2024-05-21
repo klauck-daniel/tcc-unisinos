@@ -64,6 +64,32 @@
 #define PORT 3333
 static const char *TAG = "UDP SOCKET SERVER";
 
+// Estrutura para armazenar o valor e o timestamp
+typedef struct {
+    int64_t timestamp;
+    int value;
+} pin_reading_t;
+
+// Array para armazenar os valores lidos
+#define MAX_READINGS 1000
+pin_reading_t readings_pin_2[MAX_READINGS];
+pin_reading_t readings_pin_3[MAX_READINGS];
+pin_reading_t readings_pin_4[MAX_READINGS];
+pin_reading_t readings_pin_5[MAX_READINGS];
+pin_reading_t readings_pin_6[MAX_READINGS];
+pin_reading_t readings_pin_7[MAX_READINGS];
+pin_reading_t readings_pin_8[MAX_READINGS];
+pin_reading_t readings_pin_9[MAX_READINGS];
+
+int reading_index_pin_2 = 0;
+int reading_index_pin_3 = 0;
+int reading_index_pin_4 = 0;
+int reading_index_pin_5 = 0;
+int reading_index_pin_6 = 0;
+int reading_index_pin_7 = 0;
+int reading_index_pin_8 = 0;
+int reading_index_pin_9 = 0;
+
 static void read_pin_task();
 
 // Variáveis Globais
@@ -97,52 +123,39 @@ bool input_pin_9 = false;
 
 char test_vector_pin_10[12];
 int hold_time_pin_10 = 0;
-bool input_pin_10 = false;
 
 char test_vector_pin_11[12];
 int hold_time_pin_11 = 0;
-bool input_pin_11 = false;
 
 char test_vector_pin_12[12];
 int hold_time_pin_12 = 0;
-bool input_pin_12 = false;
 
 char test_vector_pin_13[12];
 int hold_time_pin_13 = 0;
-bool input_pin_13 = false;
 
 char test_vector_pin_18[12];
 int hold_time_pin_18 = 0;
-bool input_pin_18 = false;
 
 char test_vector_pin_19[12];
 int hold_time_pin_19 = 0;
-bool input_pin_19 = false;
 
 char test_vector_pin_20[12];
 int hold_time_pin_20 = 0;
-bool input_pin_20 = false;
 
 char test_vector_pin_25[12];
 int hold_time_pin_25 = 0;
-bool input_pin_25 = false;
 
 char test_vector_pin_26[12];
 int hold_time_pin_26 = 0;
-bool input_pin_26 = false;
 
 char test_vector_pin_27[12];
 int hold_time_pin_27 = 0;
-bool input_pin_27 = false;
 
 char test_vector_pin_29[12];
 int hold_time_pin_29 = 0;
-bool input_pin_29 = false;
-
 
 char test_vector_pin_30[12];
 int hold_time_pin_30 = 0;
-bool input_pin_30 = false;
 
 typedef struct
 {
@@ -164,108 +177,10 @@ void start_test()
 {
     printf("START TESTE\n");
 
-    
-
-    if (input_pin_2){
-        //chama a task e começa a ler o pino 2;
-        //xTaskCreatePinnedToCore(read_pin_task, "pin_read", 4096, NULL, 4, NULL, 0);
+    // Cria task de leitura
+    if (input_pin_2 || input_pin_3 || input_pin_4 || input_pin_5 || input_pin_6 || input_pin_7 || input_pin_8 || input_pin_9){
         xTaskCreate(read_pin_task, "pin_read", 4096, NULL, 4, NULL);
     }
-
-    // if (input_pin_3){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_3, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_4){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_4, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_5){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_5, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_6){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_6, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_7){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_7, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_8){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_8, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_9){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_9, "pin_read", 4096, NULL, 4, NULL);
-    // }
-    // if (input_pin_10){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_10, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_11){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_11, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_12){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_12, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_13){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_13, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_18){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_18, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_19){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_19, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_20){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_20, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_25){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_25, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_26){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_26, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_27){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_27, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_29){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_29, "pin_read", 4096, NULL, 4, NULL);
-    // }
-
-    // if (input_pin_30){
-    //     //chama a task e começa a ler o pino 2;
-    //     xTaskCreate(read_task_pin_30, "pin_read", 4096, NULL, 4, NULL);
-    // }
-    
 
     TickType_t start_time_pin_6 = xTaskGetTickCount();
     int bit_index_pin_6 = 0;
@@ -320,12 +235,12 @@ void start_test()
         if (test_vector_pin_6[bit_index_pin_6] == '1')
         {
             gpio_set_level(PIN_06, 1);
-            printf("Pino 6 = 1 \n");
+            // printf("Pino 6 = 1 \n");
         }
         else if (test_vector_pin_6[bit_index_pin_6] == '0')
         {
             gpio_set_level(PIN_06, 0);
-            printf("Pino 6 = 0 \n");
+            // printf("Pino 6 = 0 \n");
         }
         bit_index_pin_6++;
     }
@@ -338,12 +253,12 @@ void start_test()
         if (test_vector_pin_7[bit_index_pin_7] == '1')
         {
             gpio_set_level(PIN_07, 1);
-            printf("Pino 7 = 1 \n");
+            // printf("Pino 7 = 1 \n");
         }
         else if (test_vector_pin_7[bit_index_pin_7] == '0')
         {
             gpio_set_level(PIN_07, 0);
-            printf("Pino 7 = 0 \n");
+            // printf("Pino 7 = 0 \n");
         }
         bit_index_pin_7++;
     }
@@ -356,12 +271,12 @@ void start_test()
         if (test_vector_pin_8[bit_index_pin_8] == '1')
         {
             gpio_set_level(PIN_08, 1);
-            printf("Pino 8 = 1 \n");
+            // printf("Pino 8 = 1 \n");
         }
         else if (test_vector_pin_8[bit_index_pin_8] == '0')
         {
             gpio_set_level(PIN_08, 0);
-            printf("Pino 8 = 0 \n");
+            // printf("Pino 8 = 0 \n");
         }
         bit_index_pin_8++;
     }
@@ -374,12 +289,12 @@ void start_test()
         if (test_vector_pin_9[bit_index_pin_9] == '1')
         {
             gpio_set_level(PIN_09, 1);
-            printf("Pino 9 = 1 \n");
+            // printf("Pino 9 = 1 \n");
         }
         else if (test_vector_pin_9[bit_index_pin_9] == '0')
         {
             gpio_set_level(PIN_09, 0);
-            printf("Pino 9 = 0 \n");
+            // printf("Pino 9 = 0 \n");
         }
         bit_index_pin_9++;
     }
@@ -392,12 +307,12 @@ void start_test()
         if (test_vector_pin_10[bit_index_pin_10] == '1')
         {
             gpio_set_level(PIN_10, 1);
-            printf("Pino 10 = 1 \n");
+            // printf("Pino 10 = 1 \n");
         }
         else if (test_vector_pin_10[bit_index_pin_10] == '0')
         {
             gpio_set_level(PIN_10, 0);
-            printf("Pino 10 = 0 \n");
+            // printf("Pino 10 = 0 \n");
         }
         bit_index_pin_10++;
     }
@@ -410,12 +325,12 @@ void start_test()
         if (test_vector_pin_11[bit_index_pin_11] == '1')
         {
             gpio_set_level(PIN_11, 1);
-            printf("Pino 11 = 1 \n");
+            // printf("Pino 11 = 1 \n");
         }
         else if (test_vector_pin_11[bit_index_pin_11] == '0')
         {
             gpio_set_level(PIN_11, 0);
-            printf("Pino 11 = 0 \n");
+            // printf("Pino 11 = 0 \n");
         }
         bit_index_pin_11++;
     }
@@ -428,12 +343,12 @@ void start_test()
         if (test_vector_pin_12[bit_index_pin_12] == '1')
         {
             gpio_set_level(PIN_12, 1);
-            printf("Pino 12 = 1 \n");
+            // printf("Pino 12 = 1 \n");
         }
         else if (test_vector_pin_12[bit_index_pin_12] == '0')
         {
             gpio_set_level(PIN_12, 0);
-            printf("Pino 12 = 0 \n");
+            // printf("Pino 12 = 0 \n");
         }
         bit_index_pin_12++;
     }
@@ -446,12 +361,12 @@ void start_test()
         if (test_vector_pin_13[bit_index_pin_13] == '1')
         {
             gpio_set_level(PIN_13, 1);
-            printf("Pino 13 = 1 \n");
+            // printf("Pino 13 = 1 \n");
         }
         else if (test_vector_pin_13[bit_index_pin_13] == '0')
         {
             gpio_set_level(PIN_13, 0);
-            printf("Pino 13 = 0 \n");
+            // printf("Pino 13 = 0 \n");
         }
         bit_index_pin_13++;
     }
@@ -464,12 +379,12 @@ void start_test()
         if (test_vector_pin_18[bit_index_pin_18] == '1')
         {
             gpio_set_level(PIN_18, 1);
-            printf("Pino 18 = 1 \n");
+            // printf("Pino 18 = 1 \n");
         }
         else if (test_vector_pin_18[bit_index_pin_18] == '0')
         {
             gpio_set_level(PIN_18, 0);
-            printf("Pino 18 = 0 \n");
+            // printf("Pino 18 = 0 \n");
         }
         bit_index_pin_18++;
     }
@@ -482,12 +397,12 @@ void start_test()
         if (test_vector_pin_19[bit_index_pin_19] == '1')
         {
             gpio_set_level(PIN_19, 1);
-            printf("Pino 19 = 1 \n");
+            // printf("Pino 19 = 1 \n");
         }
         else if (test_vector_pin_19[bit_index_pin_19] == '0')
         {
             gpio_set_level(PIN_19, 0);
-            printf("Pino 19 = 0 \n");
+            // printf("Pino 19 = 0 \n");
         }
         bit_index_pin_19++;
     }
@@ -500,12 +415,12 @@ void start_test()
         if (test_vector_pin_20[bit_index_pin_20] == '1')
         {
             gpio_set_level(PIN_20, 1);
-            printf("Pino 20 = 1 \n");
+            // printf("Pino 20 = 1 \n");
         }
         else if (test_vector_pin_20[bit_index_pin_20] == '0')
         {
             gpio_set_level(PIN_20, 0);
-            printf("Pino 20 = 0 \n");
+            // printf("Pino 20 = 0 \n");
         }
         bit_index_pin_20++;
     }
@@ -518,12 +433,12 @@ void start_test()
         if (test_vector_pin_25[bit_index_pin_25] == '1')
         {
             gpio_set_level(PIN_25, 1);
-            printf("Pino 25 = 1 \n");
+            // printf("Pino 25 = 1 \n");
         }
         else if (test_vector_pin_25[bit_index_pin_25] == '0')
         {
             gpio_set_level(PIN_25, 0);
-            printf("Pino 25 = 0 \n");
+            // printf("Pino 25 = 0 \n");
         }
         bit_index_pin_25++;
     }
@@ -536,12 +451,12 @@ void start_test()
         if (test_vector_pin_26[bit_index_pin_26] == '1')
         {
             gpio_set_level(PIN_26, 1);
-            printf("Pino 26 = 1 \n");
+            // printf("Pino 26 = 1 \n");
         }
         else if (test_vector_pin_26[bit_index_pin_26] == '0')
         {
             gpio_set_level(PIN_26, 0);
-            printf("Pino 26 = 0 \n");
+            // printf("Pino 26 = 0 \n");
         }
         bit_index_pin_26++;
     }
@@ -554,12 +469,12 @@ void start_test()
         if (test_vector_pin_27[bit_index_pin_27] == '1')
         {
             gpio_set_level(PIN_27, 1);
-            printf("Pino 27 = 1 \n");
+            // printf("Pino 27 = 1 \n");
         }
         else if (test_vector_pin_27[bit_index_pin_27] == '0')
         {
             gpio_set_level(PIN_27, 0);
-            printf("Pino 27 = 0 \n");
+            // printf("Pino 27 = 0 \n");
         }
         bit_index_pin_27++;
     }
@@ -572,12 +487,12 @@ void start_test()
         if (test_vector_pin_29[bit_index_pin_29] == '1')
         {
             gpio_set_level(PIN_29, 1);
-            printf("Pino 29 = 1 \n");
+            // printf("Pino 29 = 1 \n");
         }
         else if (test_vector_pin_29[bit_index_pin_29] == '0')
         {
             gpio_set_level(PIN_29, 0);
-            printf("Pino 29 = 0 \n");
+            // printf("Pino 29 = 0 \n");
         }
         bit_index_pin_29++;
     }
@@ -591,12 +506,12 @@ void start_test()
         if (test_vector_pin_30[bit_index_pin_30] == '1')
         {
             gpio_set_level(PIN_30, 1);
-            printf("Pino 30 = 1 \n");
+            // printf("Pino 30 = 1 \n");
         }
         else if (test_vector_pin_30[bit_index_pin_30] == '0')
         {
             gpio_set_level(PIN_30, 0);
-            printf("Pino 30 = 0 \n");
+            // printf("Pino 30 = 0 \n");
         }
         bit_index_pin_30++;
     }
@@ -615,12 +530,12 @@ void start_test()
                 if (test_vector_pin_6[bit_index_pin_6] == '1')
                 {
                     gpio_set_level(PIN_06, 1);
-                    printf("Pino 6 = 1 \n");
+                    // printf("Pino 6 = 1 \n");
                 }
                 else if (test_vector_pin_6[bit_index_pin_6] == '0')
                 {
                     gpio_set_level(PIN_06, 0);
-                    printf("Pino 6 = 0 \n");
+                    // printf("Pino 6 = 0 \n");
                 }
                 start_time_pin_6 = current_time;
                 bit_index_pin_6++;
@@ -635,12 +550,12 @@ void start_test()
                 if (test_vector_pin_7[bit_index_pin_7] == '1')
                 {
                     gpio_set_level(PIN_07, 1);
-                    printf("Pino 7 = 1 \n");
+                    // printf("Pino 7 = 1 \n");
                 }
                 else if (test_vector_pin_7[bit_index_pin_7] == '0')
                 {
                     gpio_set_level(PIN_07, 0);
-                    printf("Pino 7 = 0 \n");
+                    // printf("Pino 7 = 0 \n");
                 }
                 start_time_pin_7 = current_time;
                 bit_index_pin_7++;
@@ -655,12 +570,12 @@ void start_test()
                 if (test_vector_pin_8[bit_index_pin_8] == '1')
                 {
                     gpio_set_level(PIN_08, 1);
-                    printf("Pino 8 = 1 \n");
+                    // printf("Pino 8 = 1 \n");
                 }
                 else if (test_vector_pin_8[bit_index_pin_8] == '0')
                 {
                     gpio_set_level(PIN_08, 0);
-                    printf("Pino 8 = 0 \n");
+                    // printf("Pino 8 = 0 \n");
                 }
                 start_time_pin_8 = current_time;
                 bit_index_pin_8++;
@@ -675,12 +590,12 @@ void start_test()
                 if (test_vector_pin_9[bit_index_pin_9] == '1')
                 {
                     gpio_set_level(PIN_09, 1);
-                    printf("Pino 9 = 1 \n");
+                    // printf("Pino 9 = 1 \n");
                 }
                 else if (test_vector_pin_9[bit_index_pin_9] == '0')
                 {
                     gpio_set_level(PIN_09, 0);
-                    printf("Pino 9 = 0 \n");
+                    // printf("Pino 9 = 0 \n");
                 }
                 start_time_pin_9 = current_time;
                 bit_index_pin_9++;
@@ -695,12 +610,12 @@ void start_test()
                 if (test_vector_pin_10[bit_index_pin_10] == '1')
                 {
                     gpio_set_level(PIN_10, 1);
-                    printf("Pino 10 = 1 \n");
+                    // printf("Pino 10 = 1 \n");
                 }
                 else if (test_vector_pin_10[bit_index_pin_10] == '0')
                 {
                     gpio_set_level(PIN_10, 0);
-                    printf("Pino 10 = 0 \n");
+                    // printf("Pino 10 = 0 \n");
                 }
                 start_time_pin_10 = current_time;
                 bit_index_pin_10++;
@@ -715,12 +630,12 @@ void start_test()
                 if (test_vector_pin_11[bit_index_pin_11] == '1')
                 {
                     gpio_set_level(PIN_11, 1);
-                    printf("Pino 11 = 1 \n");
+                    // printf("Pino 11 = 1 \n");
                 }
                 else if (test_vector_pin_11[bit_index_pin_11] == '0')
                 {
                     gpio_set_level(PIN_11, 0);
-                    printf("Pino 11 = 0 \n");
+                    // printf("Pino 11 = 0 \n");
                 }
                 start_time_pin_11 = current_time;
                 bit_index_pin_11++;
@@ -735,12 +650,12 @@ void start_test()
                 if (test_vector_pin_12[bit_index_pin_12] == '1')
                 {
                     gpio_set_level(PIN_12, 1);
-                    printf("Pino 12 = 1 \n");
+                    // printf("Pino 12 = 1 \n");
                 }
                 else if (test_vector_pin_12[bit_index_pin_12] == '0')
                 {
                     gpio_set_level(PIN_12, 0);
-                    printf("Pino 12 = 0 \n");
+                    // printf("Pino 12 = 0 \n");
                 }
                 start_time_pin_12 = current_time;
                 bit_index_pin_12++;
@@ -755,12 +670,12 @@ void start_test()
                 if (test_vector_pin_13[bit_index_pin_13] == '1')
                 {
                     gpio_set_level(PIN_13, 1);
-                    printf("Pino 13 = 1 \n");
+                    // printf("Pino 13 = 1 \n");
                 }
                 else if (test_vector_pin_13[bit_index_pin_13] == '0')
                 {
                     gpio_set_level(PIN_13, 0);
-                    printf("Pino 13 = 0 \n");
+                    // printf("Pino 13 = 0 \n");
                 }
                 start_time_pin_13 = current_time;
                 bit_index_pin_13++;
@@ -775,12 +690,12 @@ void start_test()
                 if (test_vector_pin_18[bit_index_pin_18] == '1')
                 {
                     gpio_set_level(PIN_18, 1);
-                    printf("Pino 18 = 1 \n");
+                    // printf("Pino 18 = 1 \n");
                 }
                 else if (test_vector_pin_18[bit_index_pin_18] == '0')
                 {
                     gpio_set_level(PIN_18, 0);
-                    printf("Pino 18 = 0 \n");
+                    // printf("Pino 18 = 0 \n");
                 }
                 start_time_pin_18 = current_time;
                 bit_index_pin_18++;
@@ -795,12 +710,12 @@ void start_test()
                 if (test_vector_pin_19[bit_index_pin_19] == '1')
                 {
                     gpio_set_level(PIN_19, 1);
-                    printf("Pino 19 = 1 \n");
+                    // printf("Pino 19 = 1 \n");
                 }
                 else if (test_vector_pin_19[bit_index_pin_19] == '0')
                 {
                     gpio_set_level(PIN_19, 0);
-                    printf("Pino 19 = 0 \n");
+                    // printf("Pino 19 = 0 \n");
                 }
                 start_time_pin_19 = current_time;
                 bit_index_pin_19++;
@@ -815,12 +730,12 @@ void start_test()
                 if (test_vector_pin_20[bit_index_pin_20] == '1')
                 {
                     gpio_set_level(PIN_20, 1);
-                    printf("Pino 20 = 1 \n");
+                    // printf("Pino 20 = 1 \n");
                 }
                 else if (test_vector_pin_20[bit_index_pin_20] == '0')
                 {
                     gpio_set_level(PIN_20, 0);
-                    printf("Pino 20 = 0 \n");
+                    // printf("Pino 20 = 0 \n");
                 }
                 start_time_pin_20 = current_time;
                 bit_index_pin_20++;
@@ -835,12 +750,12 @@ void start_test()
                 if (test_vector_pin_25[bit_index_pin_25] == '1')
                 {
                     gpio_set_level(PIN_25, 1);
-                    printf("Pino 25 = 1 \n");
+                    // printf("Pino 25 = 1 \n");
                 }
                 else if (test_vector_pin_25[bit_index_pin_25] == '0')
                 {
                     gpio_set_level(PIN_25, 0);
-                    printf("Pino 25 = 0 \n");
+                    // printf("Pino 25 = 0 \n");
                 }
                 start_time_pin_25 = current_time;
                 bit_index_pin_25++;
@@ -855,12 +770,12 @@ void start_test()
                 if (test_vector_pin_26[bit_index_pin_26] == '1')
                 {
                     gpio_set_level(PIN_26, 1);
-                    printf("Pino 26 = 1 \n");
+                    // printf("Pino 26 = 1 \n");
                 }
                 else if (test_vector_pin_26[bit_index_pin_26] == '0')
                 {
                     gpio_set_level(PIN_26, 0);
-                    printf("Pino 26 = 0 \n");
+                    // printf("Pino 26 = 0 \n");
                 }
                 start_time_pin_26 = current_time;
                 bit_index_pin_26++;
@@ -875,12 +790,12 @@ void start_test()
                 if (test_vector_pin_27[bit_index_pin_27] == '1')
                 {
                     gpio_set_level(PIN_27, 1);
-                    printf("Pino 27 = 1 \n");
+                    // printf("Pino 27 = 1 \n");
                 }
                 else if (test_vector_pin_27[bit_index_pin_27] == '0')
                 {
                     gpio_set_level(PIN_27, 0);
-                    printf("Pino 27 = 0 \n");
+                    // printf("Pino 27 = 0 \n");
                 }
                 start_time_pin_27 = current_time;
                 bit_index_pin_27++;
@@ -895,12 +810,12 @@ void start_test()
                 if (test_vector_pin_29[bit_index_pin_29] == '1')
                 {
                     gpio_set_level(PIN_29, 1);
-                    printf("Pino 29 = 1 \n");
+                    // printf("Pino 29 = 1 \n");
                 }
                 else if (test_vector_pin_29[bit_index_pin_29] == '0')
                 {
                     gpio_set_level(PIN_29, 0);
-                    printf("Pino 29 = 0 \n");
+                    // printf("Pino 29 = 0 \n");
                 }
                 start_time_pin_29 = current_time;
                 bit_index_pin_29++;
@@ -915,12 +830,12 @@ void start_test()
                 if (test_vector_pin_30[bit_index_pin_30] == '1')
                 {
                     gpio_set_level(PIN_30, 1);
-                    printf("Pino 30 = 1 \n");
+                    // printf("Pino 30 = 1 \n");
                 }
                 else if (test_vector_pin_30[bit_index_pin_30] == '0')
                 {
                     gpio_set_level(PIN_30, 0);
-                    printf("Pino 30 = 0 \n");
+                    // printf("Pino 30 = 0 \n");
                 }
                 start_time_pin_30 = current_time;
                 bit_index_pin_30++;
@@ -1280,11 +1195,12 @@ void config_pin_03(char *message)
     if (message[5] == '1')
     {
         printf("Pino 3 será entrada de dados.\n");
-        gpio_set_direction(PIN_03, GPIO_MODE_INPUT);
+        input_pin_3 = true;
     }
     else
     {
         printf("Pino 3 sem uso. \n");
+        input_pin_3 = false;
         gpio_set_direction(PIN_03, GPIO_MODE_DISABLE);
     }
 }
@@ -1294,11 +1210,12 @@ void config_pin_04(char *message)
     if (message[5] == '1')
     {
         printf("Pino 4 será entrada de dados.\n");
-        gpio_set_direction(PIN_04, GPIO_MODE_INPUT);
+        input_pin_4 = true;
     }
     else
     {
         printf("Pino 4 sem uso. \n");
+        input_pin_4 = false;
         gpio_set_direction(PIN_04, GPIO_MODE_DISABLE);
     }
 }
@@ -1308,11 +1225,12 @@ void config_pin_05(char *message)
     if (message[5] == '1')
     {
         printf("Pino 5 será entrada de dados.\n");
-        gpio_set_direction(PIN_05, GPIO_MODE_INPUT);
+        input_pin_4 = true;
     }
     else
     {
         printf("Pino 5 sem uso. \n");
+        input_pin_5 = false;
         gpio_set_direction(PIN_05, GPIO_MODE_DISABLE);
     }
 }
@@ -1329,7 +1247,7 @@ void config_pin_06(char *message)
         memset(test_vector_pin_6, '2', 12);           // Garante que não executa o vetor
         hold_time_pin_6 = 0;                          // Garante que não executa o vetor
 
-        gpio_set_direction(PIN_06, GPIO_MODE_INPUT);
+        input_pin_6 = true;
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0')
     {
@@ -1339,9 +1257,11 @@ void config_pin_06(char *message)
         gpio_set_level(PIN_06, 0);
         memset(test_vector_pin_6, '2', 12); // Garante que não executa o vetor
         hold_time_pin_6 = 0;                // Garante que não executa o vetor
+        input_pin_6 = false;
     }
     if (message[5] == '0' && message[9] != ',')
     {
+        input_pin_6 = false;
         memset(test_vector_pin_6, '2', 12); // Initialize the array with the value 2
         hold_time_pin_6 = 0;
         printf("Pino 6 terá vetor de teste. \n");
@@ -1378,7 +1298,7 @@ void config_pin_07(char *message)
         memset(test_vector_pin_7, '2', 12);           // garantir que não executa o vetor
         hold_time_pin_7 = 0;                          // garantir que não executa o vetor
 
-        gpio_set_direction(PIN_07, GPIO_MODE_INPUT);
+        input_pin_7 = true;
     }
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0')
@@ -1387,6 +1307,7 @@ void config_pin_07(char *message)
 
         memset(test_vector_pin_7, '2', 12); // garantir que não executa o vetor
         hold_time_pin_7 = 0;                // garantir que não executa o vetor
+        input_pin_7 = false;
 
         gpio_reset_pin(PIN_07);
         gpio_set_direction(PIN_07, GPIO_MODE_OUTPUT);
@@ -1395,6 +1316,7 @@ void config_pin_07(char *message)
 
     if (message[5] == '0' && message[9] != ',')
     {
+        input_pin_7 = false;
         memset(test_vector_pin_7, '2', 12);
         hold_time_pin_7 = 0;
         printf("Pino 7 terá vetor de teste. \n");
@@ -1431,7 +1353,7 @@ void config_pin_08(char *message)
         memset(test_vector_pin_8, '2', 12);           // garantir que não executa o vetor
         hold_time_pin_8 = 0;                          // garantir que não executa o vetor
 
-        gpio_set_direction(PIN_08, GPIO_MODE_INPUT);
+        input_pin_8 = true;
     }
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0')
@@ -1440,6 +1362,7 @@ void config_pin_08(char *message)
 
         memset(test_vector_pin_8, '2', 12); // garantir que não executa o vetor
         hold_time_pin_8 = 0;                // garantir que não executa o vetor
+        input_pin_8 = false;
 
         gpio_reset_pin(PIN_08);
         gpio_set_direction(PIN_08, GPIO_MODE_OUTPUT);
@@ -1448,6 +1371,7 @@ void config_pin_08(char *message)
 
     if (message[5] == '0' && message[9] != ',')
     {
+        input_pin_8 = false;
         memset(test_vector_pin_8, '2', 12); // Initialize the array with the value 2
         hold_time_pin_8 = 0;
         printf("Pino 8 terá vetor de teste. \n");
@@ -1484,7 +1408,7 @@ void config_pin_09(char *message)
         memset(test_vector_pin_9, '2', 12);           // garantir que não executa o vetor
         hold_time_pin_9 = 0;                          // garantir que não executa o vetor
 
-        gpio_set_direction(PIN_09, GPIO_MODE_INPUT);
+        input_pin_9 = true;
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0')
     {
@@ -1492,6 +1416,7 @@ void config_pin_09(char *message)
 
         memset(test_vector_pin_9, '2', 12); // garantir que não executa o vetor
         hold_time_pin_9 = 0;                // garantir que não executa o vetor
+        input_pin_9 = false;
 
         gpio_reset_pin(PIN_09);
         gpio_set_direction(PIN_09, GPIO_MODE_OUTPUT);
@@ -1500,6 +1425,7 @@ void config_pin_09(char *message)
 
     if (message[5] == '0' && message[9] != ',')
     {
+        input_pin_9 = false;
         memset(test_vector_pin_9, '2', 12); // Initialize the array with the value 2
         hold_time_pin_9 = 0;
         printf("Vetor Teste Pino 9: %s\n", test_vector_pin_9);
@@ -1537,7 +1463,6 @@ void config_pin_10(char *message)
         memset(test_vector_pin_10, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_10 = 0;                         // garantir que não executa o vetor
 
-        gpio_set_direction(PIN_10, GPIO_MODE_INPUT);
     }
     if (message[5] == '0' && message[8] == '1')
     {
@@ -1598,7 +1523,6 @@ void config_pin_11(char *message)
         memset(test_vector_pin_11, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_11 = 0;                         // garantir que não executa o vetor
 
-        gpio_set_direction(PIN_11, GPIO_MODE_INPUT);
     }
     if (message[5] == '0' && message[8] == '1')
     {
@@ -1656,7 +1580,6 @@ void config_pin_12(char *message)
         memset(test_vector_pin_12, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_12 = 0;                         // garantir que não executa o vetor
 
-        gpio_set_direction(PIN_12, GPIO_MODE_INPUT);
     }
     if (message[5] == '0' && message[8] == '1')
     {
@@ -1716,7 +1639,6 @@ void config_pin_13(char *message)
         memset(test_vector_pin_13, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_13 = 0;                         // garantir que não executa o vetor
 
-        gpio_set_direction(PIN_13, GPIO_MODE_INPUT);
     }
     if (message[5] == '0' && message[8] == '1')
     {
@@ -1775,7 +1697,6 @@ void config_pin_18(char *message)
         memset(test_vector_pin_18, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_18 = 0;                         // garantir que não executa o vetor
 
-        gpio_set_direction(PIN_18, GPIO_MODE_INPUT);
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0')
     {
@@ -1826,7 +1747,6 @@ void config_pin_19(char *message)
         memset(test_vector_pin_19, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_19 = 0;                         // garantir que não executa o vetor
 
-        gpio_set_direction(PIN_19, GPIO_MODE_INPUT);
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0')
     {
@@ -1877,7 +1797,6 @@ void config_pin_20(char *message)
         memset(test_vector_pin_20, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_20 = 0;                         // garantir que não executa o vetor
 
-        gpio_set_direction(PIN_20, GPIO_MODE_INPUT);
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0')
     {
@@ -1992,7 +1911,6 @@ void config_pin_25(char *message)
         memset(test_vector_pin_25, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_25 = 0;                         // garantir que não executa o vetor
 
-        gpio_set_direction(PIN_25, GPIO_MODE_INPUT);
     }
     if (message[5] == '0' && message[8] == '1')
     {
@@ -2052,7 +1970,6 @@ void config_pin_26(char *message)
         memset(test_vector_pin_26, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_26 = 0;                         // garantir que não executa o vetor
 
-        gpio_set_direction(PIN_26, GPIO_MODE_INPUT);
     }
     if (message[5] == '0' && message[8] == '1')
     {
@@ -2111,7 +2028,6 @@ void config_pin_27(char *message)
         memset(test_vector_pin_27, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_27 = 0;                         // garantir que não executa o vetor
 
-        gpio_set_direction(PIN_27, GPIO_MODE_INPUT);
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0')
     {
@@ -2162,7 +2078,6 @@ void config_pin_29(char *message)
         memset(test_vector_pin_29, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_29 = 0;                         // garantir que não executa o vetor
 
-        gpio_set_direction(PIN_29, GPIO_MODE_INPUT);
     }
     if (message[5] == '0' && message[8] == '1')
     {
@@ -2219,8 +2134,6 @@ void config_pin_30(char *message)
         gpio_set_level(PIN_30, 0);                    // Garantir nível baixo no pino
         memset(test_vector_pin_30, '2', 12);          // garantir que não executa o vetor
         hold_time_pin_30 = 0;                         // garantir que não executa o vetor
-
-        gpio_set_direction(PIN_30, GPIO_MODE_INPUT);
     }
     if (message[5] == '0' && message[8] == '1')
     {
@@ -2277,24 +2190,298 @@ void process_pin_config(char *message)
 // Manipulador do timer de leitura
 esp_timer_handle_t readEspPinsHandler;
 
+void clearReadings()
+{
+    if (input_pin_2)
+    {
+        for (int i = 0; i < MAX_READINGS; i++)
+        {
+            readings_pin_2[i].timestamp = 0;
+            readings_pin_2[i].value = 0;
+        }
+    }
+
+    if (input_pin_3)
+    {
+        for (int i = 0; i < MAX_READINGS; i++)
+        {
+            readings_pin_3[i].timestamp = 0;
+            readings_pin_3[i].value = 0;
+        }
+    }
+
+    if (input_pin_4)
+    {
+        for (int i = 0; i < MAX_READINGS; i++)
+        {
+            readings_pin_4[i].timestamp = 0;
+            readings_pin_4[i].value = 0;
+        }
+    }
+
+    if (input_pin_5)
+    {
+        for (int i = 0; i < MAX_READINGS; i++)
+        {
+            readings_pin_5[i].timestamp = 0;
+            readings_pin_5[i].value = 0;
+        }
+    }
+
+    if (input_pin_6)
+    {
+        for (int i = 0; i < MAX_READINGS; i++)
+        {
+            readings_pin_6[i].timestamp = 0;
+            readings_pin_6[i].value = 0;
+        }
+    }
+
+    if (input_pin_7)
+    {
+        for (int i = 0; i < MAX_READINGS; i++)
+        {
+            readings_pin_7[i].timestamp = 0;
+            readings_pin_7[i].value = 0;
+        }
+    }
+
+    if (input_pin_8)
+    {
+        for (int i = 0; i < MAX_READINGS; i++)
+        {
+            readings_pin_8[i].timestamp = 0;
+            readings_pin_8[i].value = 0;
+        }
+    }
+
+    if (input_pin_9)
+    {
+        for (int i = 0; i < MAX_READINGS; i++)
+        {
+            readings_pin_9[i].timestamp = 0;
+            readings_pin_9[i].value = 0;
+        }
+    }
+
+    reading_index_pin_2 = 0;
+    reading_index_pin_3 = 0;
+    reading_index_pin_4 = 0;
+    reading_index_pin_5 = 0;
+    reading_index_pin_6 = 0;
+    reading_index_pin_7 = 0;
+    reading_index_pin_8 = 0;
+    reading_index_pin_9 = 0;
+}
+
 // Configuração e leitura dos pinos
 void readEspPinsConfig(void *arg)
 {
-    //int64_t current_time = esp_timer_get_time();
-
+    int64_t current_time = esp_timer_get_time();
+    
     if (input_pin_2)
     {
         gpio_set_direction(PIN_02, GPIO_MODE_INPUT);
         int pin2_value = gpio_get_level(PIN_02);
-        printf("PIN_2: %d\n", pin2_value);
+
+        if (reading_index_pin_2 < MAX_READINGS)
+        {
+            readings_pin_2[reading_index_pin_2].timestamp = current_time;
+            readings_pin_2[reading_index_pin_2].value = pin2_value;
+            reading_index_pin_2++;
+        } else {
+            printf("Capacidade máxima de leituras do PIN 2 atingida!\n");
+        }
     }
+
+    if (input_pin_3)
+    {
+        gpio_set_direction(PIN_03, GPIO_MODE_INPUT);
+        int pin3_value = gpio_get_level(PIN_03);
+
+        if (reading_index_pin_3 < MAX_READINGS)
+        {
+            readings_pin_3[reading_index_pin_3].timestamp = current_time;
+            readings_pin_3[reading_index_pin_3].value = pin3_value;
+            reading_index_pin_3++;
+        } else {
+            printf("Capacidade máxima de leituras do PIN 3 atingida!\n");
+        }
+    }
+
+    if (input_pin_4)
+    {
+        gpio_set_direction(PIN_04, GPIO_MODE_INPUT);
+        int pin4_value = gpio_get_level(PIN_04);
+
+        if (reading_index_pin_4 < MAX_READINGS)
+        {
+            readings_pin_4[reading_index_pin_4].timestamp = current_time;
+            readings_pin_4[reading_index_pin_4].value = pin4_value;
+            reading_index_pin_4++;
+        } else {
+            printf("Capacidade máxima de leituras do PIN 4 atingida!\n");
+        }
+    }
+
+    if (input_pin_5)
+    {
+        gpio_set_direction(PIN_05, GPIO_MODE_INPUT);
+        int pin5_value = gpio_get_level(PIN_05);
+
+        if (reading_index_pin_5 < MAX_READINGS)
+        {
+            readings_pin_5[reading_index_pin_5].timestamp = current_time;
+            readings_pin_5[reading_index_pin_5].value = pin5_value;
+            reading_index_pin_5++;
+        } else {
+            printf("Capacidade máxima de leituras do PIN 5 atingida!\n");
+        }
+    }
+
+    if (input_pin_6)
+    {
+        gpio_set_direction(PIN_06, GPIO_MODE_INPUT);
+        int pin6_value = gpio_get_level(PIN_06);
+
+        if (reading_index_pin_6 < MAX_READINGS)
+        {
+            readings_pin_6[reading_index_pin_6].timestamp = current_time;
+            readings_pin_6[reading_index_pin_6].value = pin6_value;
+            reading_index_pin_6++;
+        } else {
+            printf("Capacidade máxima de leituras do PIN 6 atingida!\n");
+        }
+    }
+
+    if (input_pin_7)
+    {
+        gpio_set_direction(PIN_07, GPIO_MODE_INPUT);
+        int pin7_value = gpio_get_level(PIN_07);
+
+        if (reading_index_pin_7 < MAX_READINGS)
+        {
+            readings_pin_7[reading_index_pin_7].timestamp = current_time;
+            readings_pin_7[reading_index_pin_7].value = pin7_value;
+            reading_index_pin_7++;
+        } else {
+            printf("Capacidade máxima de leituras do PIN 7 atingida!\n");
+        }
+    }
+
+    if (input_pin_8)
+    {
+        gpio_set_direction(PIN_08, GPIO_MODE_INPUT);
+        int pin8_value = gpio_get_level(PIN_08);
+
+        if (reading_index_pin_8 < MAX_READINGS)
+        {
+            readings_pin_8[reading_index_pin_8].timestamp = current_time;
+            readings_pin_8[reading_index_pin_8].value = pin8_value;
+            reading_index_pin_8++;
+        } else {
+            printf("Capacidade máxima de leituras do PIN 8 atingida!\n");
+        }
+    }
+
+    if (input_pin_9)
+    {
+        gpio_set_direction(PIN_09, GPIO_MODE_INPUT);
+        int pin9_value = gpio_get_level(PIN_09);
+
+        if (reading_index_pin_9 < MAX_READINGS)
+        {
+            readings_pin_9[reading_index_pin_9].timestamp = current_time;
+            readings_pin_9[reading_index_pin_9].value = pin9_value;
+            reading_index_pin_9++;
+        } else {
+            printf("Capacidade máxima de leituras do PIN 9 atingida!\n");
+        }
+    }
+
 }
 
-// Função chamada pelo timer para parar a leitura após 30 segundos
-void stopReadEspPins(void *arg) {
+// Função chamada pelo timer para parar a leitura após 10 segundos
+void stopReadEspPins(void *arg)
+{
     esp_timer_stop(readEspPinsHandler);
     esp_timer_delete(readEspPinsHandler);
     printf("Leitura dos pinos finalizada.\n");
+
+    if (input_pin_2)
+    {
+        for (int i = 0; i < reading_index_pin_2; i++)
+        {
+            printf("T: %lld, PIN_2: %d\n", readings_pin_2[i].timestamp, readings_pin_2[i].value);
+            vTaskDelay(10 / portTICK_PERIOD_MS);
+        }
+    }
+
+    if (input_pin_3)
+    {
+        for (int i = 0; i < reading_index_pin_3; i++)
+        {
+            printf("T: %lld, PIN_3: %d\n", readings_pin_3[i].timestamp, readings_pin_3[i].value);
+            vTaskDelay(10 / portTICK_PERIOD_MS);
+        }
+    }
+
+    if (input_pin_4)
+    {
+        for (int i = 0; i < reading_index_pin_4; i++)
+        {
+            printf("T: %lld, PIN_4: %d\n", readings_pin_4[i].timestamp, readings_pin_4[i].value);
+            vTaskDelay(10 / portTICK_PERIOD_MS);
+        }
+    }
+
+    if (input_pin_5)
+    {
+        for (int i = 0; i < reading_index_pin_5; i++)
+        {
+            printf("T: %lld, PIN_5: %d\n", readings_pin_5[i].timestamp, readings_pin_5[i].value);
+            vTaskDelay(10 / portTICK_PERIOD_MS);
+        }
+    }
+
+    if (input_pin_6)
+    {
+        for (int i = 0; i < reading_index_pin_6; i++)
+        {
+            printf("T: %lld, PIN_6: %d\n", readings_pin_6[i].timestamp, readings_pin_6[i].value);
+            vTaskDelay(10 / portTICK_PERIOD_MS);
+        }
+    }
+
+    if (input_pin_7)
+    {
+        for (int i = 0; i < reading_index_pin_7; i++)
+        {
+            printf("T: %lld, PIN_7: %d\n", readings_pin_7[i].timestamp, readings_pin_7[i].value);
+            vTaskDelay(10 / portTICK_PERIOD_MS);
+        }
+    }
+
+    if (input_pin_8)
+    {
+        for (int i = 0; i < reading_index_pin_8; i++)
+        {
+            printf("T: %lld, PIN_8: %d\n", readings_pin_8[i].timestamp, readings_pin_8[i].value);
+            vTaskDelay(10 / portTICK_PERIOD_MS);
+        }
+    }
+
+    if (input_pin_9)
+    {
+        for (int i = 0; i < reading_index_pin_9; i++)
+        {
+            printf("T: %lld, PIN_9: %d\n", readings_pin_9[i].timestamp, readings_pin_9[i].value);
+            vTaskDelay(10 / portTICK_PERIOD_MS);
+        }
+    }
+
+    // Limpar as leituras após o printf
+    clearReadings();
 }
 
 //Criar e iniciar a task de leitura com timers 
@@ -2302,10 +2489,11 @@ static void read_pin_task()
 {
     const esp_timer_create_args_t esp_read_timer = {
         .callback = readEspPinsConfig,
-        .name = "EspReadTimer"};
+        .name = "EspReadTimer"
+    };
 
     esp_timer_create(&esp_read_timer, &readEspPinsHandler);
-    esp_timer_start_periodic(readEspPinsHandler, 100); // neste caso, 100 us
+    esp_timer_start_periodic(readEspPinsHandler, 100000); // Configura a frequencia de leitura 10000 us faz uma leitura a cada 10 ms, gerando 100 leituras por segundo... 100000 us faz uma leitura a cada 100 ms, gerando 10 leituras por segundo
 
     // Timer para parar a leitura após 30 segundos
     const esp_timer_create_args_t stop_timer = {
@@ -2315,7 +2503,7 @@ static void read_pin_task()
 
     esp_timer_handle_t stopReadHandler;
     esp_timer_create(&stop_timer, &stopReadHandler);
-    esp_timer_start_once(stopReadHandler, 30 * 1000000); // 30 segundos em us
+    esp_timer_start_once(stopReadHandler, 10 * 1000000); // 10 segundos em us
 
     vTaskDelete(NULL);
 }
