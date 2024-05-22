@@ -19,7 +19,7 @@ def envia_mensagem_udp(ip_destino, porta_destino, pino_valor):
         time.sleep(0.250)
 
         #Printa mensagem
-        print(mensagem)
+        # print(mensagem)
 
     # Fecha o socket
     udp_socket.close()
