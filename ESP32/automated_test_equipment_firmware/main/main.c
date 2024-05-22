@@ -21,6 +21,7 @@
 #include "esp_http_client.h"
 #include "esp_event.h"
 #include "esp_system.h"
+#include "esp_spi_flash.h"
 #include "esp_timer.h"
 
 #include "lwip/inet.h"
@@ -1225,7 +1226,7 @@ void config_pin_05(char *message)
     if (message[5] == '1')
     {
         printf("Pino 5 será entrada de dados.\n");
-        input_pin_4 = true;
+        input_pin_5 = true;
     }
     else
     {
@@ -2274,22 +2275,42 @@ void clearReadings()
     reading_index_pin_9 = 0;
 }
 
+void configure_adc_pin_2() {
+    adc1_config_width(ADC_WIDTH_BIT_12);  // Configurar resolução do ADC para 12 bits
+    adc1_config_channel_atten(ADC1_CHANNEL_0, ADC_ATTEN_DB_12);  // Configurar atenuação do canal
+}
+
+void configure_adc_pin_5() {
+    adc1_config_width(ADC_WIDTH_BIT_12);  // Configurar resolução do ADC para 12 bits
+    adc1_config_channel_atten(ADC1_CHANNEL_7, ADC_ATTEN_DB_12);  // Configurar atenuação do canal
+}
+
 // Configuração e leitura dos pinos
 void readEspPinsConfig(void *arg)
 {
     int64_t current_time = esp_timer_get_time();
-    
+
     if (input_pin_2)
     {
-        gpio_set_direction(PIN_02, GPIO_MODE_INPUT);
-        int pin2_value = gpio_get_level(PIN_02);
+        configure_adc_pin_2();                         // Configura o ADC antes da leitura
+        int pin2_value = adc1_get_raw(ADC1_CHANNEL_0); // Realiza a leitura analógica
 
         if (reading_index_pin_2 < MAX_READINGS)
         {
             readings_pin_2[reading_index_pin_2].timestamp = current_time;
             readings_pin_2[reading_index_pin_2].value = pin2_value;
             reading_index_pin_2++;
-        } else {
+        }
+        
+        // gpio_set_direction(PIN_02, GPIO_MODE_INPUT);
+        // int pin2_value = gpio_get_level(PIN_02);
+
+        // if (reading_index_pin_2 < MAX_READINGS)
+        // {
+        //     readings_pin_2[reading_index_pin_2].timestamp = current_time;
+        //     readings_pin_2[reading_index_pin_2].value = pin2_value;
+        //     reading_index_pin_2++;
+        else {
             printf("Capacidade máxima de leituras do PIN 2 atingida!\n");
         }
     }
@@ -2326,15 +2347,25 @@ void readEspPinsConfig(void *arg)
 
     if (input_pin_5)
     {
-        gpio_set_direction(PIN_05, GPIO_MODE_INPUT);
-        int pin5_value = gpio_get_level(PIN_05);
+        configure_adc_pin_5();                         // Configura o ADC antes da leitura
+        int pin5_value = adc1_get_raw(ADC1_CHANNEL_7); // Realiza a leitura analógica
 
         if (reading_index_pin_5 < MAX_READINGS)
         {
             readings_pin_5[reading_index_pin_5].timestamp = current_time;
             readings_pin_5[reading_index_pin_5].value = pin5_value;
             reading_index_pin_5++;
-        } else {
+        }
+        // gpio_set_direction(PIN_05, GPIO_MODE_INPUT);
+        // int pin5_value = gpio_get_level(PIN_05);
+
+        // if (reading_index_pin_5 < MAX_READINGS)
+        // {
+        //     readings_pin_5[reading_index_pin_5].timestamp = current_time;
+        //     readings_pin_5[reading_index_pin_5].value = pin5_value;
+        //     reading_index_pin_5++;
+        // }
+        else {
             printf("Capacidade máxima de leituras do PIN 5 atingida!\n");
         }
     }

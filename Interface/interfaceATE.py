@@ -168,7 +168,7 @@ result_pin_output_checkbox_2 = CheckBox(
     pin_box_2, text="", align="left", grid=[1, 3])
 
 # Descrição do Pinos
-Text(pin_box_2, text = "INPUT ONLY, ADC, GPIO36", grid = [0, 1], align="left")
+Text(pin_box_2, text = "INPUT, ADC_A, GPIO36", grid = [0, 1], align="left")
 
 def configuracao_pino_2():
     pin_leitura_2 = 1 if result_pin_output_checkbox_2.value else 0
@@ -189,7 +189,7 @@ result_pin_output_checkbox_3 = CheckBox(
     pin_box_3, text="", align="left", grid=[1, 3])
 
 # Descrição do Pinos
-Text(pin_box_3, text = "INPUT ONLY, ADC, GPIO39", grid = [0, 1], align="left")
+Text(pin_box_3, text = "INPUT, ADC_D, GPIO39", grid = [0, 1], align="left")
 
 def configuracao_pino_3():
     pin_leitura_3 = 1 if result_pin_output_checkbox_3.value else 0
@@ -210,7 +210,7 @@ result_pin_output_checkbox_4 = CheckBox(
     pin_box_4, text="", align="left", grid=[1, 3])
 
 # Descrição do Pinos
-Text(pin_box_4, text = "INPUT ONLY, ADC, GPIO34", grid = [0, 1], align="left")
+Text(pin_box_4, text = "INPUT, ADC_D, GPIO34", grid = [0, 1], align="left")
 
 def configuracao_pino_4():
     pin_leitura_4 = 1 if result_pin_output_checkbox_4.value else 0
@@ -230,7 +230,7 @@ result_pin_output_checkbox_5 = CheckBox(
     pin_box_5, text="", align="left", grid=[1, 3])
 
 # Descrição do Pinos
-Text(pin_box_5, text = "INPUT ONLY, ADC, GPIO35", grid = [0, 1], align="left")
+Text(pin_box_5, text = "INPUT, ADC_A, GPIO35", grid = [0, 1], align="left")
 
 def configuracao_pino_5():
     pin_leitura_5 = 1 if result_pin_output_checkbox_5.value else 0
