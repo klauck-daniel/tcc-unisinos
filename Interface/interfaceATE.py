@@ -100,7 +100,7 @@ Text(voltage_box, text = "Tensões Disponíveis:", grid = [0, 0], align = "left"
 def configuracao_pino_21(tensao):
     pinos_valores["21"] = [tensao]
 
-# Função para configurar o pino 5 com a tensão especificada
+# Função para configurar o pino 22 com a tensão especificada
 def configuracao_pino_22(tensao):
     pinos_valores["22"] = [tensao]
 
@@ -168,7 +168,7 @@ result_pin_output_checkbox_2 = CheckBox(
     pin_box_2, text="", align="left", grid=[1, 3])
 
 # Descrição do Pinos
-Text(pin_box_2, text = "INPUT, ADC_A, GPIO36", grid = [0, 1], align="left")
+Text(pin_box_2, text = "IN_AN, GPIO36", grid = [0, 1], align="left")
 
 def configuracao_pino_2():
     pin_leitura_2 = 1 if result_pin_output_checkbox_2.value else 0
@@ -189,7 +189,7 @@ result_pin_output_checkbox_3 = CheckBox(
     pin_box_3, text="", align="left", grid=[1, 3])
 
 # Descrição do Pinos
-Text(pin_box_3, text = "INPUT, ADC_D, GPIO39", grid = [0, 1], align="left")
+Text(pin_box_3, text = "INPUT, GPIO39", grid = [0, 1], align="left")
 
 def configuracao_pino_3():
     pin_leitura_3 = 1 if result_pin_output_checkbox_3.value else 0
@@ -210,7 +210,7 @@ result_pin_output_checkbox_4 = CheckBox(
     pin_box_4, text="", align="left", grid=[1, 3])
 
 # Descrição do Pinos
-Text(pin_box_4, text = "INPUT, ADC_D, GPIO34", grid = [0, 1], align="left")
+Text(pin_box_4, text = "INPUT, GPIO34", grid = [0, 1], align="left")
 
 def configuracao_pino_4():
     pin_leitura_4 = 1 if result_pin_output_checkbox_4.value else 0
@@ -230,7 +230,7 @@ result_pin_output_checkbox_5 = CheckBox(
     pin_box_5, text="", align="left", grid=[1, 3])
 
 # Descrição do Pinos
-Text(pin_box_5, text = "INPUT, ADC_A, GPIO35", grid = [0, 1], align="left")
+Text(pin_box_5, text = "INPUT, GPIO35", grid = [0, 1], align="left")
 
 def configuracao_pino_5():
     pin_leitura_5 = 1 if result_pin_output_checkbox_5.value else 0
@@ -247,7 +247,7 @@ pin_box_6 = Box(parametros_box, layout="grid", grid=[1, 0], width="fill", height
 Text(pin_box_6, width = 15, text="Pino 6:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_6, text = "ADC, GPIO32", grid = [0, 1], align="left")
+Text(pin_box_6, text = "INPUT, GPIO32", grid = [0, 1], align="left")
 
 Text(pin_box_6, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_6 = CheckBox(
@@ -271,11 +271,11 @@ def valida_test_vector_6():
         test_vector = test_vector_input_6.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 6: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 6: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_6.value = ""
 
 test_vector_input_6.when_key_pressed = schedule_test_vector_6
@@ -309,7 +309,7 @@ pin_box_7 = Box(parametros_box, layout="grid", grid=[1, 1], width="fill", height
 Text(pin_box_7, width = 15, text="Pino 7:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_7, text = "ADC, GPIO33", grid = [0, 1], align="left")
+Text(pin_box_7, text = "INPUT, GPIO33", grid = [0, 1], align="left")
 
 Text(pin_box_7, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_7 = CheckBox(
@@ -333,11 +333,11 @@ def valida_test_vector_7():
         test_vector = test_vector_input_7.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 7: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 7: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_7.value = ""
 
 test_vector_input_7.when_key_pressed = schedule_test_vector_7
@@ -371,7 +371,7 @@ pin_box_8 = Box(parametros_box, layout="grid", grid=[1, 2], width="fill", height
 Text(pin_box_8, width = 15, text="Pino 8:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_8, text = "DAC, ADC, GPIO25", grid = [0, 1], align="left")
+Text(pin_box_8, text = "INPUT, GPIO25", grid = [0, 1], align="left")
 
 Text(pin_box_8, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_8 = CheckBox(
@@ -395,11 +395,11 @@ def valida_test_vector_8():
         test_vector = test_vector_input_8.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 8: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 8: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_8.value = ""
 
 test_vector_input_8.when_key_pressed = schedule_test_vector_8
@@ -433,7 +433,7 @@ pin_box_9 = Box(parametros_box, layout="grid", grid=[1, 3], width="fill", height
 Text(pin_box_9, width = 15, text="Pino 9:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_9, text = "DAC, ADC, GPIO26", grid = [0, 1], align="left")
+Text(pin_box_9, text = "INPUT, GPIO26", grid = [0, 1], align="left")
 
 Text(pin_box_9, text="Pin Leitura:", grid=[0, 2], align="left")
 result_pin_output_checkbox_9 = CheckBox(
@@ -457,11 +457,11 @@ def valida_test_vector_9():
         test_vector = test_vector_input_9.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 9: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 9: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_9.value = ""
 
 test_vector_input_9.when_key_pressed = schedule_test_vector_9
@@ -495,7 +495,7 @@ pin_box_10 = Box(parametros_box, layout="grid", grid=[2, 0], width="fill", heigh
 Text(pin_box_10, width = 15, text="Pino 10:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_10, text = "PWM CH0, ADC, GPIO27", grid = [0, 1], align="left")
+Text(pin_box_10, text = "PWM CH0, GPIO27", grid = [0, 1], align="left")
 
 # Text(pin_box_10, text="Pin Leitura:", grid=[0, 2], align="left")
 # result_pin_output_checkbox_10 = CheckBox(
@@ -535,11 +535,11 @@ def valida_test_vector_10():
         test_vector = test_vector_input_10.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 10: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 10: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_10.value = ""
 
 test_vector_input_10.when_key_pressed = schedule_test_vector_10
@@ -575,7 +575,7 @@ pin_box_11 = Box(parametros_box, layout="grid", grid=[2, 1], width="fill", heigh
 Text(pin_box_11, width = 15, text="Pino 11:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_11, text = "PWM CH1, ADC, GPIO14", grid = [0, 1], align="left")
+Text(pin_box_11, text = "PWM CH1, GPIO14", grid = [0, 1], align="left")
 
 # Text(pin_box_11, text="Pin Leitura:", grid=[0, 2], align="left")
 # result_pin_output_checkbox_11 = CheckBox(
@@ -615,11 +615,11 @@ def valida_test_vector_11():
         test_vector = test_vector_input_11.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 11: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 11: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_11.value = ""
 
 test_vector_input_11.when_key_pressed = schedule_test_vector_11
@@ -655,7 +655,7 @@ pin_box_12 = Box(parametros_box, layout="grid", grid=[2, 2], width="fill", heigh
 Text(pin_box_12, width = 15, text="Pino 12:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_12, text = "PWM CH2, ADC, GPIO12", grid = [0, 1], align="left")
+Text(pin_box_12, text = "PWM CH2, GPIO12", grid = [0, 1], align="left")
 
 # Text(pin_box_12, text="Pin Leitura:", grid=[0, 2], align="left")
 # result_pin_output_checkbox_12 = CheckBox(
@@ -695,11 +695,11 @@ def valida_test_vector_12():
         test_vector = test_vector_input_12.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 12: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 12: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_12.value = ""
 
 test_vector_input_12.when_key_pressed = schedule_test_vector_12
@@ -735,7 +735,7 @@ pin_box_13 = Box(parametros_box, layout="grid", grid=[2, 3], width="fill", heigh
 Text(pin_box_13, width = 15, text="Pino 13:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_13, text = "PWM CH3, ADC, GPIO13", grid = [0, 1], align="left")
+Text(pin_box_13, text = "PWM CH3, GPIO13", grid = [0, 1], align="left")
 
 # Text(pin_box_13, text="Pin Leitura:", grid=[0, 2], align="left")
 # result_pin_output_checkbox_13 = CheckBox(
@@ -775,11 +775,11 @@ def valida_test_vector_13():
         test_vector = test_vector_input_13.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 13: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 13: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_13.value = ""
 
 test_vector_input_13.when_key_pressed = schedule_test_vector_13
@@ -814,7 +814,7 @@ pin_box_18 = Box(parametros_box, layout="grid", grid=[3, 0], width="fill", heigh
 Text(pin_box_18, width = 15, text="Pino 18:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_18, text = "ADC, GPIO15", grid = [0, 1], align="left")
+Text(pin_box_18, text = "GPIO15", grid = [0, 1], align="left")
 
 # Text(pin_box_18, text="Pin Leitura:", grid=[0, 3], align="left")
 # result_pin_output_checkbox_18 = CheckBox(
@@ -838,11 +838,11 @@ def valida_test_vector_18():
         test_vector = test_vector_input_18.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 18: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 18: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_18.value = ""
 
 test_vector_input_18.when_key_pressed = schedule_test_vector_18
@@ -876,7 +876,7 @@ pin_box_19 = Box(parametros_box, layout="grid", grid=[3, 1], width="fill", heigh
 Text(pin_box_19, width = 15, text="Pino 19:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_19, text = "ADC, GPIO2", grid = [0, 1], align="left")
+Text(pin_box_19, text = "GPIO2", grid = [0, 1], align="left")
 
 # Text(pin_box_19, text="Pin Leitura:", grid=[0, 3], align="left")
 # result_pin_output_checkbox_19 = CheckBox(
@@ -900,11 +900,11 @@ def valida_test_vector_19():
         test_vector = test_vector_input_19.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 19: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 19: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_19.value = ""
 
 test_vector_input_19.when_key_pressed = schedule_test_vector_19
@@ -938,7 +938,7 @@ pin_box_20 = Box(parametros_box, layout="grid", grid=[3, 2], width="fill", heigh
 Text(pin_box_20, width = 15, text="Pino 20:", grid=[0, 0], align="left")
 
 # Descrição do Pinos
-Text(pin_box_20, text = "ADC, GPIO4", grid = [0, 1], align="left")
+Text(pin_box_20, text = "GPIO4", grid = [0, 1], align="left")
 
 # Text(pin_box_20, text="Pin Leitura:", grid=[0, 3], align="left")
 # result_pin_output_checkbox_20 = CheckBox(
@@ -962,11 +962,11 @@ def valida_test_vector_20():
         test_vector = test_vector_input_20.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 20: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 20: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_20.value = ""
 
 test_vector_input_20.when_key_pressed = schedule_test_vector_20
@@ -1040,11 +1040,11 @@ def valida_test_vector_25():
         test_vector = test_vector_input_25.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 25: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 25: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_25.value = ""
 
 test_vector_input_25.when_key_pressed = schedule_test_vector_25
@@ -1120,11 +1120,11 @@ def valida_test_vector_26():
         test_vector = test_vector_input_26.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 26: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 26: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_26.value = ""
 
 test_vector_input_26.when_key_pressed = schedule_test_vector_26
@@ -1184,11 +1184,11 @@ def valida_test_vector_27():
         test_vector = test_vector_input_27.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 27: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 27: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_27.value = ""
 
 test_vector_input_27.when_key_pressed = schedule_test_vector_27
@@ -1262,11 +1262,11 @@ def valida_test_vector_29():
         test_vector = test_vector_input_29.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 29: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 29: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_29.value = ""
 
 test_vector_input_29.when_key_pressed = schedule_test_vector_29
@@ -1342,11 +1342,11 @@ def valida_test_vector_30():
         test_vector = test_vector_input_30.value.strip()
 
         if test_vector != "":
-            if len(test_vector) != 12 or not all(char in '01' for char in test_vector):
+            if len(test_vector) != 10 or not all(char in '01' for char in test_vector):
                 raise ValueError("Vetor de teste em formato inválido")
             error_message.value = ""  # Limpa a mensagem de erro se a validação passar
     except ValueError:
-        error_message.value = "Erro Pino 30: Vetor de Teste deve ser um valor binário de 12 bits."
+        error_message.value = "Erro Pino 30: Vetor de Teste deve ser um valor binário de 10 bits."
         test_vector_input_30.value = ""
 
 test_vector_input_30.when_key_pressed = schedule_test_vector_30

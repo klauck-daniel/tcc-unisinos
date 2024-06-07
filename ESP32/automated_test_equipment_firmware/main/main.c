@@ -106,56 +106,56 @@ bool input_pin_4 = false;
 
 bool input_pin_5 = false;
 
-char test_vector_pin_6[12];
+char test_vector_pin_6[10];
 int hold_time_pin_6 = 0;
 bool input_pin_6 = false;
 
-char test_vector_pin_7[12];
+char test_vector_pin_7[10];
 int hold_time_pin_7 = 0;
 bool input_pin_7 = false;
 
-char test_vector_pin_8[12];
+char test_vector_pin_8[10];
 int hold_time_pin_8 = 0;
 bool input_pin_8 = false;
 
-char test_vector_pin_9[12];
+char test_vector_pin_9[10];
 int hold_time_pin_9 = 0;
 bool input_pin_9 = false;
 
-char test_vector_pin_10[12];
+char test_vector_pin_10[10];
 int hold_time_pin_10 = 0;
 
-char test_vector_pin_11[12];
+char test_vector_pin_11[10];
 int hold_time_pin_11 = 0;
 
-char test_vector_pin_12[12];
+char test_vector_pin_12[10];
 int hold_time_pin_12 = 0;
 
-char test_vector_pin_13[12];
+char test_vector_pin_13[10];
 int hold_time_pin_13 = 0;
 
-char test_vector_pin_18[12];
+char test_vector_pin_18[10];
 int hold_time_pin_18 = 0;
 
-char test_vector_pin_19[12];
+char test_vector_pin_19[10];
 int hold_time_pin_19 = 0;
 
-char test_vector_pin_20[12];
+char test_vector_pin_20[10];
 int hold_time_pin_20 = 0;
 
-char test_vector_pin_25[12];
+char test_vector_pin_25[10];
 int hold_time_pin_25 = 0;
 
-char test_vector_pin_26[12];
+char test_vector_pin_26[10];
 int hold_time_pin_26 = 0;
 
-char test_vector_pin_27[12];
+char test_vector_pin_27[10];
 int hold_time_pin_27 = 0;
 
-char test_vector_pin_29[12];
+char test_vector_pin_29[10];
 int hold_time_pin_29 = 0;
 
-char test_vector_pin_30[12];
+char test_vector_pin_30[10];
 int hold_time_pin_30 = 0;
 
 typedef struct
@@ -1245,7 +1245,7 @@ void config_pin_06(char *message)
         gpio_reset_pin(PIN_06);                       // Garantir reset do pino
         gpio_set_direction(PIN_06, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_06, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_6, '2', 12);           // Garante que não executa o vetor
+        memset(test_vector_pin_6, '2', 10);           // Garante que não executa o vetor
         hold_time_pin_6 = 0;                          // Garante que não executa o vetor
 
         input_pin_6 = true;
@@ -1256,25 +1256,25 @@ void config_pin_06(char *message)
         gpio_reset_pin(PIN_06);
         gpio_set_direction(PIN_06, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_06, 0);
-        memset(test_vector_pin_6, '2', 12); // Garante que não executa o vetor
+        memset(test_vector_pin_6, '2', 10); // Garante que não executa o vetor
         hold_time_pin_6 = 0;                // Garante que não executa o vetor
         input_pin_6 = false;
     }
     if (message[5] == '0' && message[9] != ',')
     {
         input_pin_6 = false;
-        memset(test_vector_pin_6, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_6, '2', 10); // Initialize the array with the value 2
         hold_time_pin_6 = 0;
         printf("Pino 6 terá vetor de teste. \n");
         gpio_set_direction(PIN_06, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_06, 0);
 
-        for (int i = 8; i <= 19; i++)
+        for (int i = 8; i <= 17; i++)
         {
             test_vector_pin_6[i - 8] = message[i];
         }
 
-        int hold_time_index = 22; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 20; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_6 = hold_time_pin_6 * 10 + (message[hold_time_index] - '0');
@@ -1296,7 +1296,7 @@ void config_pin_07(char *message)
         gpio_reset_pin(PIN_07);                       // Garantir reset do pino
         gpio_set_direction(PIN_07, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_07, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_7, '2', 12);           // garantir que não executa o vetor
+        memset(test_vector_pin_7, '2', 10);           // garantir que não executa o vetor
         hold_time_pin_7 = 0;                          // garantir que não executa o vetor
 
         input_pin_7 = true;
@@ -1306,7 +1306,7 @@ void config_pin_07(char *message)
     {
         printf("Pino 7 sem uso. \n");
 
-        memset(test_vector_pin_7, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_7, '2', 10); // garantir que não executa o vetor
         hold_time_pin_7 = 0;                // garantir que não executa o vetor
         input_pin_7 = false;
 
@@ -1318,18 +1318,18 @@ void config_pin_07(char *message)
     if (message[5] == '0' && message[9] != ',')
     {
         input_pin_7 = false;
-        memset(test_vector_pin_7, '2', 12);
+        memset(test_vector_pin_7, '2', 10);
         hold_time_pin_7 = 0;
         printf("Pino 7 terá vetor de teste. \n");
         gpio_set_direction(PIN_07, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_07, 0);
 
-        for (int i = 8; i <= 19; i++)
+        for (int i = 8; i <= 17; i++)
         {
             test_vector_pin_7[i - 8] = message[i];
         }
 
-        int hold_time_index = 22; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 20; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_7 = hold_time_pin_7 * 10 + (message[hold_time_index] - '0');
@@ -1351,7 +1351,7 @@ void config_pin_08(char *message)
         gpio_reset_pin(PIN_08);                       // Garantir reset do pino
         gpio_set_direction(PIN_08, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_08, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_8, '2', 12);           // garantir que não executa o vetor
+        memset(test_vector_pin_8, '2', 10);           // garantir que não executa o vetor
         hold_time_pin_8 = 0;                          // garantir que não executa o vetor
 
         input_pin_8 = true;
@@ -1361,7 +1361,7 @@ void config_pin_08(char *message)
     {
         printf("Pino 8 sem uso. \n");
 
-        memset(test_vector_pin_8, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_8, '2', 10); // garantir que não executa o vetor
         hold_time_pin_8 = 0;                // garantir que não executa o vetor
         input_pin_8 = false;
 
@@ -1373,18 +1373,18 @@ void config_pin_08(char *message)
     if (message[5] == '0' && message[9] != ',')
     {
         input_pin_8 = false;
-        memset(test_vector_pin_8, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_8, '2', 10); // Initialize the array with the value 2
         hold_time_pin_8 = 0;
         printf("Pino 8 terá vetor de teste. \n");
         gpio_set_direction(PIN_08, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_08, 0);
 
-        for (int i = 8; i <= 19; i++)
+        for (int i = 8; i <= 17; i++)
         {
             test_vector_pin_8[i - 8] = message[i];
         }
 
-        int hold_time_index = 22; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 20; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_8 = hold_time_pin_8 * 10 + (message[hold_time_index] - '0');
@@ -1406,7 +1406,7 @@ void config_pin_09(char *message)
         gpio_reset_pin(PIN_09);                       // Garantir reset do pino
         gpio_set_direction(PIN_09, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_09, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_9, '2', 12);           // garantir que não executa o vetor
+        memset(test_vector_pin_9, '2', 10);           // garantir que não executa o vetor
         hold_time_pin_9 = 0;                          // garantir que não executa o vetor
 
         input_pin_9 = true;
@@ -1415,7 +1415,7 @@ void config_pin_09(char *message)
     {
         printf("Pino 9 sem uso. \n");
 
-        memset(test_vector_pin_9, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_9, '2', 10); // garantir que não executa o vetor
         hold_time_pin_9 = 0;                // garantir que não executa o vetor
         input_pin_9 = false;
 
@@ -1427,19 +1427,19 @@ void config_pin_09(char *message)
     if (message[5] == '0' && message[9] != ',')
     {
         input_pin_9 = false;
-        memset(test_vector_pin_9, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_9, '2', 10); // Initialize the array with the value 2
         hold_time_pin_9 = 0;
         printf("Vetor Teste Pino 9: %s\n", test_vector_pin_9);
         printf("Pino 9 terá vetor de teste. \n");
         gpio_set_direction(PIN_09, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_09, 0);
 
-        for (int i = 8; i <= 19; i++)
+        for (int i = 8; i <= 17; i++)
         {
             test_vector_pin_9[i - 8] = message[i];
         }
 
-        int hold_time_index = 22; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 20; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_9 = hold_time_pin_9 * 10 + (message[hold_time_index] - '0');
@@ -1461,7 +1461,7 @@ void config_pin_10(char *message)
         gpio_reset_pin(PIN_10);                       // Garantir reset do pino
         gpio_set_direction(PIN_10, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_10, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_10, '2', 12);          // garantir que não executa o vetor
+        memset(test_vector_pin_10, '2', 10);          // garantir que não executa o vetor
         hold_time_pin_10 = 0;                         // garantir que não executa o vetor
 
     }
@@ -1469,7 +1469,7 @@ void config_pin_10(char *message)
     {
         printf("Pino 10 usado para PWM. \n");
 
-        memset(test_vector_pin_10, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_10, '2', 10); // garantir que não executa o vetor
         hold_time_pin_10 = 0;
     }
 
@@ -1477,7 +1477,7 @@ void config_pin_10(char *message)
     {
         printf("Pino 10 sem uso. \n");
 
-        memset(test_vector_pin_10, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_10, '2', 10); // garantir que não executa o vetor
         hold_time_pin_10 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_10);
@@ -1487,19 +1487,19 @@ void config_pin_10(char *message)
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
     {
-        memset(test_vector_pin_10, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_10, '2', 10); // Initialize the array with the value 2
         hold_time_pin_10 = 0;
         printf("Vetor Teste Pino 10: %s\n", test_vector_pin_10);
         printf("Pino 10 terá vetor de teste. \n");
         gpio_set_direction(PIN_10, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_10, 0);
 
-        for (int i = 11; i <= 22; i++)
+        for (int i = 11; i <= 20; i++)
         {
             test_vector_pin_10[i - 11] = message[i];
         }
 
-        int hold_time_index = 25; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 23; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_10 = hold_time_pin_10 * 10 + (message[hold_time_index] - '0');
@@ -1521,7 +1521,7 @@ void config_pin_11(char *message)
         gpio_reset_pin(PIN_11);                       // Garantir reset do pino
         gpio_set_direction(PIN_11, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_11, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_11, '2', 12);          // garantir que não executa o vetor
+        memset(test_vector_pin_11, '2', 10);          // garantir que não executa o vetor
         hold_time_pin_11 = 0;                         // garantir que não executa o vetor
 
     }
@@ -1529,14 +1529,14 @@ void config_pin_11(char *message)
     {
         printf("Pino 11 usado para PWM. \n");
 
-        memset(test_vector_pin_11, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_11, '2', 10); // garantir que não executa o vetor
         hold_time_pin_11 = 0;
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
     {
         printf("Pino 11 sem uso. \n");
 
-        memset(test_vector_pin_11, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_11, '2', 10); // garantir que não executa o vetor
         hold_time_pin_11 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_11);
@@ -1545,18 +1545,18 @@ void config_pin_11(char *message)
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
     {
-        memset(test_vector_pin_11, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_11, '2', 10); // Initialize the array with the value 2
         hold_time_pin_11 = 0;
         printf("Pino 11 terá vetor de teste. \n");
         gpio_set_direction(PIN_11, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_11, 0);
 
-        for (int i = 11; i <= 22; i++)
+        for (int i = 11; i <= 20; i++)
         {
             test_vector_pin_11[i - 11] = message[i];
         }
 
-        int hold_time_index = 25; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 23; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_11 = hold_time_pin_11 * 10 + (message[hold_time_index] - '0');
@@ -1578,7 +1578,7 @@ void config_pin_12(char *message)
         gpio_reset_pin(PIN_12);                       // Garantir reset do pino
         gpio_set_direction(PIN_12, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_12, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_12, '2', 12);          // garantir que não executa o vetor
+        memset(test_vector_pin_12, '2', 10);          // garantir que não executa o vetor
         hold_time_pin_12 = 0;                         // garantir que não executa o vetor
 
     }
@@ -1586,7 +1586,7 @@ void config_pin_12(char *message)
     {
         printf("Pino 12 usado para PWM. \n");
 
-        memset(test_vector_pin_12, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_12, '2', 10); // garantir que não executa o vetor
         hold_time_pin_12 = 0;
     }
 
@@ -1594,7 +1594,7 @@ void config_pin_12(char *message)
     {
         printf("Pino 12 sem uso. \n");
 
-        memset(test_vector_pin_12, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_12, '2', 10); // garantir que não executa o vetor
         hold_time_pin_12 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_12);
@@ -1604,18 +1604,18 @@ void config_pin_12(char *message)
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
     {
-        memset(test_vector_pin_12, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_12, '2', 10); // Initialize the array with the value 2
         hold_time_pin_12 = 0;
         printf("Pino 12 terá vetor de teste. \n");
         gpio_set_direction(PIN_12, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_12, 0);
 
-        for (int i = 11; i <= 22; i++)
+        for (int i = 11; i <= 20; i++)
         {
             test_vector_pin_12[i - 11] = message[i];
         }
 
-        int hold_time_index = 25; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 23; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_12 = hold_time_pin_12 * 10 + (message[hold_time_index] - '0');
@@ -1637,7 +1637,7 @@ void config_pin_13(char *message)
         gpio_reset_pin(PIN_13);                       // Garantir reset do pino
         gpio_set_direction(PIN_13, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_13, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_13, '2', 12);          // garantir que não executa o vetor
+        memset(test_vector_pin_13, '2', 10);          // garantir que não executa o vetor
         hold_time_pin_13 = 0;                         // garantir que não executa o vetor
 
     }
@@ -1645,7 +1645,7 @@ void config_pin_13(char *message)
     {
         printf("Pino 13 usado para PWM. \n");
 
-        memset(test_vector_pin_13, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_13, '2', 10); // garantir que não executa o vetor
         hold_time_pin_13 = 0;
     }
 
@@ -1653,7 +1653,7 @@ void config_pin_13(char *message)
     {
         printf("Pino 13 sem uso. \n");
 
-        memset(test_vector_pin_13, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_13, '2', 10); // garantir que não executa o vetor
         hold_time_pin_13 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_13);
@@ -1662,18 +1662,18 @@ void config_pin_13(char *message)
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
     {
-        memset(test_vector_pin_13, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_13, '2', 10); // Initialize the array with the value 2
         hold_time_pin_13 = 0;
         printf("Pino 13 terá vetor de teste. \n");
         gpio_set_direction(PIN_13, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_13, 0);
 
-        for (int i = 11; i <= 22; i++)
+        for (int i = 11; i <= 20; i++)
         {
             test_vector_pin_13[i - 11] = message[i];
         }
 
-        int hold_time_index = 25; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 23; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_13 = hold_time_pin_13 * 10 + (message[hold_time_index] - '0');
@@ -1695,7 +1695,7 @@ void config_pin_18(char *message)
         gpio_reset_pin(PIN_18);                       // Garantir reset do pino
         gpio_set_direction(PIN_18, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_18, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_18, '2', 12);          // garantir que não executa o vetor
+        memset(test_vector_pin_18, '2', 10);          // garantir que não executa o vetor
         hold_time_pin_18 = 0;                         // garantir que não executa o vetor
 
     }
@@ -1703,7 +1703,7 @@ void config_pin_18(char *message)
     {
         printf("Pino 18 sem uso. \n");
 
-        memset(test_vector_pin_18, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_18, '2', 10); // garantir que não executa o vetor
         hold_time_pin_18 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_18);
@@ -1712,18 +1712,18 @@ void config_pin_18(char *message)
     }
     if (message[5] == '0' && message[9] != ',')
     {
-        memset(test_vector_pin_18, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_18, '2', 10); // Initialize the array with the value 2
         hold_time_pin_18 = 0;
         printf("Pino 18 terá vetor de teste. \n");
         gpio_set_direction(PIN_18, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_18, 0);
 
-        for (int i = 8; i <= 19; i++)
+        for (int i = 8; i <= 17; i++)
         {
             test_vector_pin_18[i - 8] = message[i];
         }
 
-        int hold_time_index = 22; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 20; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_18 = hold_time_pin_18 * 10 + (message[hold_time_index] - '0');
@@ -1745,7 +1745,7 @@ void config_pin_19(char *message)
         gpio_reset_pin(PIN_19);                       // Garantir reset do pino
         gpio_set_direction(PIN_19, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_19, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_19, '2', 12);          // garantir que não executa o vetor
+        memset(test_vector_pin_19, '2', 10);          // garantir que não executa o vetor
         hold_time_pin_19 = 0;                         // garantir que não executa o vetor
 
     }
@@ -1753,7 +1753,7 @@ void config_pin_19(char *message)
     {
         printf("Pino 19 sem uso. \n");
 
-        memset(test_vector_pin_19, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_19, '2', 10); // garantir que não executa o vetor
         hold_time_pin_19 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_19);
@@ -1762,18 +1762,18 @@ void config_pin_19(char *message)
     }
     if (message[5] == '0' && message[9] != ',')
     {
-        memset(test_vector_pin_19, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_19, '2', 10); // Initialize the array with the value 2
         hold_time_pin_19 = 0;
         printf("Pino 19 terá vetor de teste. \n");
         gpio_set_direction(PIN_19, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_19, 0);
 
-        for (int i = 8; i <= 19; i++)
+        for (int i = 8; i <= 17; i++)
         {
             test_vector_pin_19[i - 8] = message[i];
         }
 
-        int hold_time_index = 22; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 20; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_19 = hold_time_pin_19 * 10 + (message[hold_time_index] - '0');
@@ -1795,7 +1795,7 @@ void config_pin_20(char *message)
         gpio_reset_pin(PIN_20);                       // Garantir reset do pino
         gpio_set_direction(PIN_20, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_20, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_20, '2', 12);          // garantir que não executa o vetor
+        memset(test_vector_pin_20, '2', 10);          // garantir que não executa o vetor
         hold_time_pin_20 = 0;                         // garantir que não executa o vetor
 
     }
@@ -1803,7 +1803,7 @@ void config_pin_20(char *message)
     {
         printf("Pino 20 sem uso. \n");
 
-        memset(test_vector_pin_20, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_20, '2', 10); // garantir que não executa o vetor
         hold_time_pin_20 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_20);
@@ -1812,18 +1812,18 @@ void config_pin_20(char *message)
     }
     if (message[5] == '0' && message[9] != ',')
     {
-        memset(test_vector_pin_20, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_20, '2', 10); // Initialize the array with the value 2
         hold_time_pin_20 = 0;
         printf("Pino 20 terá vetor de teste. \n");
         gpio_set_direction(PIN_20, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_20, 0);
 
-        for (int i = 8; i <= 19; i++)
+        for (int i = 8; i <= 17; i++)
         {
             test_vector_pin_20[i - 8] = message[i];
         }
 
-        int hold_time_index = 22; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 20; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_20 = hold_time_pin_20 * 10 + (message[hold_time_index] - '0');
@@ -1909,7 +1909,7 @@ void config_pin_25(char *message)
         gpio_reset_pin(PIN_25);                       // Garantir reset do pino
         gpio_set_direction(PIN_25, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_25, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_25, '2', 12);          // garantir que não executa o vetor
+        memset(test_vector_pin_25, '2', 10);          // garantir que não executa o vetor
         hold_time_pin_25 = 0;                         // garantir que não executa o vetor
 
     }
@@ -1917,7 +1917,7 @@ void config_pin_25(char *message)
     {
         printf("Pino 25 usado para PWM. \n");
 
-        memset(test_vector_pin_25, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_25, '2', 10); // garantir que não executa o vetor
         hold_time_pin_25 = 0;
     }
 
@@ -1925,7 +1925,7 @@ void config_pin_25(char *message)
     {
         printf("Pino 25 sem uso. \n");
 
-        memset(test_vector_pin_25, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_25, '2', 10); // garantir que não executa o vetor
         hold_time_pin_25 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_25);
@@ -1935,18 +1935,18 @@ void config_pin_25(char *message)
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
     {
-        memset(test_vector_pin_25, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_25, '2', 10); // Initialize the array with the value 2
         hold_time_pin_25 = 0;
         printf("Pino 25 terá vetor de teste. \n");
         gpio_set_direction(PIN_25, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_25, 0);
 
-        for (int i = 11; i <= 22; i++)
+        for (int i = 11; i <= 20; i++)
         {
             test_vector_pin_25[i - 11] = message[i];
         }
 
-        int hold_time_index = 25; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 23; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_25 = hold_time_pin_25 * 10 + (message[hold_time_index] - '0');
@@ -1968,7 +1968,7 @@ void config_pin_26(char *message)
         gpio_reset_pin(PIN_26);                       // Garantir reset do pino
         gpio_set_direction(PIN_26, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_26, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_26, '2', 12);          // garantir que não executa o vetor
+        memset(test_vector_pin_26, '2', 10);          // garantir que não executa o vetor
         hold_time_pin_26 = 0;                         // garantir que não executa o vetor
 
     }
@@ -1976,7 +1976,7 @@ void config_pin_26(char *message)
     {
         printf("Pino 26 usado para PWM. \n");
 
-        memset(test_vector_pin_26, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_26, '2', 10); // garantir que não executa o vetor
         hold_time_pin_26 = 0;
     }
 
@@ -1984,7 +1984,7 @@ void config_pin_26(char *message)
     {
         printf("Pino 26 sem uso. \n");
 
-        memset(test_vector_pin_26, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_26, '2', 10); // garantir que não executa o vetor
         hold_time_pin_26 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_26);
@@ -1993,18 +1993,18 @@ void config_pin_26(char *message)
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
     {
-        memset(test_vector_pin_26, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_26, '2', 10); // Initialize the array with the value 2
         hold_time_pin_26 = 0;
         printf("Pino 26 terá vetor de teste. \n");
         gpio_set_direction(PIN_26, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_26, 0);
 
-        for (int i = 11; i <= 22; i++)
+        for (int i = 11; i <= 20; i++)
         {
             test_vector_pin_26[i - 11] = message[i];
         }
 
-        int hold_time_index = 25; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 23; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_26 = hold_time_pin_26 * 10 + (message[hold_time_index] - '0');
@@ -2026,7 +2026,7 @@ void config_pin_27(char *message)
         gpio_reset_pin(PIN_27);                       // Garantir reset do pino
         gpio_set_direction(PIN_27, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_27, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_27, '2', 12);          // garantir que não executa o vetor
+        memset(test_vector_pin_27, '2', 10);          // garantir que não executa o vetor
         hold_time_pin_27 = 0;                         // garantir que não executa o vetor
 
     }
@@ -2034,7 +2034,7 @@ void config_pin_27(char *message)
     {
         printf("Pino 27 sem uso. \n");
 
-        memset(test_vector_pin_27, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_27, '2', 10); // garantir que não executa o vetor
         hold_time_pin_27 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_27);
@@ -2043,18 +2043,18 @@ void config_pin_27(char *message)
     }
     if (message[5] == '0' && message[9] != ',')
     {
-        memset(test_vector_pin_27, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_27, '2', 10); // Initialize the array with the value 2
         hold_time_pin_27 = 0;
         printf("Pino 27 terá vetor de teste. \n");
         gpio_set_direction(PIN_27, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_27, 0);
 
-        for (int i = 8; i <= 19; i++)
+        for (int i = 8; i <= 17; i++)
         {
             test_vector_pin_27[i - 8] = message[i];
         }
 
-        int hold_time_index = 22; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 20; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_27 = hold_time_pin_27 * 10 + (message[hold_time_index] - '0');
@@ -2076,7 +2076,7 @@ void config_pin_29(char *message)
         gpio_reset_pin(PIN_29);                       // Garantir reset do pino
         gpio_set_direction(PIN_29, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_29, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_29, '2', 12);          // garantir que não executa o vetor
+        memset(test_vector_pin_29, '2', 10);          // garantir que não executa o vetor
         hold_time_pin_29 = 0;                         // garantir que não executa o vetor
 
     }
@@ -2084,14 +2084,14 @@ void config_pin_29(char *message)
     {
         printf("Pino 29 usado para PWM. \n");
 
-        memset(test_vector_pin_29, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_29, '2', 10); // garantir que não executa o vetor
         hold_time_pin_29 = 0;
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[11] == '0' && message[12] == ',')
     {
         printf("Pino 29 sem uso. \n");
 
-        memset(test_vector_pin_29, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_29, '2', 10); // garantir que não executa o vetor
         hold_time_pin_29 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_29);
@@ -2100,18 +2100,18 @@ void config_pin_29(char *message)
     }
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
     {
-        memset(test_vector_pin_29, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_29, '2', 10); // Initialize the array with the value 2
         hold_time_pin_29 = 0;
         printf("Pino 29 terá vetor de teste. \n");
         gpio_set_direction(PIN_29, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_29, 0);
 
-        for (int i = 11; i <= 22; i++)
+        for (int i = 11; i <= 20; i++)
         {
             test_vector_pin_29[i - 11] = message[i];
         }
 
-        int hold_time_index = 25; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 23; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_29 = hold_time_pin_29 * 10 + (message[hold_time_index] - '0');
@@ -2133,14 +2133,14 @@ void config_pin_30(char *message)
         gpio_reset_pin(PIN_30);                       // Garantir reset do pino
         gpio_set_direction(PIN_30, GPIO_MODE_OUTPUT); // Garantir nível baixo no pino
         gpio_set_level(PIN_30, 0);                    // Garantir nível baixo no pino
-        memset(test_vector_pin_30, '2', 12);          // garantir que não executa o vetor
+        memset(test_vector_pin_30, '2', 10);          // garantir que não executa o vetor
         hold_time_pin_30 = 0;                         // garantir que não executa o vetor
     }
     if (message[5] == '0' && message[8] == '1')
     {
         printf("Pino 30 usado para PWM. \n");
 
-        memset(test_vector_pin_30, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_30, '2', 10); // garantir que não executa o vetor
         hold_time_pin_30 = 0;
     }
 
@@ -2148,7 +2148,7 @@ void config_pin_30(char *message)
     {
         printf("Pino 30 sem uso. \n");
 
-        memset(test_vector_pin_30, '2', 12); // garantir que não executa o vetor
+        memset(test_vector_pin_30, '2', 10); // garantir que não executa o vetor
         hold_time_pin_30 = 0;                // garantir que não executa o vetor
 
         gpio_reset_pin(PIN_30);
@@ -2158,17 +2158,17 @@ void config_pin_30(char *message)
 
     if (message[5] == '0' && message[8] == '0' && message[9] == ',' && message[12] != ',')
     {
-        memset(test_vector_pin_30, '2', 12); // Initialize the array with the value 2
+        memset(test_vector_pin_30, '2', 10); // Initialize the array with the value 2
         hold_time_pin_30 = 0;
         printf("Pino 30 terá vetor de teste. \n");
         gpio_set_level(PIN_30, 0);
 
-        for (int i = 11; i <= 22; i++)
+        for (int i = 11; i <= 20; i++)
         {
             test_vector_pin_30[i - 11] = message[i];
         }
 
-        int hold_time_index = 25; // Onde o valor do hold_time começa na mensagem
+        int hold_time_index = 23; // Onde o valor do hold_time começa na mensagem
         while (message[hold_time_index] != '\0' && message[hold_time_index] != '\n' && message[hold_time_index] >= '0' && message[hold_time_index] <= '9')
         {
             hold_time_pin_30 = hold_time_pin_30 * 10 + (message[hold_time_index] - '0');
@@ -2347,17 +2347,8 @@ void readEspPinsConfig(void *arg)
 
     if (input_pin_5)
     {
-        configure_adc_pin_5();                         // Configura o ADC antes da leitura
-        int pin5_value = adc1_get_raw(ADC1_CHANNEL_7); // Realiza a leitura analógica
-
-        if (reading_index_pin_5 < MAX_READINGS)
-        {
-            readings_pin_5[reading_index_pin_5].timestamp = current_time;
-            readings_pin_5[reading_index_pin_5].value = pin5_value;
-            reading_index_pin_5++;
-        }
-        // gpio_set_direction(PIN_05, GPIO_MODE_INPUT);
-        // int pin5_value = gpio_get_level(PIN_05);
+        // configure_adc_pin_5();                         // Configura o ADC antes da leitura
+        // int pin5_value = adc1_get_raw(ADC1_CHANNEL_7); // Realiza a leitura analógica
 
         // if (reading_index_pin_5 < MAX_READINGS)
         // {
@@ -2365,6 +2356,15 @@ void readEspPinsConfig(void *arg)
         //     readings_pin_5[reading_index_pin_5].value = pin5_value;
         //     reading_index_pin_5++;
         // }
+        gpio_set_direction(PIN_05, GPIO_MODE_INPUT);
+        int pin5_value = gpio_get_level(PIN_05);
+
+        if (reading_index_pin_5 < MAX_READINGS)
+        {
+            readings_pin_5[reading_index_pin_5].timestamp = current_time;
+            readings_pin_5[reading_index_pin_5].value = pin5_value;
+            reading_index_pin_5++;
+        }
         else {
             printf("Capacidade máxima de leituras do PIN 5 atingida!\n");
         }
@@ -2542,7 +2542,7 @@ static void read_pin_task()
 
 static void udp_server_task(void *pvParameters)
 {
-    char rx_buffer[1500];
+    char rx_buffer[1024];
     char addr_str[128];
     int addr_family = (int)pvParameters;
     int ip_protocol = 0;
