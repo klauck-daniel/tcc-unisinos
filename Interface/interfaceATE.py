@@ -2,7 +2,7 @@ from enviaMensagemUDP import envia_mensagem_udp, envia_start_mensagem_udp
 from guizero import App, Text, PushButton, CheckBox, TextBox, Slider, Box
 
 #Variáveis Globais
-esp_ip = "192.168.1.29" 
+esp_ip = "192.168.1.22" 
 esp_porta = 3333
 pinos_valores = {}
 
@@ -1443,7 +1443,7 @@ error_message = Text(error_message_box, text="", color="red", align="bottom")
 
 # Configuração botões de comando
 config_btn_box = Box(content_box, layout="grid", width="fill", height="fill",
-                     align="left", border=True, grid=[0, 4])
+                     align="center", border=True, grid=[0, 4])
 
 # Send Configuration Button
 send_config_button = PushButton(config_btn_box, command=send_test_config,

@@ -1429,7 +1429,6 @@ void config_pin_09(char *message)
         input_pin_9 = false;
         memset(test_vector_pin_9, '2', 10); // Initialize the array with the value 2
         hold_time_pin_9 = 0;
-        printf("Vetor Teste Pino 9: %s\n", test_vector_pin_9);
         printf("Pino 9 terá vetor de teste. \n");
         gpio_set_direction(PIN_09, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_09, 0);
