@@ -164,7 +164,7 @@ typedef struct
     bool is_input;
     // int frequency;
     int duty_cycle;
-    char test_vector[12];
+    char test_vector[10];
     int bit_hold_time;
 } PinConfig;
 
@@ -519,14 +519,14 @@ void start_test()
     else
         bit_index_pin_30 = 13;
 
-    while (bit_index_pin_6 < 12 || bit_index_pin_7 < 12 || bit_index_pin_8 < 12 || bit_index_pin_9 < 12 || bit_index_pin_10 < 12 || bit_index_pin_11 < 12 || bit_index_pin_12 < 12 || bit_index_pin_13 < 12 || bit_index_pin_18 < 12 || bit_index_pin_19 < 12 || bit_index_pin_20 < 12 || bit_index_pin_25 < 12 || bit_index_pin_26 < 12 || bit_index_pin_27 < 12 || bit_index_pin_29 < 12 || bit_index_pin_30 < 12)
+    while (bit_index_pin_6 < 10 || bit_index_pin_7 < 10 || bit_index_pin_8 < 10 || bit_index_pin_9 < 10 || bit_index_pin_10 < 10 || bit_index_pin_11 < 10 || bit_index_pin_12 < 10 || bit_index_pin_13 < 10 || bit_index_pin_18 < 10 || bit_index_pin_19 < 10 || bit_index_pin_20 < 10 || bit_index_pin_25 < 10 || bit_index_pin_26 < 10 || bit_index_pin_27 < 10 || bit_index_pin_29 < 10 || bit_index_pin_30 < 10)
     {
         TickType_t current_time = xTaskGetTickCount();
 
         // Atualizar pino 6 se for hora e houver mais bits para enviar
         if (hold_time_pin_6 != 0 && test_vector_pin_6[0] != 2)
         {
-            if (current_time - start_time_pin_6 >= (hold_time_pin_6 / portTICK_PERIOD_MS) && bit_index_pin_6 < 12)
+            if (current_time - start_time_pin_6 >= (hold_time_pin_6 / portTICK_PERIOD_MS) && bit_index_pin_6 < 10)
             {
                 if (test_vector_pin_6[bit_index_pin_6] == '1')
                 {
@@ -546,7 +546,7 @@ void start_test()
         // Atualizar pino 7 se for hora e houver mais bits para enviar
         if (hold_time_pin_7 != 0 && test_vector_pin_7[0] != '2')
         {
-            if (current_time - start_time_pin_7 >= (hold_time_pin_7 / portTICK_PERIOD_MS) && bit_index_pin_7 < 12)
+            if (current_time - start_time_pin_7 >= (hold_time_pin_7 / portTICK_PERIOD_MS) && bit_index_pin_7 < 10)
             {
                 if (test_vector_pin_7[bit_index_pin_7] == '1')
                 {
@@ -566,7 +566,7 @@ void start_test()
         // Atualizar pino 8 se for hora e houver mais bits para enviar
         if (hold_time_pin_8 != 0 && test_vector_pin_8[0] != 2)
         {
-            if (current_time - start_time_pin_8 >= (hold_time_pin_8 / portTICK_PERIOD_MS) && bit_index_pin_8 < 12)
+            if (current_time - start_time_pin_8 >= (hold_time_pin_8 / portTICK_PERIOD_MS) && bit_index_pin_8 < 10)
             {
                 if (test_vector_pin_8[bit_index_pin_8] == '1')
                 {
@@ -586,7 +586,7 @@ void start_test()
         // Atualizar pino 9 se for hora e houver mais bits para enviar
         if (hold_time_pin_9 != 0 && test_vector_pin_9[0] != 2)
         {
-            if (current_time - start_time_pin_9 >= (hold_time_pin_9 / portTICK_PERIOD_MS) && bit_index_pin_9 < 12)
+            if (current_time - start_time_pin_9 >= (hold_time_pin_9 / portTICK_PERIOD_MS) && bit_index_pin_9 < 10)
             {
                 if (test_vector_pin_9[bit_index_pin_9] == '1')
                 {
@@ -606,7 +606,7 @@ void start_test()
         // Atualizar pino 10 se for hora e houver mais bits para enviar
         if (hold_time_pin_10 != 0 && test_vector_pin_10[0] != 2)
         {
-            if (current_time - start_time_pin_10 >= (hold_time_pin_10 / portTICK_PERIOD_MS) && bit_index_pin_10 < 12)
+            if (current_time - start_time_pin_10 >= (hold_time_pin_10 / portTICK_PERIOD_MS) && bit_index_pin_10 < 10)
             {
                 if (test_vector_pin_10[bit_index_pin_10] == '1')
                 {
@@ -626,7 +626,7 @@ void start_test()
         // Atualizar pino 11 se for hora e houver mais bits para enviar
         if (hold_time_pin_11 != 0 && test_vector_pin_11[0] != 2)
         {
-            if (current_time - start_time_pin_11 >= (hold_time_pin_11 / portTICK_PERIOD_MS) && bit_index_pin_11 < 12)
+            if (current_time - start_time_pin_11 >= (hold_time_pin_11 / portTICK_PERIOD_MS) && bit_index_pin_11 < 10)
             {
                 if (test_vector_pin_11[bit_index_pin_11] == '1')
                 {
@@ -646,7 +646,7 @@ void start_test()
         // Atualizar pino 12 se for hora e houver mais bits para enviar
         if (hold_time_pin_12 != 0 && test_vector_pin_12[0] != 2)
         {
-            if (current_time - start_time_pin_12 >= (hold_time_pin_12 / portTICK_PERIOD_MS) && bit_index_pin_12 < 12)
+            if (current_time - start_time_pin_12 >= (hold_time_pin_12 / portTICK_PERIOD_MS) && bit_index_pin_12 < 10)
             {
                 if (test_vector_pin_12[bit_index_pin_12] == '1')
                 {
@@ -666,7 +666,7 @@ void start_test()
         // Atualizar pino 13 se for hora e houver mais bits para enviar
         if (hold_time_pin_13 != 0 && test_vector_pin_13[0] != 2)
         {
-            if (current_time - start_time_pin_13 >= (hold_time_pin_13 / portTICK_PERIOD_MS) && bit_index_pin_13 < 12)
+            if (current_time - start_time_pin_13 >= (hold_time_pin_13 / portTICK_PERIOD_MS) && bit_index_pin_13 < 10)
             {
                 if (test_vector_pin_13[bit_index_pin_13] == '1')
                 {
@@ -686,7 +686,7 @@ void start_test()
         // Atualizar pino 18 se for hora e houver mais bits para enviar
         if (hold_time_pin_18 != 0 && test_vector_pin_18[0] != 2)
         {
-            if (current_time - start_time_pin_18 >= (hold_time_pin_18 / portTICK_PERIOD_MS) && bit_index_pin_18 < 12)
+            if (current_time - start_time_pin_18 >= (hold_time_pin_18 / portTICK_PERIOD_MS) && bit_index_pin_18 < 10)
             {
                 if (test_vector_pin_18[bit_index_pin_18] == '1')
                 {
@@ -706,7 +706,7 @@ void start_test()
         // Atualizar pino 19 se for hora e houver mais bits para enviar
         if (hold_time_pin_19 != 0 && test_vector_pin_19[0] != 2)
         {
-            if (current_time - start_time_pin_19 >= (hold_time_pin_19 / portTICK_PERIOD_MS) && bit_index_pin_19 < 12)
+            if (current_time - start_time_pin_19 >= (hold_time_pin_19 / portTICK_PERIOD_MS) && bit_index_pin_19 < 10)
             {
                 if (test_vector_pin_19[bit_index_pin_19] == '1')
                 {
@@ -726,7 +726,7 @@ void start_test()
         // Atualizar pino 20 se for hora e houver mais bits para enviar
         if (hold_time_pin_20 != 0 && test_vector_pin_20[0] != 2)
         {
-            if (current_time - start_time_pin_20 >= (hold_time_pin_20 / portTICK_PERIOD_MS) && bit_index_pin_20 < 12)
+            if (current_time - start_time_pin_20 >= (hold_time_pin_20 / portTICK_PERIOD_MS) && bit_index_pin_20 < 10)
             {
                 if (test_vector_pin_20[bit_index_pin_20] == '1')
                 {
@@ -746,7 +746,7 @@ void start_test()
         // Atualizar pino 25 se for hora e houver mais bits para enviar
         if (hold_time_pin_25 != 0 && test_vector_pin_25[0] != 2)
         {
-            if (current_time - start_time_pin_25 >= (hold_time_pin_25 / portTICK_PERIOD_MS) && bit_index_pin_25 < 12)
+            if (current_time - start_time_pin_25 >= (hold_time_pin_25 / portTICK_PERIOD_MS) && bit_index_pin_25 < 10)
             {
                 if (test_vector_pin_25[bit_index_pin_25] == '1')
                 {
@@ -766,7 +766,7 @@ void start_test()
         // Atualizar pino 26 se for hora e houver mais bits para enviar
         if (hold_time_pin_26 != 0 && test_vector_pin_26[0] != 2)
         {
-            if (current_time - start_time_pin_26 >= (hold_time_pin_26 / portTICK_PERIOD_MS) && bit_index_pin_26 < 12)
+            if (current_time - start_time_pin_26 >= (hold_time_pin_26 / portTICK_PERIOD_MS) && bit_index_pin_26 < 10)
             {
                 if (test_vector_pin_26[bit_index_pin_26] == '1')
                 {
@@ -786,7 +786,7 @@ void start_test()
         // Atualizar pino 27 se for hora e houver mais bits para enviar
         if (hold_time_pin_27 != 0 && test_vector_pin_27[0] != 2)
         {
-            if (current_time - start_time_pin_27 >= (hold_time_pin_27 / portTICK_PERIOD_MS) && bit_index_pin_27 < 12)
+            if (current_time - start_time_pin_27 >= (hold_time_pin_27 / portTICK_PERIOD_MS) && bit_index_pin_27 < 10)
             {
                 if (test_vector_pin_27[bit_index_pin_27] == '1')
                 {
@@ -806,7 +806,7 @@ void start_test()
         // Atualizar pino 29 se for hora e houver mais bits para enviar
         if (hold_time_pin_29 != 0 && test_vector_pin_29[0] != 2)
         {
-            if (current_time - start_time_pin_29 >= (hold_time_pin_29 / portTICK_PERIOD_MS) && bit_index_pin_29 < 12)
+            if (current_time - start_time_pin_29 >= (hold_time_pin_29 / portTICK_PERIOD_MS) && bit_index_pin_29 < 10)
             {
                 if (test_vector_pin_29[bit_index_pin_29] == '1')
                 {
@@ -826,7 +826,7 @@ void start_test()
         // Atualizar pino 30 se for hora e houver mais bits para enviar
         if (hold_time_pin_30 != 0 && test_vector_pin_30[0] != 2)
         {
-            if (current_time - start_time_pin_30 >= (hold_time_pin_30 / portTICK_PERIOD_MS) && bit_index_pin_30 < 12)
+            if (current_time - start_time_pin_30 >= (hold_time_pin_30 / portTICK_PERIOD_MS) && bit_index_pin_30 < 10)
             {
                 if (test_vector_pin_30[bit_index_pin_30] == '1')
                 {
@@ -1429,7 +1429,6 @@ void config_pin_09(char *message)
         input_pin_9 = false;
         memset(test_vector_pin_9, '2', 10); // Initialize the array with the value 2
         hold_time_pin_9 = 0;
-        printf("Vetor Teste Pino 9: %s\n", test_vector_pin_9);
         printf("Pino 9 terá vetor de teste. \n");
         gpio_set_direction(PIN_09, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_09, 0);
@@ -1489,7 +1488,6 @@ void config_pin_10(char *message)
     {
         memset(test_vector_pin_10, '2', 10); // Initialize the array with the value 2
         hold_time_pin_10 = 0;
-        printf("Vetor Teste Pino 10: %s\n", test_vector_pin_10);
         printf("Pino 10 terá vetor de teste. \n");
         gpio_set_direction(PIN_10, GPIO_MODE_OUTPUT);
         gpio_set_level(PIN_10, 0);
@@ -2524,7 +2522,7 @@ static void read_pin_task()
     };
 
     esp_timer_create(&esp_read_timer, &readEspPinsHandler);
-    esp_timer_start_periodic(readEspPinsHandler, 100000); // Configura a frequencia de leitura 10000 us faz uma leitura a cada 10 ms, gerando 100 leituras por segundo... 100000 us faz uma leitura a cada 100 ms, gerando 10 leituras por segundo
+    esp_timer_start_periodic(readEspPinsHandler, 10000); // Configura a frequencia de leitura 10000 us faz uma leitura a cada 10 ms, gerando 100 leituras por segundo e mil leituras em 10s... 100000 us faz uma leitura a cada 100 ms, gerando 10 leituras por segundo e 100 leituras em 10 s
 
     // Timer para parar a leitura após 30 segundos
     const esp_timer_create_args_t stop_timer = {
